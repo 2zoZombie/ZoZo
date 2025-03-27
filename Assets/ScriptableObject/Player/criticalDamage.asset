@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: criticalDamage
   m_EditorClassIdentifier: 
   type: 0
-  statName: 
-  maxLevel: 0
-  basicPrice: 0
-  impressionPrice: 0
-  impressionStat: 0
+  statName: "\uCE58\uBA85\uD0C0 \uB370\uBBF8\uC9C0"
+  maxLevel: 10
+  basicPrice: 5
+  impressionPrice: 5
+  impressionStat: 50
   Icon: {fileID: 0}
   description: 
