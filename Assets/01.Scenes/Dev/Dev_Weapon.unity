@@ -484,7 +484,7 @@ GameObject:
   - component: {fileID: 194629927}
   - component: {fileID: 194629929}
   m_Layer: 5
-  m_Name: MainUI
+  m_Name: WP/UPUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
