@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float maxHp;
+    public float maxHp;
     public float curHp;
 
     [SerializeField] private float moveSpeed;
-
 
     private Rigidbody2D rigidbody;
     private Animator animator;
@@ -17,7 +16,6 @@ public class Enemy : MonoBehaviour
         curHp = maxHp;
         animator = GetComponent<Animator>();
     }
-
 
     private void FixedUpdate()
     {
