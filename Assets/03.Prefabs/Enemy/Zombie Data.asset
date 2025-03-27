@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13be39be2b132bc4fb622f732ae0e18a, type: 3}
+  m_Name: Zombie Data
+  m_EditorClassIdentifier: 
+  enemyStatsList:
+  - enemyName: Zombie
+    maxHp: 100
+    moveSpeed: 5
+    attackDamage: 10
+    enemyType: 0
+  - enemyName: Zombie2
+    maxHp: 200
+    moveSpeed: 3
+    attackDamage: 5
+    enemyType: 0
+  - enemyName: Zombie3
+    maxHp: 150
+    moveSpeed: 6
+    attackDamage: 15
+    enemyType: 1
+  - enemyName: BossZombie
+    maxHp: 500
+    moveSpeed: 6
+    attackDamage: 20
+    enemyType: 1

@@ -2,18 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class Enemy : MonoBehaviour
 {
+    public EnemyStatsTable enemyStatsTable;
+    public int enemyIndex;
+
     public float maxHp;
     public float curHp;
-
-    [SerializeField] private float moveSpeed;
+    public float moveSpeed;
 
     private Rigidbody2D rigidbody;
     private Animator animator;
     private void Start()
     {
+
+        EnemyStats currentEnemyStats = enemyStatsTable.enemyStatsList[enemyIndex];
+        switch (currentEnemyStats.enemyType)
+        {
+            case EnemyType.Normal:
+                break;
+            case EnemyType.Boss:
+                break;
+        }
+
+        maxHp = currentEnemyStats.maxHp;
         curHp = maxHp;
+        moveSpeed = currentEnemyStats.moveSpeed;
+
+        Debug.Log(currentEnemyStats.enemyName + "ÀÇ Ã¼·Â: " + currentEnemyStats.maxHp);
+
+        rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
 
@@ -25,7 +45,6 @@ public class Enemy : MonoBehaviour
 
     private void Move()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
         rigidbody.velocity = Vector3.left * moveSpeed * Time.deltaTime;
     }
 

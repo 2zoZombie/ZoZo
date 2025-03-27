@@ -11,6 +11,7 @@ public class EnemyManager : Singleton<EnemyManager>
     int stage = 1;
     int spawncount = 0;
 
+    EnemyStats currentEnemyStats;
 
     public void Start()
     {
@@ -38,14 +39,17 @@ public class EnemyManager : Singleton<EnemyManager>
         {
             Vector3 spawnPosition = new Vector3(Random.Range(2.5f, 3), Random.Range(1f, 3f), Random.Range(0f, 10f));
             int num = Random.Range(0, 2);
+            GameObject enemyObject;
             if (stage % 3 == 0 && stage != 0)
             {
-                //GameObject bossObject = Instantiate(Enemys[3], spawnPosition, Quaternion.identity);
+                enemyObject = Instantiate(Enemys[3].gameObject, spawnPosition, Quaternion.identity);
+                enemyObject.name = "Boss Enemy";
                 spawncount++;
             }
             else
             {
-                //GameObject enemyObject = Instantiate(Enemys[num], spawnPosition, Quaternion.identity);
+                enemyObject = Instantiate(Enemys[num].gameObject, spawnPosition, Quaternion.identity);
+                enemyObject.name = "Normal Enemy" + i;
                 spawncount++;
             }
         }
