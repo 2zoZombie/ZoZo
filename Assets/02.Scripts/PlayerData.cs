@@ -1,0 +1,24 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class PlayerData
+{
+    [Header("Proccess")]
+    public int currentStage = 1;
+    public int defeatedEnemyCount = 0;
+
+    [Header("Currency")]
+    public float coin = 0;
+    public float blueCoin = 0;
+
+    [Header("Upgrades")]
+    public int clickDamageLevel = 1;
+    public int autoAttackLevel = 0;
+    public int critDamageLevel = 0;
+    public int goldBonusLevel = 0;
+
+    //[Header("WeaponData")]
+    public string equippedWeaponID;
+}
