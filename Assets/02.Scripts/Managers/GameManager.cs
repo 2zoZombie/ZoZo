@@ -1,12 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
     private string savePath;
     public PlayerData playerData;
+    public PlayerStat playerStat;
+    public WeaponData curWeaponData;
+
+    public event Action OnAttackEvent;
+    public event Action<int> OnAttackDamageEvent;
 
     protected override void Awake()
     {
@@ -45,6 +52,42 @@ public class GameManager : Singleton<GameManager>
     {
 
     }
+
+    public void OnAttack()
+    {
+        int damage = CalculateDamage();
+
+        OnAttackEvent?.Invoke();
+        //OnAttackDamageEvent?.Invoke(damage);
+    }
+
+    int CalculateDamage()
+    {
+        float baseDamage = curWeaponData.Weapon.baseAttack + curWeaponData.WeaponLevel*curWeaponData.Weapon.attackValum_Up;
+        float critMultiplier = playerStat.critDamage.impressionStat * playerData.critDamageLevel;
+        int totalDamage;
+
+        if (IsCrit())
+        {
+            totalDamage = Mathf.RoundToInt(baseDamage * critMultiplier/100);
+        }
+        else
+        {
+            totalDamage = Mathf.RoundToInt(baseDamage);
+        }
+
+        return totalDamage;
+    }
+
+    bool IsCrit()
+    {
+        int critChance = Mathf.RoundToInt(curWeaponData.Weapon.baseCriticalChance + curWeaponData.Weapon.criticalChance_Up*curWeaponData.WeaponLevel);
+        int randValue = UnityEngine.Random.Range(0, 100);
+
+        return critChance >= randValue;
+    }
+
+
 
     public void GetCoin(int value)
     {
