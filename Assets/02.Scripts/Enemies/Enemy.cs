@@ -15,6 +15,8 @@ public class Enemy : MonoBehaviour
 
     private Rigidbody2D rigidbody;
     private Animator animator;
+
+    EnemyManager enemyManager;
     private void Start()
     {
 

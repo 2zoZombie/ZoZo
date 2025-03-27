@@ -27,7 +27,7 @@ MonoBehaviour:
     maxHp: 150
     moveSpeed: 6
     attackDamage: 15
-    enemyType: 1
+    enemyType: 0
   - enemyName: BossZombie
     maxHp: 500
     moveSpeed: 6

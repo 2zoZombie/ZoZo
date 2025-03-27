@@ -28,23 +28,25 @@ public class EnemyManager : Singleton<EnemyManager>
                 SpawnEnemy();
             }
             yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
-            i++;
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(5f);
+            NextStage();
+
         }
     }
     public void SpawnEnemy()
     {
         int enmys = 5;
-        for (int i = 0; i < enmys ; i++)
+        for (int i = 0; i < enmys * stage *0.8 ; i++)
         {
             Vector3 spawnPosition = new Vector3(Random.Range(2.5f, 3), Random.Range(1f, 3f), Random.Range(0f, 10f));
-            int num = Random.Range(0, 2);
+            int num = Random.Range(0, 3);
             GameObject enemyObject;
             if (stage % 3 == 0 && stage != 0)
             {
                 enemyObject = Instantiate(Enemys[3].gameObject, spawnPosition, Quaternion.identity);
                 enemyObject.name = "Boss Enemy";
                 spawncount++;
+                return;
             }
             else
             {
@@ -53,6 +55,14 @@ public class EnemyManager : Singleton<EnemyManager>
                 spawncount++;
             }
         }
+    }
+
+    public void NextStage()
+    {
+        stage++;
+        Debug.Log(stage);
+        spawncount = 0;
+        SpawnEnemy();
     }
 }
 
