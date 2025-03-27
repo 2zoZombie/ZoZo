@@ -11,6 +11,8 @@ public enum StatType
     AutoAttackInterval       //자동 공격 간격 (짧아져야 이득)
 }
 
+//ScriptableObject를 만들 때 빠르게 만들 수 있도록
+//에셋 생성 메뉴창에 추가해주는 어트리뷰트
 [CreateAssetMenu(fileName = "Skill", menuName = "New Skill")]
 public class SkillSO : ScriptableObject
 {
