@@ -16,17 +16,17 @@ public enum StatType
 [CreateAssetMenu(fileName = "Skill", menuName = "New Skill")]
 public class SkillSO : ScriptableObject
 {
-    public StatType type;            //올려줄 스탯 타입
-                                     //증가, 감소 타입으로 받아도 좋을듯
+    public StatType type;             //올려줄 스탯 타입
 
-    public string statName;          //능력치 이름 (ex - 치명타 데미지)
-    public int maxLevel;             //최대 레벨   (ex - 10)
-    public int basicPrice;           //기본 가격
+    public string skillName;          //능력치 이름 (ex - 치명타)
+    public string skillDescription;   //아래 출력될 설명 내지 풀네임? (ex - 치명타 데미지)
+
+    public int maxLevel;              //최대 레벨 (ex - 10)
+    public int basicPrice;            //기본 가격
         
-    public int impressionPrice;      //인상 가격 폭 (n배로 증가)
-    public int impressionStat;       //능력치 인상 폭 (n만큼 증가)
+    public int impressionPrice;       //인상 가격 폭 (n배로 증가)
+    public int impressionStat;        //능력치 인상 폭 (n만큼 증가)
 
     public Sprite Icon;               //띄워줄 이미지 정보
-    public string description;       //띄워줄 스킬 정보
-                                     //(ex - $"{statName} +{플레이어 스킬 레벨 변수 * impressionStat}"
+
 }

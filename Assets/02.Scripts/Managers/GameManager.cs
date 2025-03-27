@@ -12,6 +12,10 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
         savePath = Path.Combine(Application.persistentDataPath, "playerData.json");
+
+        //TODO: TEST 코드 (끝나면 삭제하기)
+        playerData = new PlayerData();
+
     }
 
 
