@@ -12,3 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39f3e930381d3894dbc8557280b1e134, type: 3}
   m_Name: BasicWeapon
   m_EditorClassIdentifier: 
+  weaponLevel: 0
+  weaponName: 
+  attackValum: 0
+  criticalChance: 100
+  criticalMultiplier: 2
+  upgradeNumber: 0
+  attackValum_Up: 0
+  criticalChance_Up: 0
+  criticalPower_Up: 0
+  upgradeCost: 0
+  upgradeCost_UP: 0
