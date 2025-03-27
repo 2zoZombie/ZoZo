@@ -20,22 +20,19 @@ public class EnemyManager : Singleton<EnemyManager>
 
     private IEnumerator StageCoroutine()
     {
-        while (true)
+        while (spawncount == 0)
         {
-            if (spawncount == 0)
-            {
-                stage++;
-                Debug.Log("Stage: " + stage);
-                SpawnEnemy();
-                yield return new WaitForSeconds(2f * Time.deltaTime);
-            }
+            stage++;
+            Debug.Log("Stage: " + stage);
+            SpawnEnemy();
+            yield return new WaitForSeconds(2f * Time.deltaTime);
         }
     }
     public void SpawnEnemy()
     {
 
         int enmys = 5;
-        for (int i = 0; i < enmys * stage; i++)
+        for (int i = 0; i < enmys ; i++)
         {
             Vector3 spawnPosition = new Vector3(Random.Range(2.5f, 3), Random.Range(1f, 3f), Random.Range(0f, 10f));
             int num = Random.Range(0, 2);

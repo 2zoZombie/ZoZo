@@ -153,10 +153,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enemys:
-  - {fileID: 2397709743877798422, guid: 00039ffd9804ab84a89e90a7f323dfd0, type: 3}
-  - {fileID: 7487784366938851684, guid: 90aafd92cae582c4398ab901e251b7ad, type: 3}
-  - {fileID: 2534240509857793825, guid: 42312ed4f79cf2546a65d5d890967d1f, type: 3}
-  - {fileID: 3750119562136072237, guid: 21014a8a564504e49a9361184ef5c0c8, type: 3}
+  - {fileID: 5593292456057245633, guid: 00039ffd9804ab84a89e90a7f323dfd0, type: 3}
+  - {fileID: 745801696293841708, guid: 90aafd92cae582c4398ab901e251b7ad, type: 3}
+  - {fileID: 2870988453615872345, guid: 42312ed4f79cf2546a65d5d890967d1f, type: 3}
+  - {fileID: 5869922098583179591, guid: 21014a8a564504e49a9361184ef5c0c8, type: 3}
 --- !u!4 &1482351015
 Transform:
   m_ObjectHideFlags: 0
