@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class WeaponData
 {
     public WeaponSO Weapon;              //무기 오브젝트
@@ -9,6 +10,13 @@ public class WeaponData
     public string WeaponName;
     public int WeaponLevel;
     public bool WeaponEquip;
+    public int baseAttack;                      //무기 기본 공격력
+
+    [Range(0f, 100f)]                            //치명타 확률 범위
+    public float baseCriticalChance = 5f;       //치명타 확률 %단위
+
+    [Range(0f, 600f)]                            //치명타 배율 범위
+    public float baseCriticalMultiplier = 100f; //치명타 배율 기본 100%
 
     //무기 업그레이드 정보
     [Header("UpgradeInfo")]
