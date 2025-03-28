@@ -16,6 +16,10 @@ public class Skill : MonoBehaviour
 
     public int currentPrice = 0;
 
+    //자동 공격 속도 스탯이 따로 없어서 만드는 임시 변수
+    public float speed = 120f;
+
+
     private void OnValidate()
     {
         skillImage = transform.Find("Icon")?.GetComponent<Image>();
@@ -25,7 +29,6 @@ public class Skill : MonoBehaviour
         _name = transform.Find("Name")?.GetComponent<TextMeshProUGUI>();
         description = transform.Find("Description")?.GetComponent<TextMeshProUGUI>();
 
-        
         skillImage.sprite = data.Icon;
 
         if (data == null) return;
@@ -39,7 +42,6 @@ public class Skill : MonoBehaviour
             case SkillType.TimedActive:
                 levelupBtn.onClick.AddListener(LevelUpTimedActive);
                 break;
-
         }
     }
 
@@ -72,11 +74,9 @@ public class Skill : MonoBehaviour
 
         //해당 스텟 레벨을 1 증가시킴
         GameManager.Instance.playerData.statLevel[((int)data.index)]++;
-        
+
         //UI Refresh
-        _name.text = $"{data.skillName} {GameManager.Instance.playerData.statLevel[((int)data.index)]}";
-        description.text = $"{data.skillDescription} + {GameManager.Instance.playerData.statLevel[((int)data.index)] * data.impressionStat}.0%";
-        btnText.text = $"레벨업 {currentPrice}ⓒ";
+        UIRefresh(data.type);
     }
 
     public void LevelUpTimedActive()
@@ -97,13 +97,14 @@ public class Skill : MonoBehaviour
         GameManager.Instance.playerData.statLevel[((int)data.index)]++;
 
         //UI Refresh
-        _name.text = $"{data.skillName} {GameManager.Instance.playerData.statLevel[((int)data.index)]}";
-        
-        btnText.text = $"레벨업 {currentPrice}ⓒ";
+        UIRefresh(data.type);
     }
 
     public void UIRefresh(SkillType type)
     {
+        _name.text = $"{data.skillName} {GameManager.Instance.playerData.statLevel[((int)data.index)]}";
+        btnText.text = $"레벨업 {currentPrice}ⓒ";
+
         switch (type)
         {
             case SkillType.PercentageBuff:
@@ -116,5 +117,4 @@ public class Skill : MonoBehaviour
 
         }
     }
-
 }
