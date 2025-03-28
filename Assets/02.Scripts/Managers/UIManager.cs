@@ -28,8 +28,8 @@ public class UIManager : Singleton<UIManager>
     {
         base.Awake();
         playerData = GameManager.Instance.playerData;
-        newGameButton.onClick.AddListener(OnNewGame);
-        loadGameButton.onClick.AddListener(OnLoadGame);
+        if (newGameButton != null) newGameButton.onClick.AddListener(OnNewGame);
+        if (loadGameButton != null) loadGameButton.onClick.AddListener(OnLoadGame);
     }
 
     public void Refresh()
