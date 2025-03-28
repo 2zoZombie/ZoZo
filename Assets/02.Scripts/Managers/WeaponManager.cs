@@ -5,4 +5,10 @@ using UnityEngine;
 public class WeaponManager : Singleton<WeaponManager>
 {
 
+    private void Awake()
+    {
+        base.Awake();
+    }
+
+
 }

@@ -8,6 +8,26 @@ public class AudioManager : Singleton<AudioManager>
     public AudioMixer audioMixer;
     public AudioSource bgmSource;
     public AudioSource sfxSource;
+    public AudioClip bgmClip;
+    public AudioClip sfxClip;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        bgmSource.loop = true;
+    }
+    private void Start()
+    {
+        PlayBGM(bgmClip);
+    }
+
+    public void PlayBGM(AudioClip clip)
+    {
+        bgmSource.clip = clip;
+
+            bgmSource.Play();
+    }
+
 
     public void PlaySFX(AudioClip clip)
     {
@@ -15,6 +35,7 @@ public class AudioManager : Singleton<AudioManager>
         {
             sfxSource.PlayOneShot(clip);
         }
+
     }
 
     public void SetBGMVolume(float value)
@@ -24,6 +45,9 @@ public class AudioManager : Singleton<AudioManager>
 
     public void SetSFXVolume(float value)
     {
-        audioMixer.SetFloat("SFX", Mathf.Log10(value) * 20);
+        float safeValue = Mathf.Clamp(value, 0.0001f, 1f);
+        audioMixer.SetFloat("SFX", Mathf.Log10(safeValue) * 20);
     }
+
+
 }
