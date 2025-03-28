@@ -4,11 +4,17 @@ using UnityEngine;
 
 
 //TODO: 플레이어 데이터 클래스 보고 수정될 수 있음
-public enum StatType
+public enum StatIndex
 {
     CriticalDamage,          //치명타 데미지
     GoldGainRate,            //골드 획득량
-    AutoAttackInterval       //자동 공격 간격 (짧아져야 이득)
+    AutoAttackInterval       //자동 공격 간격
+}
+
+public enum SkillType
+{
+    PercentageBuff,      // 퍼센트 형식으로 스탯이 증가하는 스킬
+    TimedActive,         // 일정 시간마다 자동 실행되는 스킬
 }
 
 //ScriptableObject를 만들 때 빠르게 만들 수 있도록
@@ -16,17 +22,17 @@ public enum StatType
 [CreateAssetMenu(fileName = "Skill", menuName = "New Skill")]
 public class SkillSO : ScriptableObject
 {
-    public StatType type;            //올려줄 스탯 타입
-                                     //증가, 감소 타입으로 받아도 좋을듯
+    public StatIndex index;           //올려줄 스탯 인덱스
+    public SkillType type;            //스킬의 타입
 
-    public string statName;          //능력치 이름 (ex - 치명타 데미지)
-    public int maxLevel;             //최대 레벨   (ex - 10)
-    public int basicPrice;           //기본 가격
+    public string skillName;          //능력치 이름 (ex - 치명타)
+    public string skillDescription;   //아래 출력될 설명 내지 풀네임? (ex - 치명타 데미지)
+
+    public int maxLevel;              //최대 레벨 (ex - 10)
+    public int basicPrice;            //기본 가격
         
-    public int impressionPrice;      //인상 가격 폭 (n배로 증가)
-    public int impressionStat;       //능력치 인상 폭 (n만큼 증가)
+    public int impressionPrice;       //인상 가격 폭 (n배로 증가)
+    public int impressionStat;        //능력치 인상 폭 (n만큼 증가)
 
     public Sprite Icon;               //띄워줄 이미지 정보
-    public string description;       //띄워줄 스킬 정보
-                                     //(ex - $"{statName} +{플레이어 스킬 레벨 변수 * impressionStat}"
 }

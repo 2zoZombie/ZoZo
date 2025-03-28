@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CoinDisplayUI : MonoBehaviour
 {
+    public ParticleSystem coinParticle;
     public RectTransform coin;
     public RectTransform blueCoin;
     public TextMeshProUGUI coinText;
@@ -15,5 +16,10 @@ public class CoinDisplayUI : MonoBehaviour
         UIManager.Instance.coinDisplayUI = this;
     }
 
-    
+    public void SetCoinText()
+    {
+        coinText.text = GameManager.Instance.playerData.coin.ToString();
+        blueCoinText.text = GameManager.Instance.playerData.blueCoin.ToString();
+    }
+
 }
