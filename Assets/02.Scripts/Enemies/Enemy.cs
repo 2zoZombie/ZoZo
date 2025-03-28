@@ -1,21 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 
 public class Enemy : MonoBehaviour
 {
-    //[SerializeField] private TextMeshProUGUI DamageText;
 
     public EnemyStatsTable enemyStatsTable;
     public int enemyIndex;
 
+    float damage;
+
     [SerializeField] private float maxHp;
     [SerializeField] private float curHp;
-    [SerializeField] private float damage;
-
+    [SerializeField] private float attack;
 
     private int moveSpeed = 15;
 
@@ -23,11 +24,14 @@ public class Enemy : MonoBehaviour
     private Animator animator;
 
     EnemyManager enemyManager;
+    StageUI stageUI;
+
     private float positionx;
+
+
     private void Start()
     {
         enemyManager = FindObjectOfType<EnemyManager>();
-
         EnemyStats currentEnemyStats = enemyStatsTable.enemyStatsList[enemyIndex];
         switch (currentEnemyStats.enemyType)
         {
@@ -40,7 +44,7 @@ public class Enemy : MonoBehaviour
 
         maxHp = currentEnemyStats.maxHp;
         curHp = maxHp;
-        damage = currentEnemyStats.attackDamage;
+        attack = currentEnemyStats.attackDamage;
 
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -52,33 +56,54 @@ public class Enemy : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-        TakeDamage(20);
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        //    RaycastHit hit;
+
+        //    if (Physics.Raycast(ray, out hit, Mathf.Infinity, EnemyLayer))
+        //    {
+        //        if (hit.collider.gameObject == gameObject)
+        //        {
+        //            TakeDamage(20f);
+        //        }
+        //    }
+        //}
+        if (Input.GetMouseButtonDown(0))
+        {
+            TakeDamage(20);
+        }
     }
 
     private void Move()
     {
        rigidbody.velocity = Vector3.left * moveSpeed * Time.deltaTime;
 
-
         if (gameObject.transform.position.x < positionx)
         {
             moveSpeed = 0;
         }
+
     }
 
-    private void TakeDamage(int damage)
+    private void TakeDamage(float damage)
     {
-        curHp -= damage * Time.deltaTime;
-        //ShowDamageUI(damage);
-        if (curHp <= 0)
+
+        if (curHp > 0)
         {
-            Dead();
+            //enemyUI.ShowDamageUI(damage);
+            curHp -= damage;
+            if (curHp <= 0)
+            {
+                Dead();
+            }
         }
     }
 
     private void Dead()
     {
         animator.SetBool("Dead", true);
+        enemyManager.spawncount--;
         Destroy(gameObject, 3f);
     }
 
@@ -99,11 +124,4 @@ public class Enemy : MonoBehaviour
         maxHp -= bossStats.growthHP;
         damage -= bossStats.growthDamage;
     }
-
-    //private void ShowDamageUI(int damage)
-    //{
-    //    TextMeshProUGUI damageText = Instantiate(DamageText , transform.position , Quaternion.identity);
-    //    damageText.text = damage.ToString();
-    //    Destroy(damageText.gameObject, 3f);
-    //}
 }

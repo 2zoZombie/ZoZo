@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
@@ -7,8 +8,9 @@ using UnityEngine.Rendering;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
-    [SerializeField] Enemy[] Enemys;
-    [SerializeField] GameObject[] CapterMap;
+    [SerializeField] Enemy[] enemys;
+    [SerializeField] GameObject[] capterMap;
+
 
     int stage = 0;
     public int spawncount;
@@ -25,16 +27,15 @@ public class EnemyManager : Singleton<EnemyManager>
     private IEnumerator CapterCoroutine()
     {
         GameObject tlieMap;
-        for (int i = 0; i < CapterMap.Length;)
+        for (int i = 0; i < capterMap.Length;)
         {
-            tlieMap = Instantiate(CapterMap[i], transform.position, Quaternion.identity);
+            tlieMap = Instantiate(capterMap[i], transform.position, Quaternion.identity);
             Debug.Log("현재 챕터 : " + (i+1)); // UI 표시
             stage = 0;
             if (stage == 0)
             {
                 for (int s = stage; s <= 4; s++)
                 {
-                    Debug.Log("현재 스테이지 : " + (s + 1)); // UI 표시
                     while (spawncount == 0)
                     {
                         NextStage();
@@ -73,14 +74,14 @@ public class EnemyManager : Singleton<EnemyManager>
             GameObject enemyObject;
             if (stage % 4 == 0 && stage != 0)
             {
-                enemyObject = Instantiate(Enemys[3].gameObject, spawnPosition, Quaternion.identity);
+                enemyObject = Instantiate(enemys[3].gameObject, spawnPosition, Quaternion.identity);
                 enemyObject.name = "Boss Enemy";
                 spawncount++;
                 return;
             }
             else
             {
-                enemyObject = Instantiate(Enemys[num].gameObject, spawnPosition, Quaternion.identity);
+                enemyObject = Instantiate(enemys[num].gameObject, spawnPosition, Quaternion.identity);
                 enemyObject.name = "Normal Enemy" + i;
                 spawncount++;
             }
@@ -91,7 +92,6 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public void NextStage()
     {
-        spawncount = 0;
         SpawnEnemy();
         //enemy.GrowthStats();
     }
