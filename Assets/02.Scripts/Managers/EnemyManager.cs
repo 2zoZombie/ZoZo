@@ -36,9 +36,9 @@ public class EnemyManager : Singleton<EnemyManager>
     public void SpawnEnemy()
     {
         int enmys = 5;
-        for (int i = 0; i < enmys * stage *0.8 ; i++)
+        for (int i = 0; i < enmys + (stage *2) ; i++)
         {
-            Vector3 spawnPosition = new Vector3(Random.Range(2.5f, 3), Random.Range(1f, 3f), Random.Range(0f, 10f));
+            Vector3 spawnPosition = new Vector3(Random.Range(2.5f, 3), Random.Range(-2f, 3f), 0);
             int num = Random.Range(0, 3);
             GameObject enemyObject;
             if (stage % 3 == 0 && stage != 0)

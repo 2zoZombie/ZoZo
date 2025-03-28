@@ -1,25 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 
 
 public class Enemy : MonoBehaviour
 {
+    //[SerializeField] private TextMeshProUGUI DamageText;
+
     public EnemyStatsTable enemyStatsTable;
     public int enemyIndex;
 
-    public float maxHp;
-    public float curHp;
-    public float moveSpeed;
+    [SerializeField] private float maxHp;
+    [SerializeField] private float curHp;
+
+
+    private int moveSpeed = 15;
 
     private Rigidbody2D rigidbody;
     private Animator animator;
 
-    EnemyManager enemyManager;
+    private float positionx;
     private void Start()
     {
-
         EnemyStats currentEnemyStats = enemyStatsTable.enemyStatsList[enemyIndex];
         switch (currentEnemyStats.enemyType)
         {
@@ -31,12 +35,13 @@ public class Enemy : MonoBehaviour
 
         maxHp = currentEnemyStats.maxHp;
         curHp = maxHp;
-        moveSpeed = currentEnemyStats.moveSpeed;
 
         Debug.Log(currentEnemyStats.enemyName + "ÀÇ Ã¼·Â: " + currentEnemyStats.maxHp);
 
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        positionx = Random.Range(1.5f, 2.7f);
     }
 
     private void FixedUpdate()
@@ -47,12 +52,19 @@ public class Enemy : MonoBehaviour
 
     private void Move()
     {
-        rigidbody.velocity = Vector3.left * moveSpeed * Time.deltaTime;
+       rigidbody.velocity = Vector3.left * moveSpeed * Time.deltaTime;
+
+
+        if (gameObject.transform.position.x < positionx)
+        {
+            moveSpeed = 0;
+        }
     }
 
     public void TakeDamage(int damage)
     {
         curHp -= damage * Time.deltaTime;
+        //ShowDamageUI(damage);
         if (curHp <= 0)
         {
             Dead();
@@ -64,4 +76,11 @@ public class Enemy : MonoBehaviour
         animator.SetBool("Dead", true);
         Destroy(gameObject, 3f);
     }
+
+    //private void ShowDamageUI(int damage)
+    //{
+    //    TextMeshProUGUI damageText = Instantiate(DamageText , transform.position , Quaternion.identity);
+    //    damageText.text = damage.ToString();
+    //    Destroy(damageText.gameObject, 3f);
+    //}
 }
