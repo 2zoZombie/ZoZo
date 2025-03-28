@@ -1290,7 +1290,6 @@ GameObject:
   - component: {fileID: 155621178}
   - component: {fileID: 155621180}
   - component: {fileID: 155621179}
-  - component: {fileID: 155621181}
   m_Layer: 5
   m_Name: WeaponInfo
   m_TagString: Untagged
@@ -1360,22 +1359,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 155621177}
   m_CullTransparentMesh: 1
---- !u!114 &155621181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 155621177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b535f87b70051574f8f09204f5d646f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TMP_WeaponName: {fileID: 905977791}
-  WeaponIcon: {fileID: 741237457}
-  TMP_AttackPower: {fileID: 631848158}
-  TMP_CriticalChance: {fileID: 915768365}
 --- !u!1 &162685053
 GameObject:
   m_ObjectHideFlags: 0
@@ -11607,6 +11590,7 @@ GameObject:
   - component: {fileID: 1376906759}
   - component: {fileID: 1376906758}
   - component: {fileID: 1376906757}
+  - component: {fileID: 1376906761}
   m_Layer: 5
   m_Name: GameCanvas
   m_TagString: Untagged
@@ -11698,6 +11682,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1376906761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376906756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b535f87b70051574f8f09204f5d646f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TMP_WeaponName: {fileID: 905977791}
+  WeaponIcon: {fileID: 741237457}
+  TMP_AttackPower: {fileID: 631848158}
+  TMP_CriticalChance: {fileID: 915768365}
 --- !u!1 &1411273828
 GameObject:
   m_ObjectHideFlags: 0
@@ -13076,7 +13076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7611c9ef04daf14e8660688d5b0deb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponUI: {fileID: 155621181}
+  weaponUI: {fileID: 0}
   WeaponSO: {fileID: 11400000, guid: c3e70757d5f875a4c95452c8a2d0d51e, type: 2}
 --- !u!1 &1660199992
 GameObject:
