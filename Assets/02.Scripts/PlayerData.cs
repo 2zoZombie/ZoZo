@@ -10,6 +10,7 @@ public class PlayerData
     public int currentChapter = 1;
     public int currentStage = 1;
     public int defeatedEnemyCount = 0;
+    public List<StageData> stageDatas = new List<StageData>();
 
     [Header("Currency")]
     public float coin = 0;
@@ -20,9 +21,8 @@ public class PlayerData
     public int critDamageLevel = 0;
     public int goldBonusLevel = 0;
 
-    //테스트 코드
     public int[] statLevel = new int[] { 0, 0, 0 };
 
-    //[Header("WeaponData")]
+    [Header("WeaponData")]
     public string equippedWeaponID;
 }
