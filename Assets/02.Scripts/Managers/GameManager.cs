@@ -1,12 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
     private string savePath;
     public PlayerData playerData;
+    public PlayerStat playerStat;
+    public WeaponData curWeaponData;
+
+    public event Action OnAttackEvent;
+    public event Action OnCriticalEvent;
+    public event Action<int> OnAttackDamageEvent;
 
     protected override void Awake()
     {
@@ -21,6 +29,7 @@ public class GameManager : Singleton<GameManager>
         {
             string json = File.ReadAllText(savePath);
             playerData = JsonUtility.FromJson<PlayerData>(json);
+            StageManager.Instance.SetPlayerData();
             GameStart();
         }
         else
@@ -38,6 +47,7 @@ public class GameManager : Singleton<GameManager>
     void NewGame()
     {
         playerData = new PlayerData();
+        StageManager.Instance.SetPlayerData();
         GameStart();
     }
 
@@ -45,6 +55,62 @@ public class GameManager : Singleton<GameManager>
     {
 
     }
+
+    public void GameStop()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void OnAttack()
+    {
+        Enemy targetEnemy = GetRandomEnemy();
+
+        if (targetEnemy != null)
+        {
+            int damage = CalculateDamage();
+        }
+        else return;
+        
+        //OnAttackDamageEvent?.Invoke(damage);
+    }
+
+    Enemy GetRandomEnemy()
+    {
+        if(EnemyManager.Instance.Enemys != null)
+        {
+            return EnemyManager.Instance.Enemys[UnityEngine.Random.Range(0, EnemyManager.Instance.Enemys.Length)];
+        }
+        return null;
+    }
+
+    int CalculateDamage()
+    {
+        float baseDamage = curWeaponData.Weapon.baseAttack + curWeaponData.WeaponLevel*curWeaponData.Weapon.attackValum_Up;
+        float critMultiplier = playerStat.critDamage.impressionStat * playerData.critDamageLevel;
+        int totalDamage;
+
+        if (IsCrit())
+        {
+            totalDamage = Mathf.RoundToInt(baseDamage * critMultiplier/100);
+            OnCriticalEvent?.Invoke();
+        }
+        else
+        {
+            totalDamage = Mathf.RoundToInt(baseDamage);
+        }
+
+        return totalDamage;
+    }
+
+    bool IsCrit()
+    {
+        int critChance = Mathf.RoundToInt(curWeaponData.Weapon.baseCriticalChance + curWeaponData.Weapon.criticalChance_Up*curWeaponData.WeaponLevel);
+        int randValue = UnityEngine.Random.Range(0, 100);
+
+        return critChance >= randValue;
+    }
+
+
 
     public void GetCoin(int value)
     {
