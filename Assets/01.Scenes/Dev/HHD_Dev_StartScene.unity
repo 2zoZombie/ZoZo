@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da01e5ee9963a643b1e0dc36742e88c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageNameSO: {fileID: 11400000, guid: c1804c5a2737bb84db91ec692ead1eb1, type: 2}
+  stageNameSO: {fileID: 11400000, guid: cd356c93631e2b947a9f107a0846f3b4, type: 2}
   stageMinThreshold: 5
   stageMaxThreshold: 8
   currentChapter: 1
@@ -1243,6 +1243,7 @@ MonoBehaviour:
     autoAttackLevel: 0
     critDamageLevel: 0
     goldBonusLevel: 0
+    statLevel: 000000000000000000000000
     equippedWeaponID: 
   playerStat: {fileID: 0}
 --- !u!1660057539 &9223372036854775807

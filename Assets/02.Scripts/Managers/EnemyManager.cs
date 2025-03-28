@@ -1,54 +1,100 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
+using UnityEngine.Rendering;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
-    [SerializeField] public Enemy[] Enemys;
+    [SerializeField] Enemy[] enemys;
+    [SerializeField] GameObject[] capterMap;
 
-    int stage = 1;
-    int spawncount = 0;
 
+    int stage = 0;
+    public int spawncount;
+
+    private List<GameObject> spawnEnemy = new List<GameObject>();
+    Enemy enemy;
 
     public void Start()
     {
-        StartCoroutine(StageCoroutine());
+        StartCoroutine(CapterCoroutine());
+        enemy = FindObjectOfType<Enemy>();
     }
 
-    private IEnumerator StageCoroutine()
+    private IEnumerator CapterCoroutine()
     {
-        for (int i = stage; i < 15;)
+        GameObject tlieMap;
+        for (int i = 0; i < capterMap.Length;)
         {
-            while (spawncount == 0)
+            tlieMap = Instantiate(capterMap[i], transform.position, Quaternion.identity);
+            Debug.Log("현재 챕터 : " + (i+1)); // UI 표시
+            stage = 0;
+            if (stage == 0)
             {
-                Debug.Log("Stage: " + stage);
-                SpawnEnemy();
+                for (int s = stage; s <= 4; s++)
+                {
+                    while (spawncount == 0)
+                    {
+                        NextStage();
+                    }
+                    if (s == 4)
+                    {
+                        yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
+                        yield return new WaitForSeconds(3f);
+                        Destroy(tlieMap);
+                        spawncount = 0;
+                        i++;
+                        break;
+                    }
+                    yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
+                    yield return new WaitForSeconds(3f);
+                    stage++;
+                    NextStage();
+                }
             }
-            yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
-            i++;
-            yield return new WaitForSeconds(2f);
         }
     }
+
     public void SpawnEnemy()
     {
-        int enmys = 5;
-        for (int i = 0; i < enmys ; i++)
+        int enmys = 3;
+        for (int i = 0; i < enmys; i++)
         {
-            Vector3 spawnPosition = new Vector3(Random.Range(2.5f, 3), Random.Range(1f, 3f), Random.Range(0f, 10f));
-            int num = Random.Range(0, 2);
-            if (stage % 3 == 0 && stage != 0)
+            enmys = 3;
+
+            if (stage > 0)
             {
-                //GameObject bossObject = Instantiate(Enemys[3], spawnPosition, Quaternion.identity);
+                enmys = enmys * (stage + 1);
+            }
+            Vector3 spawnPosition = new Vector3(Random.Range(2.5f, 3), Random.Range(-1f, 3f), 0);
+            int num = Random.Range(0, 3);
+            GameObject enemyObject;
+            if (stage % 4 == 0 && stage != 0)
+            {
+                enemyObject = Instantiate(enemys[3].gameObject, spawnPosition, Quaternion.identity);
+                enemyObject.name = "Boss Enemy";
                 spawncount++;
+                return;
             }
             else
             {
-                //GameObject enemyObject = Instantiate(Enemys[num], spawnPosition, Quaternion.identity);
+                enemyObject = Instantiate(enemys[num].gameObject, spawnPosition, Quaternion.identity);
+                enemyObject.name = "Normal Enemy" + i;
                 spawncount++;
             }
+            spawnEnemy.Add(enemyObject);
         }
     }
+
+
+    public void NextStage()
+    {
+        SpawnEnemy();
+        //enemy.GrowthStats();
+    }
+
 }
 

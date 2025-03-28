@@ -25,4 +25,5 @@ public class PlayerData
 
     [Header("WeaponData")]
     public string equippedWeaponID;
+    public List<WeaponData> weaponData = new List<WeaponData>();
 }
