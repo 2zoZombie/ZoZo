@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -86,7 +86,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    private void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
 
         if (curHp > 0)

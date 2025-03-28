@@ -8,7 +8,7 @@ using UnityEngine.Rendering;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
-    [SerializeField] Enemy[] enemys;
+    [SerializeField] public Enemy[] enemies;
     [SerializeField] GameObject[] capterMap;
 
 
@@ -74,14 +74,14 @@ public class EnemyManager : Singleton<EnemyManager>
             GameObject enemyObject;
             if (stage % 4 == 0 && stage != 0)
             {
-                enemyObject = Instantiate(enemys[3].gameObject, spawnPosition, Quaternion.identity);
+                enemyObject = Instantiate(enemies[3].gameObject, spawnPosition, Quaternion.identity);
                 enemyObject.name = "Boss Enemy";
                 spawncount++;
                 return;
             }
             else
             {
-                enemyObject = Instantiate(enemys[num].gameObject, spawnPosition, Quaternion.identity);
+                enemyObject = Instantiate(enemies[num].gameObject, spawnPosition, Quaternion.identity);
                 enemyObject.name = "Normal Enemy" + i;
                 spawncount++;
             }
