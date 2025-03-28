@@ -45,6 +45,11 @@ public class Skill : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        GameManager.Instance.playerData = new PlayerData();
+    }
+
     private void Start()
     {
         currentPrice = data.basicPrice;
