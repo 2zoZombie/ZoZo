@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: criticalDamage
   m_EditorClassIdentifier: 
   type: 0
-  statName: "\uCE58\uBA85\uD0C0 \uB370\uBBF8\uC9C0"
+  statName: Critical Damage
   maxLevel: 10
   basicPrice: 5
   impressionPrice: 5

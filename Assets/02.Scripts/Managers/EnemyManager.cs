@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.XR;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
-    [SerializeField] Enemy[] Enemys;
+    [SerializeField] public Enemy[] Enemys;
 
     int stage = 1;
     int spawncount = 0;

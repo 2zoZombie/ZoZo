@@ -13,6 +13,7 @@ public class GameManager : Singleton<GameManager>
     public WeaponData curWeaponData;
 
     public event Action OnAttackEvent;
+    public event Action OnCriticalEvent;
     public event Action<int> OnAttackDamageEvent;
 
     protected override void Awake()
@@ -28,6 +29,7 @@ public class GameManager : Singleton<GameManager>
         {
             string json = File.ReadAllText(savePath);
             playerData = JsonUtility.FromJson<PlayerData>(json);
+            StageManager.Instance.SetPlayerData();
             GameStart();
         }
         else
@@ -45,6 +47,7 @@ public class GameManager : Singleton<GameManager>
     void NewGame()
     {
         playerData = new PlayerData();
+        StageManager.Instance.SetPlayerData();
         GameStart();
     }
 
@@ -53,12 +56,31 @@ public class GameManager : Singleton<GameManager>
 
     }
 
+    public void GameStop()
+    {
+        Time.timeScale = 0;
+    }
+
     public void OnAttack()
     {
-        int damage = CalculateDamage();
+        Enemy targetEnemy = GetRandomEnemy();
 
-        OnAttackEvent?.Invoke();
+        if (targetEnemy != null)
+        {
+            int damage = CalculateDamage();
+        }
+        else return;
+        
         //OnAttackDamageEvent?.Invoke(damage);
+    }
+
+    Enemy GetRandomEnemy()
+    {
+        if(EnemyManager.Instance.Enemys != null)
+        {
+            return EnemyManager.Instance.Enemys[UnityEngine.Random.Range(0, EnemyManager.Instance.Enemys.Length)];
+        }
+        return null;
     }
 
     int CalculateDamage()
@@ -70,6 +92,7 @@ public class GameManager : Singleton<GameManager>
         if (IsCrit())
         {
             totalDamage = Mathf.RoundToInt(baseDamage * critMultiplier/100);
+            OnCriticalEvent?.Invoke();
         }
         else
         {
