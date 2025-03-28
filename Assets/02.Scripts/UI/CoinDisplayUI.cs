@@ -14,4 +14,6 @@ public class CoinDisplayUI : MonoBehaviour
     {
         UIManager.Instance.coinDisplayUI = this;
     }
+
+    
 }

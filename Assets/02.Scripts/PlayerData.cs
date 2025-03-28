@@ -6,7 +6,8 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
-    [Header("Proccess")]
+    [Header("Progress")]
+    public int currentChapter = 1;
     public int currentStage = 1;
     public int defeatedEnemyCount = 0;
 
@@ -15,7 +16,6 @@ public class PlayerData
     public float blueCoin = 0;
 
     [Header("Upgrades")]
-    public int clickDamageLevel = 1;
     public int autoAttackLevel = 0;
     public int critDamageLevel = 0;
     public int goldBonusLevel = 0;
