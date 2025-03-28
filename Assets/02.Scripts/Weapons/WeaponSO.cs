@@ -12,6 +12,7 @@ public class WeaponSO : ScriptableObject
     public int baseAttack;                      //무기 기본 공격력
     [Range(0f,100f)]                            //치명타 확률 범위
     public float baseCriticalChance = 5f;       //치명타 확률 %단위
+    public int buyCost;                         //구매비용
     public int upgradeCost;                     //업그레이드 비용
 
     //무기 업그레이드 정보
