@@ -5,13 +5,16 @@ using System.IO;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
+    [Header("Data")]
     private string savePath;
     public PlayerData playerData;
     public PlayerStat playerStat;
     public WeaponData curWeaponData;
+
 
     public event Action OnAttackEvent;
     public event Action OnCriticalEvent;
@@ -21,10 +24,11 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
         savePath = Path.Combine(Application.persistentDataPath, "playerData.json");
+
     }
 
 
-    void LoadGame()
+    public void LoadGame()
     {
         if (File.Exists(savePath))
         {
@@ -45,7 +49,7 @@ public class GameManager : Singleton<GameManager>
         File.WriteAllText(savePath, json);
     }
 
-    void NewGame()
+    public void NewGame()
     {
         playerData = new PlayerData();
         StageManager.Instance.GenerateChapter(1);
@@ -54,7 +58,17 @@ public class GameManager : Singleton<GameManager>
 
     private void GameStart()
     {
-        SceneManager.LoadScene("MainScene");
+        UIManager.Instance.FadeOut(() =>
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;//씬 로딩이 끝나면 실행되는 이벤트에 구독
+            SceneManager.LoadScene("MainScene");
+        });
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)//씬로디드에 구독하기 위해선 로드씬모드 매개변수 필수 매개변수 안넣을시 single로 고정 single외 Additive이 있음
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;//구독 취소해줘야함
+        UIManager.Instance.FadeIn();
         StageManager.Instance.SetupStage();
     }
 
@@ -74,11 +88,12 @@ public class GameManager : Singleton<GameManager>
 
         if (targetEnemy != null)
         {
-            int damage = CalculateDamage();
+            bool isCrit = IsCrit();
+            int damage = CalculateDamage(isCrit);
+            targetEnemy.TakeDamage(damage);//나중에 크리티컬 여부 받아와야함
         }
         else return;
         
-        //OnAttackDamageEvent?.Invoke(damage);
     }
 
     Enemy GetRandomEnemy()
@@ -90,13 +105,13 @@ public class GameManager : Singleton<GameManager>
         return null;
     }
 
-    int CalculateDamage()
+    int CalculateDamage(bool isCrit)
     {
         float baseDamage = curWeaponData.Weapon.baseAttack + curWeaponData.WeaponLevel*curWeaponData.Weapon.attackValum_Up;
         float critMultiplier = playerStat.critDamage.impressionStat * playerData.critDamageLevel;
         int totalDamage;
 
-        if (IsCrit())
+        if (isCrit)
         {
             totalDamage = Mathf.RoundToInt(baseDamage * critMultiplier/100);
             OnCriticalEvent?.Invoke();

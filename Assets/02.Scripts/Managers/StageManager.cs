@@ -46,8 +46,6 @@ public class StageManager : Singleton<StageManager>
 
     private void Start()
     {
-        GenerateChapter(currentChapter);
-        SetupStage();
     }
 
     public void LoadStages(PlayerData data)
@@ -142,13 +140,17 @@ public class StageManager : Singleton<StageManager>
 
     void SetCurrentInfoToPlayerData()
     {
-        GameManager.Instance.playerData.currentChapter = currentChapter;
-        GameManager.Instance.playerData.currentStage = currentStage;
+        PlayerData playerData = GameManager.Instance.playerData;
+        playerData.currentChapter = currentChapter;
+        playerData.currentStage = currentStage;
     }
 
     void SetStageDataToPlayerData()
     {
-        GameManager.Instance.playerData.stageDatas.Clear();
-        GameManager.Instance.playerData.stageDatas = currentStages;
+        PlayerData playerData = GameManager.Instance.playerData;
+
+        if (playerData.stageDatas != null) playerData.stageDatas.Clear();
+
+        playerData.stageDatas = currentStages;
     }
 }

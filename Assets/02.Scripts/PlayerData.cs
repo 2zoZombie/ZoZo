@@ -20,6 +20,6 @@ public class PlayerData
     public int critDamageLevel = 0;
     public int goldBonusLevel = 0;
 
-    //[Header("WeaponData")]
+    [Header("WeaponData")]
     public string equippedWeaponID;
 }
