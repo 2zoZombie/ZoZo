@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -29,7 +30,7 @@ public class GameManager : Singleton<GameManager>
         {
             string json = File.ReadAllText(savePath);
             playerData = JsonUtility.FromJson<PlayerData>(json);
-            StageManager.Instance.SetPlayerData();
+            StageManager.Instance.LoadStages(playerData);
             GameStart();
         }
         else
@@ -47,18 +48,24 @@ public class GameManager : Singleton<GameManager>
     void NewGame()
     {
         playerData = new PlayerData();
-        StageManager.Instance.SetPlayerData();
+        StageManager.Instance.GenerateChapter(1);
         GameStart();
     }
 
     private void GameStart()
     {
-
+        SceneManager.LoadScene("MainScene");
+        StageManager.Instance.SetupStage();
     }
 
     public void GameStop()
     {
         Time.timeScale = 0;
+    }
+
+    public void GameResume()
+    {
+        Time.timeScale = 1;
     }
 
     public void OnAttack()
@@ -104,7 +111,7 @@ public class GameManager : Singleton<GameManager>
 
     bool IsCrit()
     {
-        int critChance = Mathf.RoundToInt(curWeaponData.Weapon.baseCriticalChance + curWeaponData.Weapon.criticalChance_Up*curWeaponData.WeaponLevel);
+        int critChance = Mathf.RoundToInt(curWeaponData.Weapon.baseCriticalChance);
         int randValue = UnityEngine.Random.Range(0, 100);
 
         return critChance >= randValue;
@@ -115,6 +122,7 @@ public class GameManager : Singleton<GameManager>
     public void GetCoin(int value)
     {
         playerData.coin += value;
+        UIManager.Instance.coinDisplayUI.SetCoinText();
     }
 
     /// <summary>
@@ -137,6 +145,7 @@ public class GameManager : Singleton<GameManager>
     public void GetBlueCoin(int value)
     {
         playerData.blueCoin += value;
+        UIManager.Instance.coinDisplayUI.SetCoinText();
     }
 
     /// <summary>
