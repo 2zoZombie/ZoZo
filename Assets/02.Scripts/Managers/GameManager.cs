@@ -104,7 +104,7 @@ public class GameManager : Singleton<GameManager>
 
     bool IsCrit()
     {
-        int critChance = Mathf.RoundToInt(curWeaponData.Weapon.baseCriticalChance + curWeaponData.Weapon.criticalChance_Up*curWeaponData.WeaponLevel);
+        int critChance = Mathf.RoundToInt(curWeaponData.Weapon.baseCriticalChance * curWeaponData.WeaponLevel);
         int randValue = UnityEngine.Random.Range(0, 100);
 
         return critChance >= randValue;
