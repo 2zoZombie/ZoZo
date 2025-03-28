@@ -3,45 +3,75 @@ using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
+using UnityEngine.Rendering;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
     [SerializeField] Enemy[] Enemys;
+    [SerializeField] GameObject[] CapterMap;
 
-    int stage = 1;
-    int spawncount = 0;
+    int stage = 0;
+    public int spawncount;
 
-    EnemyStats currentEnemyStats;
+    private List<GameObject> spawnEnemy = new List<GameObject>();
+    Enemy enemy;
 
     public void Start()
     {
-        StartCoroutine(StageCoroutine());
+        StartCoroutine(CapterCoroutine());
+        enemy = FindObjectOfType<Enemy>();
     }
 
-    private IEnumerator StageCoroutine()
+    private IEnumerator CapterCoroutine()
     {
-        for (int i = stage; i < 15;)
+        GameObject tlieMap;
+        for (int i = 0; i < CapterMap.Length;)
         {
-            while (spawncount == 0)
+            tlieMap = Instantiate(CapterMap[i], transform.position, Quaternion.identity);
+            Debug.Log("현재 챕터 : " + (i+1)); // UI 표시
+            stage = 0;
+            if (stage == 0)
             {
-                Debug.Log("Stage: " + stage);
-                SpawnEnemy();
+                for (int s = stage; s <= 4; s++)
+                {
+                    Debug.Log("현재 스테이지 : " + (s + 1)); // UI 표시
+                    while (spawncount == 0)
+                    {
+                        NextStage();
+                    }
+                    if (s == 4)
+                    {
+                        yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
+                        yield return new WaitForSeconds(3f);
+                        Destroy(tlieMap);
+                        spawncount = 0;
+                        i++;
+                        break;
+                    }
+                    yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
+                    yield return new WaitForSeconds(3f);
+                    stage++;
+                    NextStage();
+                }
             }
-            yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
-            yield return new WaitForSeconds(5f);
-            NextStage();
-
         }
     }
+
     public void SpawnEnemy()
     {
-        int enmys = 5;
-        for (int i = 0; i < enmys + (stage *2) ; i++)
+        int enmys = 3;
+        for (int i = 0; i < enmys; i++)
         {
-            Vector3 spawnPosition = new Vector3(Random.Range(2.5f, 3), Random.Range(-2f, 3f), 0);
+            enmys = 3;
+
+            if (stage > 0)
+            {
+                enmys = enmys * (stage + 1);
+            }
+            Vector3 spawnPosition = new Vector3(Random.Range(2.5f, 3), Random.Range(-1f, 3f), 0);
             int num = Random.Range(0, 3);
             GameObject enemyObject;
-            if (stage % 3 == 0 && stage != 0)
+            if (stage % 4 == 0 && stage != 0)
             {
                 enemyObject = Instantiate(Enemys[3].gameObject, spawnPosition, Quaternion.identity);
                 enemyObject.name = "Boss Enemy";
@@ -54,15 +84,17 @@ public class EnemyManager : Singleton<EnemyManager>
                 enemyObject.name = "Normal Enemy" + i;
                 spawncount++;
             }
+            spawnEnemy.Add(enemyObject);
         }
     }
 
+
     public void NextStage()
     {
-        stage++;
-        Debug.Log(stage);
         spawncount = 0;
         SpawnEnemy();
+        //enemy.GrowthStats();
     }
+
 }
 

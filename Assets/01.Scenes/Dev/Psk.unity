@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 1482351015}
   - component: {fileID: 1482351014}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Enemy Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,6 +225,11 @@ MonoBehaviour:
   - {fileID: 2448615231464733105, guid: 90aafd92cae582c4398ab901e251b7ad, type: 3}
   - {fileID: 1986486672835967826, guid: 42312ed4f79cf2546a65d5d890967d1f, type: 3}
   - {fileID: 3411783308111139951, guid: 21014a8a564504e49a9361184ef5c0c8, type: 3}
+  CapterMap:
+  - {fileID: 7008072748626956454, guid: 07a2a2b2dec401b41a7f0a2cb5c8174f, type: 3}
+  - {fileID: 7605196705528357337, guid: 5f53171846cf2ed44ba27b4b69d6214c, type: 3}
+  - {fileID: 2995817011114559201, guid: 8b03f3a731db9cc48828c0a61a375323, type: 3}
+  spawncount: 0
 --- !u!4 &1482351015
 Transform:
   m_ObjectHideFlags: 0
@@ -234,7 +239,7 @@ Transform:
   m_GameObject: {fileID: 1482351013}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.7318995, y: 2.5725698, z: 5.5517297}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -337,5 +342,5 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1504146766}
-  - {fileID: 1482351015}
   - {fileID: 215970822}
+  - {fileID: 1482351015}

@@ -6,7 +6,9 @@ public class EnemyStats
 {
     public string enemyName;
     public float maxHp;
+    public float growthHP;
     public float attackDamage;
+    public float growthDamage;
     public EnemyType enemyType;
 }
 public enum EnemyType
