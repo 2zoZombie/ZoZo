@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class PauseUI : MonoBehaviour
 {
-    public GameObject PauseMenuUI;
+    public GameObject pausePannel;
+    public Button pauseButton;
+    public Button resumeButton;
     public Slider bgmSlider;
     public Slider sfxSlider;
 
@@ -13,12 +15,12 @@ public class PauseUI : MonoBehaviour
     {
         bgmSlider.onValueChanged.AddListener(AudioManager.Instance.SetBGMVolume);
         sfxSlider.onValueChanged.AddListener(AudioManager.Instance.SetSFXVolume);
-        gameObject.SetActive(false);
+        pausePannel.SetActive(false);
 
     }
 
     public void OnPause()
     {
-        gameObject.SetActive(true);
+        pausePannel.SetActive(true);
     }
 }
