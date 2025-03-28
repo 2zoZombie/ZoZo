@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 155195f57e7c481449a406987114d896, type: 3}
-  m_Name: Skill
+  m_Name: autoAttack
   m_EditorClassIdentifier: 
-  type: 0
-  statName: 
-  maxLevel: 0
-  basicPrice: 0
-  impressionPrice: 0
-  impressionStat: 0
-  Icon: {fileID: 0}
-  description: 
+  index: 2
+  type: 1
+  skillName: "\uC790\uB3D9 \uACF5\uACA9"
+  skillDescription: 
+  maxLevel: 10
+  basicPrice: 5
+  impressionPrice: 5
+  impressionStat: -5
+  Icon: {fileID: 21300000, guid: 5958b700c5cac9547ae3d70a16753435, type: 3}

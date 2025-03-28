@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 155195f57e7c481449a406987114d896, type: 3}
-  m_Name: Skill 1
+  m_Name: coinMultiplier
   m_EditorClassIdentifier: 
+  index: 1
   type: 0
-  statName: 
-  maxLevel: 0
-  basicPrice: 0
-  impressionPrice: 0
-  impressionStat: 0
-  Icon: {fileID: 0}
-  description: 
+  skillName: "\uACE8\uB4DC \uD68D\uB4DD"
+  skillDescription: "\uACE8\uB4DC \uD68D\uB4DD\uB7C9"
+  maxLevel: 10
+  basicPrice: 5
+  impressionPrice: 5
+  impressionStat: 50
+  Icon: {fileID: 21300000, guid: a5db8390c578407469a78a7fd4302bfb, type: 3}

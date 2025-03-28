@@ -384,6 +384,15 @@ MonoBehaviour:
   clickableLayer:
     serializedVersion: 2
     m_Bits: 0
+  clickAction:
+    m_Name: Click
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 0005db05-524b-4703-ac19-76f75750c835
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!114 &665494535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,7 +442,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 37.61637
   orthographic: 0
   orthographic size: 5
   m_Depth: 0

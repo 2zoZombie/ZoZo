@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +20,8 @@ public class PlayerData
     public int autoAttackLevel = 0;
     public int critDamageLevel = 0;
     public int goldBonusLevel = 0;
+
+    public int[] statLevel = new int[] { 0, 0, 0 };
 
     [Header("WeaponData")]
     public string equippedWeaponID;
