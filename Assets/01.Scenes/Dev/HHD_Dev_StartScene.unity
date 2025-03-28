@@ -312,8 +312,8 @@ MonoBehaviour:
   dimBackground: {fileID: 0}
   fadeImage: {fileID: 1319475028}
   fadeDuration: 1
-  newGameButton: {fileID: 0}
-  loadGameButton: {fileID: 0}
+  newGameButton: {fileID: 1981199176}
+  loadGameButton: {fileID: 1993012891}
 --- !u!4 &708704508
 Transform:
   m_ObjectHideFlags: 0
@@ -1245,7 +1245,14 @@ MonoBehaviour:
     goldBonusLevel: 0
     statLevel: 000000000000000000000000
     equippedWeaponID: 
+    weaponData: []
   playerStat: {fileID: 0}
+  curWeaponData:
+    Weapon: {fileID: 0}
+    WeaponID: 0
+    WeaponName: 
+    WeaponLevel: 0
+    WeaponEquip: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

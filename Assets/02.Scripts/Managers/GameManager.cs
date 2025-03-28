@@ -98,9 +98,9 @@ public class GameManager : Singleton<GameManager>
 
     Enemy GetRandomEnemy()
     {
-        if(EnemyManager.Instance.Enemys != null)
+        if(EnemyManager.Instance.enemies != null)
         {
-            return EnemyManager.Instance.Enemys[UnityEngine.Random.Range(0, EnemyManager.Instance.Enemys.Length)];
+            return EnemyManager.Instance.enemies[UnityEngine.Random.Range(0, EnemyManager.Instance.enemies.Length)];
         }
         return null;
     }
