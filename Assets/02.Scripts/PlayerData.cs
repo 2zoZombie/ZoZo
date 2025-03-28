@@ -21,7 +21,7 @@ public class PlayerData
     public int goldBonusLevel = 0;
 
     //테스트 코드
-    public int[] statLevel = new int[] { 1, 0, 0, 0 };
+    public int[] statLevel = new int[] { 0, 0, 0 };
 
     //[Header("WeaponData")]
     public string equippedWeaponID;
