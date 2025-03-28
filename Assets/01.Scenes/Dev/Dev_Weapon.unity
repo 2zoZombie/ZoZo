@@ -9368,6 +9368,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1105290225}
+  - component: {fileID: 1105290226}
   m_Layer: 5
   m_Name: InvenPopup
   m_TagString: Untagged
@@ -9396,6 +9397,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 760, y: 1280}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1105290226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105290224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7611c9ef04daf14e8660688d5b0deb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WeaponList:
+  - {fileID: 11400000, guid: 635e6a1a97498184da218bc93a66b44d, type: 2}
+  - {fileID: 11400000, guid: 23ead474d749c014e9f41152a19d6437, type: 2}
+  - {fileID: 11400000, guid: 81b264bf89c07d8408546592842b6d76, type: 2}
+  - {fileID: 11400000, guid: ec34853748e610e479d97d446f6d1075, type: 2}
+  - {fileID: 11400000, guid: 0a338eb3abe38164eb815b9be3cfa3b4, type: 2}
+  slots: []
+  InvenPopup: {fileID: 0}
 --- !u!1 &1109910884
 GameObject:
   m_ObjectHideFlags: 0
@@ -10976,7 +10997,7 @@ GameObject:
   - component: {fileID: 1240231477}
   - component: {fileID: 1240231480}
   m_Layer: 5
-  m_Name: WeaponInfo 0
+  m_Name: WeaponSlot 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11082,6 +11103,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponSO: {fileID: 0}
+  slotIndex: 0
+  equipped: 0
   WeaponIcon: {fileID: 1986513578}
   WPName: {fileID: 1170711755}
   WPLevel: {fileID: 1660199994}
@@ -11090,7 +11113,7 @@ MonoBehaviour:
   BuyCost: {fileID: 497554622}
   UpgradeCost: {fileID: 1512474270}
   BuyButton: {fileID: 1183062302}
-  Equip_UpgradeBtn: {fileID: 0}
+  Equip_UpgradeBtn: {fileID: 1516850481}
   UpgradeButton: {fileID: 1485399686}
   EquipButton: {fileID: 893563523}
 --- !u!1 &1270115672
@@ -11256,7 +11279,7 @@ GameObject:
   - component: {fileID: 1281668011}
   - component: {fileID: 1281668010}
   m_Layer: 5
-  m_Name: WeaponInfo 0 (1)
+  m_Name: WeaponSlot 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11298,6 +11321,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponSO: {fileID: 0}
+  slotIndex: 0
+  equipped: 0
   WeaponIcon: {fileID: 597545031}
   WPName: {fileID: 752272343}
   WPLevel: {fileID: 408789096}
@@ -11306,7 +11331,7 @@ MonoBehaviour:
   BuyCost: {fileID: 563203453}
   UpgradeCost: {fileID: 1125248788}
   BuyButton: {fileID: 1318412726}
-  Equip_UpgradeBtn: {fileID: 0}
+  Equip_UpgradeBtn: {fileID: 2007659927}
   UpgradeButton: {fileID: 1305513316}
   EquipButton: {fileID: 1048509989}
 --- !u!114 &1281668011
@@ -11387,7 +11412,7 @@ GameObject:
   - component: {fileID: 1294472498}
   - component: {fileID: 1294472497}
   m_Layer: 5
-  m_Name: WeaponInfo 0 (4)
+  m_Name: WeaponSlot 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11429,6 +11454,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponSO: {fileID: 0}
+  slotIndex: 0
+  equipped: 0
   WeaponIcon: {fileID: 1382053699}
   WPName: {fileID: 1039288003}
   WPLevel: {fileID: 1769680154}
@@ -11437,7 +11464,7 @@ MonoBehaviour:
   BuyCost: {fileID: 258747816}
   UpgradeCost: {fileID: 1418124338}
   BuyButton: {fileID: 1481017692}
-  Equip_UpgradeBtn: {fileID: 0}
+  Equip_UpgradeBtn: {fileID: 1078352061}
   UpgradeButton: {fileID: 1127496456}
   EquipButton: {fileID: 1771417789}
 --- !u!114 &1294472498
@@ -12084,7 +12111,7 @@ GameObject:
   - component: {fileID: 1340659349}
   - component: {fileID: 1340659348}
   m_Layer: 5
-  m_Name: WeaponInfo 0 (3)
+  m_Name: WeaponSlot 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12126,6 +12153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponSO: {fileID: 0}
+  slotIndex: 0
+  equipped: 0
   WeaponIcon: {fileID: 627405504}
   WPName: {fileID: 564578732}
   WPLevel: {fileID: 1109910886}
@@ -12134,7 +12163,7 @@ MonoBehaviour:
   BuyCost: {fileID: 1700535385}
   UpgradeCost: {fileID: 1788926450}
   BuyButton: {fileID: 1521781921}
-  Equip_UpgradeBtn: {fileID: 0}
+  Equip_UpgradeBtn: {fileID: 27902882}
   UpgradeButton: {fileID: 121938100}
   EquipButton: {fileID: 344114379}
 --- !u!114 &1340659349
@@ -14912,6 +14941,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7611c9ef04daf14e8660688d5b0deb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WeaponList: []
+  slots: []
+  InvenPopup: {fileID: 0}
 --- !u!1 &1640006368
 GameObject:
   m_ObjectHideFlags: 0
@@ -18661,7 +18693,7 @@ GameObject:
   - component: {fileID: 2081152633}
   - component: {fileID: 2081152632}
   m_Layer: 5
-  m_Name: WeaponInfo 0 (2)
+  m_Name: WeaponSlot 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18703,6 +18735,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponSO: {fileID: 0}
+  slotIndex: 0
+  equipped: 0
   WeaponIcon: {fileID: 816462705}
   WPName: {fileID: 892593386}
   WPLevel: {fileID: 50106552}
@@ -18711,7 +18745,7 @@ MonoBehaviour:
   BuyCost: {fileID: 254829318}
   UpgradeCost: {fileID: 2100421793}
   BuyButton: {fileID: 1550413188}
-  Equip_UpgradeBtn: {fileID: 0}
+  Equip_UpgradeBtn: {fileID: 682075378}
   UpgradeButton: {fileID: 2065684965}
   EquipButton: {fileID: 2468367}
 --- !u!114 &2081152633
@@ -18867,7 +18901,7 @@ GameObject:
   - component: {fileID: 2097019450}
   - component: {fileID: 2097019449}
   m_Layer: 5
-  m_Name: WeaponList
+  m_Name: SlotPenel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

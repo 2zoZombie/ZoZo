@@ -9,6 +9,11 @@ public class InvenSlotInfo : MonoBehaviour
     //슬롯에 들어갈 정보와 변수
     [Header("WeaponInfo")]
     public WeaponSO WeaponSO;
+
+    [Header("SlotInfo")]
+    public int slotIndex;
+    public bool equipped;
+
     public Image WeaponIcon;
     public TMP_Text WPName;
     public TMP_Text WPLevel;
@@ -23,6 +28,9 @@ public class InvenSlotInfo : MonoBehaviour
     public GameObject Equip_UpgradeBtn;
     public GameObject UpgradeButton;
     public GameObject EquipButton;
+
+    
+
 
     private void Start()
     {

@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class WeaponManager : Singleton<WeaponManager>
 {
+    public List<ScriptableObject> WeaponList = new List<ScriptableObject>();
+    public InvenSlotInfo[] slots;
 
-    private void Awake()
+    public GameObject InvenPopup;
+
+
+
+    protected override void Awake()
     {
         base.Awake();
     }
