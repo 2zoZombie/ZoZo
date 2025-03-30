@@ -12,12 +12,37 @@ public class Player : Entity
 
     private void Awake()
     {
-        GameManager.Instance.playerStat = this;
-        healthBar = UIManager.Instance.healthBarPool.playerHPbar;
+        GameManager.Instance.player = this;
+        if(healthBar != null )
+        {
+            healthBar.SetTarget( this );
+        }
+
     }
 
 
-    public virtual void TakeDamage(int damage, bool isCrit) { }
+    public override void TakeDamage(int damage,bool isCrit = false) 
+    {
+        if (curHp > 0)
+        {
+            //enemyUI.ShowDamageUI(damage);
+            curHp -= damage;
+            healthBar.OnHit();
+            GameManager.Instance.DamageEffect(damage, isCrit, this.transform);
 
-    public virtual void Dead() { }
+
+            if (curHp <= 0)
+            {
+                Dead();
+            }
+        }
+    }
+
+    public override void Dead() 
+    {
+        //죽음 애니메이션
+        UIManager.Instance.errorPopup.SetErrorText("5초 뒤 부활합니다.");
+        healthBar.Revive(5f);
+        curHp = maxHp;
+    }
 }

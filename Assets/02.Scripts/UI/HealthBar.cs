@@ -72,4 +72,9 @@ public class HealthBar : MonoBehaviour
         target = null;
         gameObject.SetActive(false);
     }
+
+    public void Revive(float duration)
+    {
+        instantHpBar.DOFillAmount(1f, duration).SetEase(Ease.Linear);
+    }
 }

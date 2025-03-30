@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HealthBarPool : ObjectPool<HealthBar>
 {
-    public HealthBar playerHPbar;
     public HealthBar bossHealthBar;
     public Canvas enemyHealthBarCanvas;
 

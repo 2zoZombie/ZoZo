@@ -18,7 +18,7 @@ public class Enemy : Entity
 
     [SerializeField] private float attack;
 
-    private int moveSpeed = 15;
+    private int moveSpeed = 40;
 
     private Rigidbody2D rigidbody;
     private Animator animator;
@@ -117,7 +117,20 @@ public class Enemy : Entity
 
     public override void DropItem()
     {
+        int quantity = Mathf.CeilToInt(currentEnemyStats.dropQuantity * (1 + 0.5f * GameManager.Instance.playerData.goldBonusLevel));
+        StartCoroutine(CoroutineDropItem(quantity));
+    }
 
+    IEnumerator CoroutineDropItem(int quantity)
+    {
+        float interval = 1f / quantity;
+        WaitForSeconds wait = new WaitForSeconds(interval);
+        for (int i = 0; i < quantity; i++)
+        {
+            DropItem drops = GameManager.Instance.dropItemPool.GetFromPool(GameManager.Instance.dropItemPool.prefabs[0], this.transform);
+            drops.PlayBounce(this.transform);
+            yield return wait;
+        }
     }
 
     public void SetStats()

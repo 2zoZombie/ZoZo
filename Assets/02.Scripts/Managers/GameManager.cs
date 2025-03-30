@@ -15,12 +15,13 @@ public class GameManager : Singleton<GameManager>
     [Header("Data")]
     private string savePath;
     public PlayerData playerData;
-    public Player playerStat;
+    public Player player;
     public WeaponData curWeaponData;
 
     [Header("ObjectPool")]
     public DamageIndicatorPool damageIndicatorPool;
-
+    public DropItemPool dropItemPool;
+    public DropItemCollector dropItemCollector;
 
     public event Action OnAttackEvent;
     public event Action OnCriticalEvent;
@@ -90,7 +91,7 @@ public class GameManager : Singleton<GameManager>
 
     public void OnAttack()
     {
-        Enemy targetEnemy = GetRandomEnemy();
+        IAttackable targetEnemy = GetRandomEnemy();
 
         if (targetEnemy != null)
         {
@@ -106,11 +107,11 @@ public class GameManager : Singleton<GameManager>
     {
         DamageIndicator dmg = damageIndicatorPool.GetFromPool(position).GetComponent<DamageIndicator>();
         dmg.Show(damage, IsCrit);
-        if(IsCrit) cameraController.Shake(4f,4f,0.6f);
+        if(IsCrit) cameraController.Shake(3f,3f,0.45f);
         else cameraController.Shake(1f,1f,0.3f);
     }
 
-    Enemy GetRandomEnemy()
+    IAttackable GetRandomEnemy()
     {
         if(EnemyManager.Instance.enemies != null)
         {
@@ -122,7 +123,7 @@ public class GameManager : Singleton<GameManager>
     int CalculateDamage(bool isCrit)
     {
         float baseDamage = curWeaponData.Weapon.baseAttack + curWeaponData.WeaponLevel*curWeaponData.Weapon.attackValum_Up;
-        float critMultiplier = playerStat.critDamage.impressionStat * playerData.critDamageLevel;
+        float critMultiplier = player.critDamage.impressionStat * playerData.critDamageLevel;
         int totalDamage;
 
         if (isCrit)
