@@ -10,17 +10,19 @@ public class DamageIndicator : MonoBehaviour
     public float floatUpSpeed = 50f;
     public float duration = 1f;
     public Vector3 moveOffset = new Vector3(0, 100, 0);
+    public int normalSize = 56;
+    public int critSize = 100;
+    public Color critColor = Color.yellow;
+    public Color normalColor = Color.white;
 
     private Vector3 startPos;
-    private float timer;
 
     public void Show(int damage, bool isCrit)
     {
         damageText.text = damage.ToString();
-        damageText.fontSize = isCrit ? 48 : 32;
-        damageText.color = isCrit ? Color.yellow : Color.white;
+        damageText.fontSize = isCrit ? critSize : normalSize;
+        damageText.color = isCrit ? critColor : normalColor;
         canvasGroup.alpha = 1;
-        timer = 0f;
 
         startPos = transform.localPosition;
 

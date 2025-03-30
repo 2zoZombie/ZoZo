@@ -11,10 +11,12 @@ public class UIManager : Singleton<UIManager>
 
     [Header("UI")]
     public CoinDisplayUI coinDisplayUI;
+    public HealthBarPool healthBarPool;
     public ErrorPopup errorPopup;
     public GameObject pausePanel;
     public GameObject enhancePanel;
     public GameObject dimBackground;
+    public Canvas canvas;
 
     [Header("Fade")]
     public Image fadeImage;

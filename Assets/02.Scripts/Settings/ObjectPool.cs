@@ -11,10 +11,11 @@ public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void Awake()
     {
+        InitObjectPool();
     }
     protected virtual void Start()
     {
-        InitObjectPool();
+        
     }
 
     protected void InitObjectPool()

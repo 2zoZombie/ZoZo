@@ -15,7 +15,7 @@ public class GameManager : Singleton<GameManager>
     [Header("Data")]
     private string savePath;
     public PlayerData playerData;
-    public PlayerStat playerStat;
+    public Player playerStat;
     public WeaponData curWeaponData;
 
     [Header("ObjectPool")]
@@ -96,15 +96,18 @@ public class GameManager : Singleton<GameManager>
         {
             bool isCrit = IsCrit();
             int damage = CalculateDamage(isCrit);
-            targetEnemy.TakeDamage(damage);//나중에 크리티컬 여부 받아와야함
+            targetEnemy.TakeDamage(damage,isCrit);//나중에 크리티컬 여부 받아와야함
         }
         else return;
         
     }
 
-    public void DamageEffect(int damage, bool IsCrit)
+    public void DamageEffect(int damage, bool IsCrit, Transform position)
     {
-
+        DamageIndicator dmg = damageIndicatorPool.GetFromPool(position).GetComponent<DamageIndicator>();
+        dmg.Show(damage, IsCrit);
+        if(IsCrit) cameraController.Shake(4f,4f,0.6f);
+        else cameraController.Shake(1f,1f,0.3f);
     }
 
     Enemy GetRandomEnemy()

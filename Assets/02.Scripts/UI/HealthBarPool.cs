@@ -1,32 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class DamageIndicatorPool : ObjectPool<DamageIndicator>
+public class HealthBarPool : ObjectPool<HealthBar>
 {
+    public HealthBar playerHPbar;
+    public HealthBar bossHealthBar;
+    public Canvas enemyHealthBarCanvas;
+
     protected override void Awake()
     {
         base.Awake();
-        GameManager.Instance.damageIndicatorPool = this;
+        UIManager.Instance.healthBarPool = this;
     }
 
-    public DamageIndicator GetFromPool(Transform spawnPosition, Transform newParent = null)
+    public HealthBar GetFromPool(Transform spawnPosition, Transform newParent = null)
     {
-        DamageIndicator obj;
+        HealthBar obj;
         if (poolDictionary[prefabs[0].name].Count > 0)
         {
             obj = poolDictionary[prefabs[0].name].Dequeue();
         }
         else // 풀에 남은 오브젝트가 없으면 새로 생성
         {
-            obj = Instantiate(prefabs[0]).GetComponent<DamageIndicator>();
+            obj = Instantiate(prefabs[0]).GetComponent<HealthBar>();
             obj.name = prefabs[0].name;
         }
 
         if (newParent != null) obj.transform.SetParent(newParent);
+        else obj.transform.SetParent(enemyHealthBarCanvas.transform);
 
-        obj.transform.position = Camera.main.WorldToScreenPoint( spawnPosition.position);
+        obj.transform.position = Camera.main.WorldToScreenPoint(spawnPosition.position);
         obj.gameObject.SetActive(true);
 
         return obj;
