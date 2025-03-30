@@ -38,7 +38,7 @@ public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
-    public GameObject GetFromPool(GameObject prefab, Transform spawnPosition, Transform newParent = null)
+    public virtual GameObject GetFromPool(GameObject prefab, Transform spawnPosition, Transform newParent = null)
     {
         GameObject obj;
         if (poolDictionary.ContainsKey(prefab.name) && poolDictionary[prefab.name].Count > 0)

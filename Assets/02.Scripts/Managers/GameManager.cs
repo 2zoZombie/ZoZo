@@ -9,11 +9,17 @@ using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
+    [Header("Camera")]
+    public CameraController cameraController;
+
     [Header("Data")]
     private string savePath;
     public PlayerData playerData;
     public PlayerStat playerStat;
     public WeaponData curWeaponData;
+
+    [Header("ObjectPool")]
+    public DamageIndicatorPool damageIndicatorPool;
 
 
     public event Action OnAttackEvent;
@@ -94,6 +100,11 @@ public class GameManager : Singleton<GameManager>
         }
         else return;
         
+    }
+
+    public void DamageEffect(int damage, bool IsCrit)
+    {
+
     }
 
     Enemy GetRandomEnemy()
