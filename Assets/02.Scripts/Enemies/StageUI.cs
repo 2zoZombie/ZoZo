@@ -10,7 +10,7 @@ public class StageUI : MonoBehaviour
     public RectTransform stageTextTransform;
     public TMP_Text stageTitle;
     public TMP_Text stageText;
-
+    Sequence currentSequence;
 
     private void Awake()
     {
@@ -36,6 +36,11 @@ public class StageUI : MonoBehaviour
 
     public void ShowStageText(string message)
     {
+        if (currentSequence != null && currentSequence.IsActive())
+        {
+            currentSequence.Kill();
+        }
+
         stageText.text = message;
 
         Vector2 rightStart = new Vector2(Screen.width + 600, stageTextTransform.anchoredPosition.y);
@@ -44,10 +49,10 @@ public class StageUI : MonoBehaviour
 
         stageTextTransform.anchoredPosition = rightStart;
         stageTextTransform.gameObject.SetActive(true);
-        Sequence seq = DOTween.Sequence();
-        seq.Append(stageTextTransform.DOAnchorPos(center, 0.5f).SetEase(Ease.OutBack));
-        seq.AppendInterval(1.5f); 
-        seq.Append(stageTextTransform.DOAnchorPos(leftExit, 0.5f).SetEase(Ease.InBack).OnComplete(() => 
+        currentSequence = DOTween.Sequence();
+        currentSequence.Append(stageTextTransform.DOAnchorPos(center, 0.5f).SetEase(Ease.OutBack));
+        currentSequence.AppendInterval(1.5f); 
+        currentSequence.Append(stageTextTransform.DOAnchorPos(leftExit, 0.5f).SetEase(Ease.InBack).OnComplete(() => 
         { 
             stageTextTransform.gameObject.SetActive(false); 
         }));

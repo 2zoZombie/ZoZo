@@ -14,6 +14,8 @@ public class CoinDisplayUI : MonoBehaviour
     private void Awake()
     {
         UIManager.Instance.coinDisplayUI = this;
+        GameManager.Instance.OnBlueCoinChange += SetCoinText;
+        GameManager.Instance.OnCoinChange += SetCoinText;
     }
 
     public void SetCoinText()

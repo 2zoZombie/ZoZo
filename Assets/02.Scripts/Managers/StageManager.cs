@@ -48,6 +48,7 @@ public class StageManager : Singleton<StageManager>
 
     private void Start()
     {
+        GenerateChapter();
     }
 
     public void LoadStages(PlayerData data)
@@ -65,6 +66,7 @@ public class StageManager : Singleton<StageManager>
         int stageCount = Random.Range(stageMinThreshold, stageMaxThreshold + 1);
         SelectChapter();
         SetChapter();
+        string chapterName = GetChapterName();
 
         for (int i = 0; i < stageCount; i++)
         {
@@ -77,12 +79,13 @@ public class StageManager : Singleton<StageManager>
             else
                 type = StageType.Normal;
 
-            currentStages.Add(new StageData(i + 1, type, GetStageName(type, currentChapter, i + 1), false));
+            currentStages.Add(new StageData(i + 1, type, GetStageName(type, currentChapter, chapterName, i + 1), false));
         }
 
         SetStageDataToPlayerData();
         currentStage = 0;
         onChapterStart?.Invoke();
+        SetupStage();
     }
 
     void SelectChapter()
@@ -90,9 +93,13 @@ public class StageManager : Singleton<StageManager>
         currentChapterInfo = stageNameSO.chapterInfo[Random.Range(0, stageNameSO.chapterInfo.Length)];
     }
 
-    string GetStageName(StageType type, int chapter, int stage)
+    string GetChapterName()
     {
-        string chapterName = stageNameSO.chapterAdjective[Random.Range(0, stageNameSO.chapterAdjective.Length)] + currentChapterInfo.chapterName;
+        return stageNameSO.chapterAdjective[Random.Range(0, stageNameSO.chapterAdjective.Length)] + " " + currentChapterInfo.chapterName;
+    }
+
+    string GetStageName(StageType type, int chapter, string chapterName, int stage)
+    {
         string stageName;
 
         switch (type)
@@ -111,7 +118,7 @@ public class StageManager : Singleton<StageManager>
                 break;
         }
 
-        return $"챕터 {chapter} {chapterName} {stageName}";
+        return $"챕터 {chapter} {chapterName} \n{stageName}";
     }
 
     public void SetChapter()
@@ -153,16 +160,18 @@ public class StageManager : Singleton<StageManager>
     {
         currentStages[currentStage].isCleared = true;
         currentStage++;
+        SetCurrentInfoToPlayerData();
+        onStageComplete?.Invoke();
 
         if (currentStage >= currentStages.Count)
         {
             currentChapter++;
-            GenerateChapter();
+            Invoke("GenerateChapter", 4f);
         }
-
-        SetCurrentInfoToPlayerData();
-        onStageComplete?.Invoke();
-        Invoke("SetupStage", 3f);
+        else
+        {
+            Invoke("SetupStage", 4f);
+        }
     }
 
     void SetCurrentInfoToPlayerData()

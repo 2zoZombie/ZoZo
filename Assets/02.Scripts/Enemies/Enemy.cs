@@ -112,6 +112,7 @@ public class Enemy : Entity
         animator.SetBool("Dead", true);
         DropItem();
         EnemyManager.Instance.spawncount--;
+        EnemyManager.Instance.RemoveEnemy(this);
         Destroy(gameObject, 3f);
     }
 

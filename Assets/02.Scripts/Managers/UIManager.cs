@@ -39,6 +39,11 @@ public class UIManager : Singleton<UIManager>
     {
     }
 
+    public void DIM(bool set)
+    {
+        if(dimBackground != null) dimBackground.SetActive(set);
+    }
+
     public void OnNewGame()
     {
         GameManager.Instance.NewGame();

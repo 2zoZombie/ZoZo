@@ -136,6 +136,7 @@ public class GameManager : Singleton<GameManager>
     int CalculateDamage(bool isCrit)
     {
         float baseDamage = curWeaponData.Weapon.baseAttack + curWeaponData.WeaponLevel * curWeaponData.Weapon.attackValum_Up;
+        baseDamage *= UnityEngine.Random.Range(0.9f, 1.1f);
         float critMultiplier = player.critDamage.impressionStat * playerData.critDamageLevel;
         int totalDamage;
 
@@ -166,7 +167,6 @@ public class GameManager : Singleton<GameManager>
     {
         playerData.coin += value;
         OnCoinChange?.Invoke();
-        UIManager.Instance.coinDisplayUI.SetCoinText();
     }
 
     /// <summary>
@@ -191,7 +191,6 @@ public class GameManager : Singleton<GameManager>
     {
         playerData.blueCoin += value;
         OnBlueCoinChange?.Invoke();
-        UIManager.Instance.coinDisplayUI.SetCoinText();
     }
 
     /// <summary>

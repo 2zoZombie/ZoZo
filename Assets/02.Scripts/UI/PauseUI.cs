@@ -18,14 +18,25 @@ public class PauseUI : MonoBehaviour
 
     private void Start()
     {
-        bgmSlider.onValueChanged.AddListener(AudioManager.Instance.SetBGMVolume);
-        sfxSlider.onValueChanged.AddListener(AudioManager.Instance.SetSFXVolume);
+        if (pauseButton != null) pauseButton.onClick.AddListener(OnPause);
+        if (resumeButton != null) resumeButton.onClick.AddListener(OnResume);
+        if (bgmSlider != null) bgmSlider.onValueChanged.AddListener(AudioManager.Instance.SetBGMVolume);
+        if (sfxSlider != null) sfxSlider.onValueChanged.AddListener(AudioManager.Instance.SetSFXVolume);
         pausePannel.SetActive(false);
 
     }
 
     public void OnPause()
     {
+        GameManager.Instance.GameStop();
         pausePannel.SetActive(true);
+        UIManager.Instance.DIM(true);
+    }
+
+    public void OnResume()
+    {
+        GameManager.Instance.GameResume();
+        UIManager.Instance.DIM(false);
+        pausePannel.SetActive(false);
     }
 }
