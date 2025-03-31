@@ -8,28 +8,23 @@ using UnityEngine.UI;
 public class InvenPopup : MonoBehaviour
 {
     WeaponManager weaponManager;
-
-    public InvenSlot[] slots;
-    public Transform slotPanel;
+    public Dictionary<int, WeaponData> WeaponDataList = new Dictionary<int, WeaponData>();
 
     private void Awake()
     {
         weaponManager = WeaponManager.Instance;
+
     }
 
     public void Start()
     {
-        
 
-        slots = new InvenSlot[slotPanel.childCount];
-        for (int i = 0; i < slots.Length; i++)
-        {
-            slots[i] = slotPanel.GetChild(i).GetComponent<InvenSlot>();
-            slots[i].slotIndex = i;
-            slots[i].InvenPopup = this;
-            slots[i].BuyCost.text = weaponManager.WeaponList[i].buyCost.ToString("N0");
-        }       
+    }
 
+    public void WeaponDataSet()
+    {
+        //리소스 폴더의 무기 정보들을 저장
+        Debug.Log("가방에 무기세팅 완료");
     }
 
     public void Refresh()
