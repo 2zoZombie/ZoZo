@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -8,12 +8,12 @@ public class InvenSlot : MonoBehaviour
 {
     WeaponManager weaponManager;
 
-    //½½·Ô¿¡ µé¾î°¥ Á¤º¸¿Í º¯¼ö
+    //ìŠ¬ë¡¯ì— ë“¤ì–´ê°ˆ ì •ë³´ì™€ ë³€ìˆ˜
     [Header("WeaponInfo")]
     public WeaponSO WeaponSO;
     public InvenPopup InvenPopup;
 
-    //Á¤º¸°¡ µé¾î°¥ ÀÚ¸®
+    //ì •ë³´ê°€ ë“¤ì–´ê°ˆ ìë¦¬
     [Header("SlotInfo")]
     public int slotIndex;
     public bool equipped;
@@ -28,7 +28,7 @@ public class InvenSlot : MonoBehaviour
     public TMP_Text BuyCost;
     public TMP_Text UpgradeCost;
 
-    //½½·ÔÀÇ ¹öÆ° ¿ÀºêÁ§Æ®
+    //ìŠ¬ë¡¯ì˜ ë²„íŠ¼ ì˜¤ë¸Œì íŠ¸
     [Header("Button")]
     public GameObject BuyButton;
     public GameObject Equip_UpgradeBtn;
@@ -42,7 +42,7 @@ public class InvenSlot : MonoBehaviour
 
     private void Start()
     {
-        //°¢ ½½·Ô¿¡ ÀÎµ¦½º ºÎ¿©
+        //ê° ìŠ¬ë¡¯ì— ì¸ë±ìŠ¤ ë¶€ì—¬
         slots = new InvenSlot[slotPanel.childCount];
         for (int i = 0; i < slots.Length; i++)
         {
@@ -50,16 +50,17 @@ public class InvenSlot : MonoBehaviour
             slots[i].slotIndex = i;
         }
 
-        //½½·Ô º° ±¸¸Å ÄÚ½ºÆ®
-        BuyCost.text = weaponManager.WeaponList[slotIndex].buyCost.ToString("N0");
+        //ìŠ¬ë¡¯ ë³„ êµ¬ë§¤ ì½”ìŠ¤íŠ¸
+        BuyCost.text = weaponManager.WeaponSOList[slotIndex].buyCost.ToString("N0");
     }
 
-    public void SetData(WeaponSO weaponSO)
+    public void SetData(WeaponData data)
     {
-        WeaponSO = weaponSO;
-        WeaponIcon.sprite = WeaponSO.weaponIcon;
+        bool isPuchased = data.isPurchased;
+        WeaponSO = data.weaponSO;// ì•„ë˜ ifë¬¸ìœ¼ë¡œ ì²˜ë¦¬
+        WeaponIcon.sprite =  WeaponSO.weaponIcon;
         WPName.text = WeaponSO.weaponName;
-        WPLevel.text = "Lv."+ $"{WPLevel}";
+        WPLevel.text = "Lv."+ $"{data.weaponLevel}";
         ATKVolum.text = WeaponSO.baseAttack.ToString();
         CRITVolum.text = WeaponSO.baseCriticalChance.ToString("N1") + "%";
         UpgradeCost.text = WeaponSO.upgradeCost.ToString();
@@ -67,25 +68,25 @@ public class InvenSlot : MonoBehaviour
 
     public void OnBuyButton()
     {
-        //±¸¸Å ¹öÆ° ºñÈ°¼ºÈ­
+        //êµ¬ë§¤ ë²„íŠ¼ ë¹„í™œì„±í™”
         BuyButton.SetActive(false);
-        //°­È­¹öÆ°,ÀåÂø ¹öÆ° È°¼ºÈ­
+        //ê°•í™”ë²„íŠ¼,ì¥ì°© ë²„íŠ¼ í™œì„±í™”
         Equip_UpgradeBtn.SetActive(true);
-        //Àåºñ Á¤º¸ ºÒ·¯¿À±â
-        SetData(weaponManager.WeaponList[slotIndex]);
-        //ÄÚ½ºÆ® ¼Ò¸ğÇÏ±â
+        //ì¥ë¹„ ì •ë³´ ë¶ˆëŸ¬ì˜¤ê¸°
+        SetData(weaponManager.weaponDatas[slotIndex]);
+        //ì½”ìŠ¤íŠ¸ ì†Œëª¨í•˜ê¸°
     }
 
     public void OnUpgradeButton()
     {
-        //¹«±â·¹º§¾÷
-        //ÄÚ½ºÆ® ¼Ò¸ğÇÏ±â
+        //ë¬´ê¸°ë ˆë²¨ì—…
+        //ì½”ìŠ¤íŠ¸ ì†Œëª¨í•˜ê¸°
     }
 
     public void OnEquip()
     {
-        //±âÁ¸ÀÇ ÀåÂøµÈ ¹«±â ÇØÁ¦
-        //ÇöÀç ´©¸¥ ¹«±â ÀåÂø
+        //ê¸°ì¡´ì˜ ì¥ì°©ëœ ë¬´ê¸° í•´ì œ
+        //í˜„ì¬ ëˆ„ë¥¸ ë¬´ê¸° ì¥ì°©
         
     }
 }

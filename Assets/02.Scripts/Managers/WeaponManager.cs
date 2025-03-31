@@ -6,29 +6,46 @@ public class WeaponManager : Singleton<WeaponManager>
 {
 
     //무기 데이터 리스트
-    public Dictionary<int, WeaponSO> WeaponList = new Dictionary<int, WeaponSO>();
-
+    public List<WeaponSO> WeaponSOList = new List<WeaponSO>();
+    public List<WeaponData> weaponDatas = new List<WeaponData>();
 
     protected override void Awake()
     {
         base.Awake();
-        WeaponDataLoad();
+        WeaponSOLoad();
     }
 
     public void Start()
     {
-        
+
     }
 
-    public void WeaponDataLoad()
+    public void WeaponSOLoad()
     {
         //리소스 폴더의 무기 정보들을 저장
-        WeaponList.Add(0, Resources.Load<WeaponSO>("ScriptableObject/W_WoodShovel"));
-        WeaponList.Add(1, Resources.Load<WeaponSO>("ScriptableObject/W_HarvestShovel"));
-        WeaponList.Add(2, Resources.Load<WeaponSO>("ScriptableObject/W_LargeSickle"));
-        WeaponList.Add(3, Resources.Load<WeaponSO>("ScriptableObject/W_Shotgun"));
-        WeaponList.Add(4, Resources.Load<WeaponSO>("ScriptableObject/W_MachineGun"));
+        WeaponSOList.Add(Resources.Load<WeaponSO>("ScriptableObject/W_WoodShovel"));
+        WeaponSOList.Add(Resources.Load<WeaponSO>("ScriptableObject/W_HarvestShovel"));
+        WeaponSOList.Add(Resources.Load<WeaponSO>("ScriptableObject/W_LargeSickle"));
+        WeaponSOList.Add(Resources.Load<WeaponSO>("ScriptableObject/W_Shotgun"));
+        WeaponSOList.Add(Resources.Load<WeaponSO>("ScriptableObject/W_MachineGun"));
         Debug.Log("메니저에 무기정보세팅 완료");
+    }
+
+    public void NewWeaponData()//newgame에서 호출
+    {
+        for (int i = 0; i < WeaponSOList.Count; i++)
+        {
+            weaponDatas.Add(new WeaponData(WeaponSOList[i]));
+        }
+        weaponDatas[0].isPurchased = true;
+        weaponDatas[0].isEquip = true;
+    }
+
+    public void LoadWeaponData()//loadgame에서 호출
+    {
+        if(GameManager.Instance.playerData ==null) return;
+
+        weaponDatas = GameManager.Instance.playerData.weaponData;
     }
 
     public void PurchaseWeapon()
