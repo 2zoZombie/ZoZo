@@ -40,10 +40,9 @@ public class InvenSlot : MonoBehaviour
         WeaponSO = weaponSO;
         WeaponIcon.sprite = WeaponSO.weaponIcon;
         WPName.text = WeaponSO.weaponName;
-        WPLevel.text = "Lv.0";
+        WPLevel.text = "Lv."+"0";
         ATKVolum.text = WeaponSO.baseAttack.ToString();
         CRITVolum.text = WeaponSO.baseCriticalChance.ToString("N1") + "%";
-        BuyCost.text = WeaponSO.buyCost.ToString();
         UpgradeCost.text = WeaponSO.upgradeCost.ToString();
     }
 
@@ -54,6 +53,8 @@ public class InvenSlot : MonoBehaviour
         //강화버튼,장착 버튼 활성화
         Equip_UpgradeBtn.SetActive(true);
         //장비 정보 불러오기
+        SetData(WeaponSO);
+        //코스트 소모하기
         
 
 
@@ -61,6 +62,7 @@ public class InvenSlot : MonoBehaviour
 
     public void OnUpgradeButton()
     {
+        //무기레벨업
         //
     }
 

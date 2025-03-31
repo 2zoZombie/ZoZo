@@ -12,9 +12,14 @@ public class InvenPopup : MonoBehaviour
     public InvenSlot[] slots;
     public Transform slotPanel;
 
-    public void Start()
+    private void Awake()
     {
         weaponManager = WeaponManager.Instance;
+    }
+
+    public void Start()
+    {
+        
 
         slots = new InvenSlot[slotPanel.childCount];
         for (int i = 0; i < slots.Length; i++)
@@ -22,11 +27,10 @@ public class InvenPopup : MonoBehaviour
             slots[i] = slotPanel.GetChild(i).GetComponent<InvenSlot>();
             slots[i].slotIndex = i;
             slots[i].InvenPopup = this;
-            
-        }
+            slots[i].BuyCost.text = weaponManager.WeaponList[i].buyCost.ToString("N0");
+        }       
 
     }
-
 
     public void Refresh()
     {
