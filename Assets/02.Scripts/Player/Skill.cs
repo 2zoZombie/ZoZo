@@ -22,7 +22,7 @@ public class Skill : MonoBehaviour
 
     private void OnValidate()
     {
-        skillImage = transform.Find("Icon")?.GetComponent<Image>();
+        skillImage = transform.Find("Icon").GetComponent<Image>();
         levelupBtn = transform.Find("LevelUpBtn")?.GetComponent<Button>();
         btnText = levelupBtn.GetComponentInChildren<TextMeshProUGUI>();
 
