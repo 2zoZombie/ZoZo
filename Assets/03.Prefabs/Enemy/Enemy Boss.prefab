@@ -118,7 +118,7 @@ Animator:
   m_GameObject: {fileID: 3257274387829666848}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 8d1d920724ffb8a409ce0e458dc4b7a9, type: 2}
+  m_Controller: {fileID: 22100000, guid: 360a5d8837a94de49b354aa227979bed, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -193,12 +193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2b9f6014044737488438d7abfef7597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyStatsTable: {fileID: 11400000, guid: 4c9530e326d2c9e4e9c5f37889c6278f, type: 2}
-  enemyIndex: 3
+  entityName: 
   maxHp: 100
   curHp: 0
+  enemyStatsTable: {fileID: 11400000, guid: 4c9530e326d2c9e4e9c5f37889c6278f, type: 2}
+  enemyIndex: 4
   attack: 0
-  mainCamera: {fileID: 0}
-  EnemyLayer:
-    serializedVersion: 2
-    m_Bits: 0

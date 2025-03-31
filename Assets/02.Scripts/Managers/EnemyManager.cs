@@ -5,6 +5,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
@@ -14,14 +15,24 @@ public class EnemyManager : Singleton<EnemyManager>
 
     int stage = 0;
     public int spawncount;
+    public int curspawncout;
+    public Image uiBar;
 
-    private List<GameObject> spawnEnemy = new List<GameObject>();
+    public List<GameObject> spawnEnemy = new List<GameObject>();
+
+    [SerializeField] private TextMeshProUGUI SpawnCaout;
+
     Enemy enemy;
 
     public void Start()
     {
         StartCoroutine(CapterCoroutine());
         enemy = FindObjectOfType<Enemy>();
+    }
+    private void Update()
+    {
+        SetSpawnText();
+        uiBar.fillAmount = GetPercentage();
     }
 
     private IEnumerator CapterCoroutine()
@@ -36,7 +47,7 @@ public class EnemyManager : Singleton<EnemyManager>
             {
                 for (int s = stage; s <= 4; s++)
                 {
-                    while (spawncount == 0)
+                    while (curspawncout == 0)
                     {
                         NextStage();
                     }
@@ -45,7 +56,6 @@ public class EnemyManager : Singleton<EnemyManager>
                         yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
                         yield return new WaitForSeconds(3f);
                         Destroy(tlieMap);
-                        spawncount = 0;
                         i++;
                         break;
                     }
@@ -74,7 +84,7 @@ public class EnemyManager : Singleton<EnemyManager>
             GameObject enemyObject;
             if (stage % 4 == 0 && stage != 0)
             {
-                enemyObject = Instantiate(enemies[3].gameObject, spawnPosition, Quaternion.identity);
+                enemyObject = Instantiate(enemies[4].gameObject, spawnPosition, Quaternion.identity);
                 enemyObject.name = "Boss Enemy";
                 spawncount++;
                 return;
@@ -86,15 +96,25 @@ public class EnemyManager : Singleton<EnemyManager>
                 spawncount++;
             }
             spawnEnemy.Add(enemyObject);
+            curspawncout = spawncount;
         }
     }
 
 
-    public void NextStage()
+    private void SetSpawnText()
     {
-        SpawnEnemy();
-        //enemy.GrowthStats();
+        SpawnCaout.text = curspawncout + "/" + spawncount;
     }
 
+    public void NextStage()
+    {
+        spawncount = 0;
+        SpawnEnemy();
+    }
+
+    float GetPercentage()
+    {
+        return (curspawncout / spawncount) *100f;
+    }
 }
 

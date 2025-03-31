@@ -7,14 +7,12 @@ using UnityEngine.UI;
 public class StageUI : MonoBehaviour
 {
     EnemyManager enemyManager;
-    //[SerializeField] private TextMeshProUGUI damageText;
     [SerializeField] private TextMeshProUGUI SpawnCaout;
     private float curCount;
     private float startCount;
 
 
-    //[SerializeField] TextMeshProUGUI capternumberText;
-    public Image uiBar;
+
     private void Start()
     {
         enemyManager = GetComponent<EnemyManager>();
@@ -24,25 +22,17 @@ public class StageUI : MonoBehaviour
     }
     private void Update()
     {
-        uiBar.fillAmount = GetPercentage();
+        //uiBar.fillAmount = GetPercentage();
     }
 
-    //public void ShowDamageUI(float damage)
+    //float GetPercentage()
     //{
-    //    TextMeshProUGUI damagePopup = Instantiate(damageText, gameObject.transform.position, Quaternion.identity);
-    //    damageText.text = damage.ToString();
-    //    damagePopup.transform.Translate(Vector3.up * 0.8f);
-    //    Destroy(damageText.gameObject, 2f);
+    //    return curCount / startCount;
     //}
-
-    float GetPercentage()
-    {
-        return curCount / startCount;
-    }
     private void SetSpawCount()
     {
-        startCount = 
-        curCount = enemyManager.spawncount;
+        startCount = enemyManager.spawncount;
+        curCount = enemyManager.curspawncout;
     }
     private void SetSpawnText()
     {
