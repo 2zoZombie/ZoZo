@@ -135,7 +135,7 @@ public class GameManager : Singleton<GameManager>
 
     int CalculateDamage(bool isCrit)
     {
-        float baseDamage = curWeaponData.Weapon.baseAttack + curWeaponData.WeaponLevel * curWeaponData.Weapon.attackValum_Up;
+        float baseDamage = curWeaponData.weaponSO.baseAttack + curWeaponData.weaponLevel * curWeaponData.weaponSO.attackValum_Up;
         baseDamage *= UnityEngine.Random.Range(0.9f, 1.1f);
         float critMultiplier = player.critDamage.impressionStat * playerData.critDamageLevel;
         int totalDamage;
@@ -155,7 +155,7 @@ public class GameManager : Singleton<GameManager>
 
     bool IsCrit()
     {
-        int critChance = Mathf.RoundToInt(curWeaponData.Weapon.baseCriticalChance);
+        int critChance = Mathf.RoundToInt(curWeaponData.weaponSO.baseCriticalChance);
         int randValue = UnityEngine.Random.Range(0, 100);
 
         return critChance >= randValue;
