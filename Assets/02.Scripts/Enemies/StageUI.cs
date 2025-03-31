@@ -12,6 +12,11 @@ public class StageUI : MonoBehaviour
     public TMP_Text stageText;
     Sequence currentSequence;
 
+    EnemyManager enemyManager;
+    [SerializeField] private TextMeshProUGUI SpawnCaout;
+    private float curCount;
+    private float startCount;
+
     private void Awake()
     {
         UIManager.Instance.stageUI = this;
@@ -23,15 +28,37 @@ public class StageUI : MonoBehaviour
         stageTitle.gameObject.SetActive(false);
     }
 
+
     private void Start()
     {
-
+        SetSpawCount();
+        SetSpawnText();
     }
 
     public void SetStageTitle()
     {
         stageTitle.text = StageManager.Instance.currentStages[StageManager.Instance.currentStage].stageName;
         stageTitle.gameObject.SetActive(true);
+
+        
+    }
+    private void Update()
+    {
+        //uiBar.fillAmount = GetPercentage();
+    }
+
+    //float GetPercentage()
+    //{
+    //    return curCount / startCount;
+    //}
+    private void SetSpawCount()
+    {
+        startCount = enemyManager.spawncount;
+        curCount = enemyManager.curspawncout;
+    }
+    private void SetSpawnText()
+    {
+        SpawnCaout.text = curCount + "/" + startCount;
     }
 
     public void ShowStageText(string message)
