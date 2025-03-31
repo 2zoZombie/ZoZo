@@ -11,10 +11,11 @@ public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void Awake()
     {
+        InitObjectPool();
     }
     protected virtual void Start()
     {
-        InitObjectPool();
+        
     }
 
     protected void InitObjectPool()
@@ -38,16 +39,16 @@ public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
-    public GameObject GetFromPool(GameObject prefab, Transform spawnPosition, Transform newParent = null)
+    public virtual T GetFromPool(GameObject prefab, Transform spawnPosition, Transform newParent = null)
     {
-        GameObject obj;
+        T obj;
         if (poolDictionary.ContainsKey(prefab.name) && poolDictionary[prefab.name].Count > 0)
         {
-            obj = poolDictionary[prefab.name].Dequeue().gameObject;
+            obj = poolDictionary[prefab.name].Dequeue();
         }
         else // 풀에 남은 오브젝트가 없으면 새로 생성
         {
-            obj = Instantiate(prefab);
+            obj = Instantiate(prefab).GetComponent<T>();
             obj.name = prefab.name;
         }
 

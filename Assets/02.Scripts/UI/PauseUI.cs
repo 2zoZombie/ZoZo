@@ -11,6 +11,11 @@ public class PauseUI : MonoBehaviour
     public Slider bgmSlider;
     public Slider sfxSlider;
 
+    private void Awake()
+    {
+        UIManager.Instance.pausePanel = this.gameObject;
+    }
+
     private void Start()
     {
         bgmSlider.onValueChanged.AddListener(AudioManager.Instance.SetBGMVolume);

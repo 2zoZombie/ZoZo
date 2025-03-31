@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinPool : ObjectPool<Coin>
+public class BossHealthBar : HealthBar
 {
+
 }
