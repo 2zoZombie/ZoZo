@@ -2,19 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-//TODO: 플레이어 데이터 클래스 보고 수정될 수 있음
 public enum StatIndex
 {
     CriticalDamage,          //치명타 데미지
     GoldGainRate,            //골드 획득량
     AutoAttackInterval       //자동 공격 간격
-}
-
-public enum SkillType
-{
-    PercentageBuff,      // 퍼센트 형식으로 스탯이 증가하는 스킬
-    TimedActive,         // 일정 시간마다 자동 실행되는 스킬
 }
 
 //ScriptableObject를 만들 때 빠르게 만들 수 있도록
@@ -23,7 +15,6 @@ public enum SkillType
 public class SkillSO : ScriptableObject
 {
     public StatIndex index;           //올려줄 스탯 인덱스
-    public SkillType type;            //스킬의 타입
 
     public string skillName;          //능력치 이름 (ex - 치명타)
     public string skillDescription;   //아래 출력될 설명 내지 풀네임? (ex - 치명타 데미지)
