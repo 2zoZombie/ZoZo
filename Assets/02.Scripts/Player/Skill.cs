@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Skill : MonoBehaviour
@@ -14,6 +16,8 @@ public class Skill : MonoBehaviour
     public TextMeshProUGUI btnText;
     public TextMeshProUGUI _name;
     public TextMeshProUGUI description;
+
+    public EventTrigger trigger;
 
     private int indexNum;
     private int currentPrice;
@@ -27,6 +31,15 @@ public class Skill : MonoBehaviour
         }
         set
         {
+            //이미 한계 레벨이라면 변경하지 않는다.
+            if (!CheckMaxLevel(CurrentLevel)) return;
+
+            //플레이어가 현재 가격만큼의 코인을 가지고 있는지 체크 (false시 실행X)
+            if (!GameManager.Instance.SpendCoin(currentPrice))
+            {
+                return;
+            }
+
             //CurrentLevel이 바뀔 때마다 playerData의 값을 변경
             currentLevel = value;
             GameManager.Instance.playerData.statLevel[indexNum] = currentLevel;
@@ -39,6 +52,9 @@ public class Skill : MonoBehaviour
         }
     }
 
+    private float timer = 0.0f;
+    private bool startTimer = false;
+    private bool isHolding = false;
 
     private void OnValidate()
     {
@@ -60,10 +76,33 @@ public class Skill : MonoBehaviour
 
         //레벨업 버튼에 메서드 할당
         levelupBtn.onClick.AddListener(SkillLevelUp);
-
         //현재 가격 초기화
         currentPrice = data.basicPrice;
         indexNum = (int)data.index;
+
+        //이벤트 할당
+        trigger = transform.Find("LevelUpBtn")?.GetComponent<EventTrigger>();
+        if(trigger == null)
+        {
+            transform.Find("LevelUpBtn")?.AddComponent<EventTrigger>();
+        }
+
+        //이벤트 붙여주기
+        EventTrigger.Entry entryDown = new EventTrigger.Entry();
+        EventTrigger.Entry entryUp = new EventTrigger.Entry();
+
+        entryDown.eventID = EventTriggerType.PointerDown;
+        entryUp.eventID = EventTriggerType.PointerUp;
+
+        entryDown.callback.AddListener((data) => { OnPointerDown(); });
+        entryUp.callback.AddListener((data) => { OnPointerUp(); });
+
+        //OnValidate라 자꾸 여러개가 붙어서 추가함...
+        trigger.triggers.Clear();
+
+        trigger.triggers.Add(entryDown);
+        trigger.triggers.Add(entryUp);
+
     }
 
     //TODO: 테스트를 위한 코드 (합쳐지면 지워줘야함)
@@ -81,29 +120,57 @@ public class Skill : MonoBehaviour
         currentLevel = GameManager.Instance.playerData.statLevel[indexNum];
 
         //TODO: 테스트 코드 삭제하기
-        GameManager.Instance.GetCoin(100000);
+        GameManager.Instance.GetCoin(10000);
     }
 
+    private void Update()
+    {
+        //델리게이트로 연결하기 전에 업데이트에서 테스트 해보는 코드
+        //나중에 지워줘야 함
+        CheckEnoughCoins();
+
+        //오래 누르면 연속강화
+        if (startTimer)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= 1f)
+            {
+                isHolding = true;
+            }
+
+        }
+
+        if (isHolding)
+        {
+            if (timer >= 0.2f)
+            {
+                CurrentLevel++;
+                timer = 0.0f;
+            }
+        }
+    }
 
     public void SkillLevelUp()
     {
-        //이미 한계 레벨이라면 변경하지 않는다.
-        if (!CheckMaxLevel(CurrentLevel)) return;
-
-        //플레이어가 현재 가격만큼의 코인을 가지고 있는지 체크 (false시 실행X)
-        if (!GameManager.Instance.SpendCoin(currentPrice))
-        {
-            return;
-        }
-
         //해당 스텟 레벨을 1 증가시킴
         CurrentLevel++; 
     }
 
     public void UIRefresh(StatIndex index)
     {
+
         _name.text = $"{data.skillName} {CurrentLevel}";
-        btnText.text = $"레벨업 {currentPrice}ⓒ";
+
+        if(CurrentLevel == data.maxLevel)
+        {
+            btnText.text = "Max";
+        }
+        else
+        {
+            btnText.text = $"레벨업 {currentPrice}ⓒ";
+        }
+            
 
         //임시 코드 (GameManager에 없길래 이쪽에서 갱신함)
         UIManager.Instance.coinDisplayUI.SetCoinText();
@@ -125,6 +192,26 @@ public class Skill : MonoBehaviour
         }
     }
 
+    //업그레이드 버튼에 비용을 표시할 때, 재화가 충분한 경우에는 검은색, 재화가 부족한 경우에는 빨간 색으로 표시
+    public void CheckEnoughCoins()
+    {
+        if(currentLevel == data.maxLevel)
+        {
+            btnText.color = Color.red;
+        }
+        //충분한 경우
+        else if(GameManager.Instance.playerData.coin >= currentPrice)
+        {
+            btnText.color = Color.black;
+        }
+        //충분하지 않은 경우
+        else
+        {
+            btnText.color = Color.red;
+        }    
+    }
+
+
     private bool CheckMaxLevel(int value)
     {
         if (value >= data.maxLevel)
@@ -132,11 +219,20 @@ public class Skill : MonoBehaviour
             Debug.Log("이미 최대 레벨입니다.");
             return false;
         }
-        else if (value == data.maxLevel - 1)
-        {
-            btnText.text = "MAX";
-        }
 
         return true;
     }
+
+    public void OnPointerDown()
+    {
+        startTimer = true;
+    }
+
+    public void OnPointerUp()
+    {
+        startTimer = false;
+        isHolding = false;
+        timer = 0.0f;
+    }
+
 }
