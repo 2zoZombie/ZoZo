@@ -93,12 +93,6 @@ public class InvenSlot : MonoBehaviour
     {
         //장착 버튼 비활성화
         EquipButton.SetActive(!EquipButton.activeSelf);
-        //기존의 장착된 무기 해제
-        for (int i = 0; i < weaponManager.weaponSOList.Count; i++)
-        {
-            weaponManager.weaponDatas[i].isEquip = false;
-        }
-        //현재 누른 무기 장착
-        weaponManager.weaponDatas[slotIndex].isEquip = true;
+        weaponManager.EquipWeapon();
     }
 }

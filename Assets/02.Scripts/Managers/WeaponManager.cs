@@ -5,7 +5,8 @@ using UnityEngine;
 public class WeaponManager : Singleton<WeaponManager>
 {
     //장착아이템
-    public WeaponData weaponInfo;
+    public WeaponData equipedWeapon;
+    public WeaponData selectedWeapon;
 
 
     //무기 데이터 리스트
@@ -15,7 +16,7 @@ public class WeaponManager : Singleton<WeaponManager>
     protected override void Awake()
     {
         base.Awake();
-        WeaponSOLoad();
+        //WeaponSOLoad();
         NewWeaponData();
     }
 
@@ -24,16 +25,16 @@ public class WeaponManager : Singleton<WeaponManager>
         
     }
 
-    public void WeaponSOLoad()
-    {
-        //리소스 폴더의 무기 정보들을 저장
-        weaponSOList.Add(Resources.Load<WeaponSO>("ScriptableObject/W_WoodShovel"));
-        weaponSOList.Add(Resources.Load<WeaponSO>("ScriptableObject/W_HarvestShovel"));
-        weaponSOList.Add(Resources.Load<WeaponSO>("ScriptableObject/W_LargeSickle"));
-        weaponSOList.Add(Resources.Load<WeaponSO>("ScriptableObject/W_Shotgun"));
-        weaponSOList.Add(Resources.Load<WeaponSO>("ScriptableObject/W_MachineGun"));
-        Debug.Log("메니저에 무기정보세팅 완료");
-    }
+    //public void WeaponSOLoad()
+    //{
+    //    //리소스 폴더의 무기 정보들을 저장
+    //    weaponSOList.Add(Resources.Load<WeaponSO>("ScriptableObject/W_WoodShovel"));
+    //    weaponSOList.Add(Resources.Load<WeaponSO>("ScriptableObject/W_HarvestShovel"));
+    //    weaponSOList.Add(Resources.Load<WeaponSO>("ScriptableObject/W_LargeSickle"));
+    //    weaponSOList.Add(Resources.Load<WeaponSO>("ScriptableObject/W_Shotgun"));
+    //    weaponSOList.Add(Resources.Load<WeaponSO>("ScriptableObject/W_MachineGun"));
+    //    Debug.Log("메니저에 무기정보세팅 완료");
+    //}
 
     public void NewWeaponData()//newgame에서 호출
     {
@@ -41,6 +42,7 @@ public class WeaponManager : Singleton<WeaponManager>
         {
             weaponDatas.Add(new WeaponData(weaponSOList[i]));
         }
+        equipedWeapon = weaponDatas[0];
         weaponDatas[0].isPurchased = true;
         weaponDatas[0].isEquip = true;
     }
@@ -64,13 +66,10 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public void EquipWeapon()
     {
-        int i;
         //기존의 장착된 무기 해제
-        for (i = 0; i < weaponSOList.Count; i++)
-        {
-            weaponDatas[i].isEquip = false;
-        }
+        equipedWeapon.isEquip = false;
+        equipedWeapon = null;
         //현재 누른 무기 장착
-        weaponDatas[weaponInfo.weaponSO.weaponID].isEquip = true;
+        weaponDatas[selectedWeapon.weaponSO.weaponID].isEquip = true;
     }
 }
