@@ -12,6 +12,7 @@ public class InvenPopup : MonoBehaviour
     public Dictionary<int, WeaponData> WeaponDataList = new Dictionary<int, WeaponData>();
     public InvenSlot[] slots;
     public Transform slotPanel;
+    public GameObject invenPopup;
 
     private void Awake()
     {
@@ -36,10 +37,9 @@ public class InvenPopup : MonoBehaviour
         Debug.Log("가방에 무기세팅 완료");
     }
 
-    public void Refresh()
+    public void OninvenPopup()
     {
-
+        invenPopup.SetActive(!invenPopup.activeSelf);  
     }
-
 
 }

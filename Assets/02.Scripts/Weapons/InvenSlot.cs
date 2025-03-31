@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,16 +40,18 @@ public class InvenSlot : MonoBehaviour
 
     private void Start()
     {
+        
         //슬롯 별 구매 코스트
-        BuyCost.text = weaponManager.WeaponSOList[slotIndex].buyCost.ToString("N0");
+        BuyCost.text = weaponManager.weaponSOList[slotIndex].buyCost.ToString("N0");
+    }
+
+    public void Refresh()
+    {
+        SetData(weaponManager.weaponDatas[slotIndex]);
     }
 
     public void SetData(WeaponData data)
     {
-        if (data.weaponSO.weaponID == 0)
-        {
-            data.isPurchased = true;
-        }
         bool isPuchased = data.isPurchased;
         WeaponSO = data.weaponSO;// 아래 if문으로 처리
         
@@ -70,6 +73,10 @@ public class InvenSlot : MonoBehaviour
         BuyButton.SetActive(false);
         //강화버튼,장착 버튼 활성화
         Equip_UpgradeBtn.SetActive(true);
+
+        //구매 여부
+        weaponManager.weaponDatas[slotIndex].isPurchased = true;
+
         //장비 정보 불러오기
         SetData(weaponManager.weaponDatas[slotIndex]);
         //코스트 소모하기
@@ -78,14 +85,20 @@ public class InvenSlot : MonoBehaviour
     public void OnUpgradeButton()
     {
         //무기레벨업
-
+        
         //코스트 소모하기
     }
 
     public void OnEquip()
     {
+        //장착 버튼 비활성화
+        EquipButton.SetActive(!EquipButton.activeSelf);
         //기존의 장착된 무기 해제
+        for (int i = 0; i < weaponManager.weaponSOList.Count; i++)
+        {
+            weaponManager.weaponDatas[i].isEquip = false;
+        }
         //현재 누른 무기 장착
-        
+        weaponManager.weaponDatas[slotIndex].isEquip = true;
     }
 }
