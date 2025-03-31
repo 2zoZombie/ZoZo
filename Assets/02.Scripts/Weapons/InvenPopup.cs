@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,8 @@ public class InvenPopup : MonoBehaviour
 {
     WeaponManager weaponManager;
     public Dictionary<int, WeaponData> WeaponDataList = new Dictionary<int, WeaponData>();
+    public InvenSlot[] slots;
+    public Transform slotPanel;
 
     private void Awake()
     {
@@ -18,7 +21,13 @@ public class InvenPopup : MonoBehaviour
 
     public void Start()
     {
-
+        //°¢ ½½·Ô¿¡ ÀÎµ¦½º ºÎ¿©
+        slots = new InvenSlot[slotPanel.childCount];
+        for (int i = 0; i < slots.Length; i++)
+        {
+            slots[i] = slotPanel.GetChild(i).GetComponent<InvenSlot>();
+            slots[i].slotIndex = i;
+        }
     }
 
     public void WeaponDataSet()

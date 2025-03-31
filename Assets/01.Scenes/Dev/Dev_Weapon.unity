@@ -1668,11 +1668,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponSO: {fileID: 0}
-  InvenPopup: {fileID: 0}
   slotIndex: 0
   equipped: 0
-  slots: []
-  slotPanel: {fileID: 2097019448}
   WeaponIcon: {fileID: 1233722038}
   WPName: {fileID: 71939548}
   WPLevel: {fileID: 794053556}
@@ -4972,11 +4969,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponSO: {fileID: 0}
-  InvenPopup: {fileID: 0}
   slotIndex: 0
   equipped: 0
-  slots: []
-  slotPanel: {fileID: 2097019448}
   WeaponIcon: {fileID: 1460597665}
   WPName: {fileID: 445774566}
   WPLevel: {fileID: 51443699}
@@ -8843,11 +8837,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponSO: {fileID: 0}
-  InvenPopup: {fileID: 0}
   slotIndex: 0
   equipped: 0
-  slots: []
-  slotPanel: {fileID: 2097019448}
   WeaponIcon: {fileID: 510017850}
   WPName: {fileID: 629413527}
   WPLevel: {fileID: 236245338}
@@ -11099,6 +11090,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1105290225}
+  - component: {fileID: 1105290226}
   m_Layer: 5
   m_Name: InvenPopup
   m_TagString: Untagged
@@ -11127,6 +11119,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 760, y: 1280}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1105290226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105290224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b535f87b70051574f8f09204f5d646f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots: []
+  slotPanel: {fileID: 2097019448}
 --- !u!1 &1133069197
 GameObject:
   m_ObjectHideFlags: 0
@@ -12240,11 +12246,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponSO: {fileID: 0}
-  InvenPopup: {fileID: 0}
   slotIndex: 0
   equipped: 0
-  slots: []
-  slotPanel: {fileID: 2097019448}
   WeaponIcon: {fileID: 1986513578}
   WPName: {fileID: 1170711755}
   WPLevel: {fileID: 1660199994}
@@ -15728,11 +15731,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponSO: {fileID: 0}
-  InvenPopup: {fileID: 0}
   slotIndex: 0
   equipped: 0
-  slots: []
-  slotPanel: {fileID: 2097019448}
   WeaponIcon: {fileID: 1602734707}
   WPName: {fileID: 1000989552}
   WPLevel: {fileID: 1462591860}

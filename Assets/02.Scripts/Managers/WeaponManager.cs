@@ -17,7 +17,7 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public void Start()
     {
-
+        
     }
 
     public void WeaponSOLoad()
