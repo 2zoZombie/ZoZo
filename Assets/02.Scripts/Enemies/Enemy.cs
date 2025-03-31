@@ -24,6 +24,7 @@ public class Enemy : Entity
     private Animator animator;
 
     PlayerData playerData;
+    StageUI stageUi;
 
     HealthBar healthBar;
     private float positionx;
@@ -31,8 +32,6 @@ public class Enemy : Entity
 
     private void Awake()
     {
-        currentEnemyStats = enemyStatsTable.enemyStatsList[enemyIndex];
-
         playerData = GameManager.Instance.playerData;
 
         rigidbody = GetComponent<Rigidbody2D>();
@@ -45,6 +44,7 @@ public class Enemy : Entity
 
     private void Start()
     {
+        currentEnemyStats = enemyStatsTable.enemyStatsList[enemyIndex];
         healthBar = UIManager.Instance.healthBarPool.GetFromPool(this.transform);
         healthBar.SetTarget(this as Entity);
     }
@@ -111,7 +111,7 @@ public class Enemy : Entity
         DropItem();
         EnemyManager.Instance.RemoveEnemy(this);
         animator.SetBool("IsDead" ,true);
-        EnemyManager.Instance.curspawncout--;
+        GameManager.Instance.playerData.defeatedEnemyCount++;
         Destroy(gameObject, 3f);
     }
 
