@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39f3e930381d3894dbc8557280b1e134, type: 3}
   m_Name: W_LargeSickle
   m_EditorClassIdentifier: 
-  weaponID: 0
+  weaponID: 2
   weaponName: "\uB300\uD615\uB0AB"
   baseAttack: 30
   baseCriticalChance: 15
