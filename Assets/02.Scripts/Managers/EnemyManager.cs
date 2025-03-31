@@ -8,7 +8,8 @@ using UnityEngine.Rendering;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
-    [SerializeField] public Enemy[] enemies;
+    [SerializeField] EnemyStatsTable enemyStatsTable;
+    public List<Entity> enemies;
     [SerializeField] GameObject[] capterMap;
 
 
@@ -20,17 +21,16 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public void Start()
     {
-        StartCoroutine(CapterCoroutine());
-        enemy = FindObjectOfType<Enemy>();
+        //StartCoroutine(CapterCoroutine());
     }
 
-    private IEnumerator CapterCoroutine()
+    /*private IEnumerator CapterCoroutine()
     {
         GameObject tlieMap;
         for (int i = 0; i < capterMap.Length;)
         {
             tlieMap = Instantiate(capterMap[i], transform.position, Quaternion.identity);
-            Debug.Log("현재 챕터 : " + (i+1)); // UI 표시
+            Debug.Log("현재 챕터 : " + (i + 1)); // UI 표시
             stage = 0;
             if (stage == 0)
             {
@@ -56,12 +56,44 @@ public class EnemyManager : Singleton<EnemyManager>
                 }
             }
         }
-    }
+    }*/
 
-    public void SpawnEnemy()
+    public void SpawnEnemy(StageType stageType)
     {
-        int enmys = 3;
-        for (int i = 0; i < enmys; i++)
+        Entity enemy;
+
+        switch (stageType)
+        {
+            case StageType.Normal:
+                int enenmyQuantity = 3 + Random.Range(0, StageManager.Instance.currentStage + 1);
+                for (int i = 0; i < enenmyQuantity; i++)
+                {
+                    enemy = Instantiate(
+                        enemyStatsTable.enemyStatsList[Random.Range(0, enemyStatsTable.enemyStatsList.Count)].prefab,
+                        RandomSpawnPosition(), Quaternion.identity).GetComponent<Entity>();
+
+                    enemies.Add(enemy);
+                }
+                break;
+            case StageType.Boss:
+
+                enemy = Instantiate(
+                    enemyStatsTable.bossStatsList[Random.Range(0, enemyStatsTable.bossStatsList.Count)].prefab,
+                    RandomSpawnPosition(), Quaternion.identity).GetComponent<Entity>();
+
+                enemies.Add(enemy);
+
+                break;
+            case StageType.Treasure:
+                enemy = Instantiate(
+                    enemyStatsTable.bossStatsList[Random.Range(0, enemyStatsTable.bossStatsList.Count)].prefab,
+                    RandomSpawnPosition(), Quaternion.identity).GetComponent<Entity>();
+
+                enemies.Add(enemy);
+                break;
+        }
+
+        /*for (int i = 0; i < enmys; i++)
         {
             enmys = 3;
 
@@ -86,14 +118,32 @@ public class EnemyManager : Singleton<EnemyManager>
                 spawncount++;
             }
             spawnEnemy.Add(enemyObject);
+        }*/
+
+
+    }
+
+    Vector3 RandomSpawnPosition()
+    {
+        return new Vector3(Random.Range(2.5f, 3), Random.Range(-1f, 3f), 0);
+    }
+
+    public void RemoveEnemy(Entity enemy)//enemy die에 넣어 줘야함
+    {
+        if (enemies.Contains(enemy))
+        {
+            enemies.Remove(enemy);
+        }
+
+        if (enemies.Count == 0)
+        {
+            CompleteStage();
         }
     }
 
-
-    public void NextStage()
+    public void CompleteStage()
     {
-        SpawnEnemy();
-        //enemy.GrowthStats();
+        StageManager.Instance.CompleteStage();
     }
 
 }

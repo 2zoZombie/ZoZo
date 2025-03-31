@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Tilemaps;
 
 public enum StageType
 {
@@ -26,12 +28,6 @@ public class StageData
     }
 }
 
-[CreateAssetMenu(fileName = "Chapter", menuName = "ChapterNameList")]
-public class ChapterNameSO : ScriptableObject
-{
-    public string[] chapterAdjective;
-    public string[] chapterName;
-}
 
 public class StageManager : Singleton<StageManager>
 {
@@ -43,6 +39,12 @@ public class StageManager : Singleton<StageManager>
     public int currentChapter = 1;
     public int currentStage = 0;
     public List<StageData> currentStages;
+    ChapterInfo currentChapterInfo;
+    Tilemap currentTilemap;
+
+    public UnityEvent onStageComplete = new UnityEvent();
+    public UnityEvent onStageStart = new UnityEvent();
+    public UnityEvent onChapterStart = new UnityEvent();
 
     private void Start()
     {
@@ -53,13 +55,16 @@ public class StageManager : Singleton<StageManager>
         currentStages = data.stageDatas;
         currentChapter = data.currentChapter;
         currentStage = data.currentStage;
+        currentChapterInfo = data.currentChapterInfo;
     }
 
-    public void GenerateChapter(int chapterNumber)
+    public void GenerateChapter()
     {
         currentStages = new List<StageData>();
 
         int stageCount = Random.Range(stageMinThreshold, stageMaxThreshold + 1);
+        SelectChapter();
+        SetChapter();
 
         for (int i = 0; i < stageCount; i++)
         {
@@ -72,16 +77,22 @@ public class StageManager : Singleton<StageManager>
             else
                 type = StageType.Normal;
 
-            currentStages.Add(new StageData(i + 1, type, GetStageName(type, chapterNumber, i + 1), false));
+            currentStages.Add(new StageData(i + 1, type, GetStageName(type, currentChapter, i + 1), false));
         }
 
         SetStageDataToPlayerData();
         currentStage = 0;
+        onChapterStart?.Invoke();
+    }
+
+    void SelectChapter()
+    {
+        currentChapterInfo = stageNameSO.chapterInfo[Random.Range(0, stageNameSO.chapterInfo.Length)];
     }
 
     string GetStageName(StageType type, int chapter, int stage)
     {
-        string chapterName = stageNameSO.chapterAdjective[Random.Range(0, stageNameSO.chapterAdjective.Length)] + stageNameSO.chapterName[Random.Range(0, stageNameSO.chapterName.Length)];
+        string chapterName = stageNameSO.chapterAdjective[Random.Range(0, stageNameSO.chapterAdjective.Length)] + currentChapterInfo.chapterName;
         string stageName;
 
         switch (type)
@@ -103,24 +114,39 @@ public class StageManager : Singleton<StageManager>
         return $"챕터 {chapter} {chapterName} {stageName}";
     }
 
+    public void SetChapter()
+    {
+        SetTilemap();
+        SetBGM();
+    }
+
+    void SetTilemap()
+    {
+        if (currentTilemap != null)
+        {
+            Destroy(currentTilemap.gameObject);
+        }
+
+        // 새 타일맵 생성
+        if (currentChapterInfo.tilemap != null)
+        {
+            currentTilemap = Instantiate(currentChapterInfo.tilemap, Vector3.zero, Quaternion.identity);
+        }
+    }
+
+    void SetBGM()
+    {
+        AudioManager.Instance.PlayBGM(currentChapterInfo.bgm);
+    }
+
     public void SetupStage()
     {
         StageData stage = currentStages[currentStage];
         Debug.Log($"{stage.stageName} 시작");
 
         // 타입별 로직 실행 각 몬스터 소환 하면 됨
-        switch (stage.stageType)
-        {
-            case StageType.Normal:
-                break;
-            case StageType.Boss:
-                break;
-            case StageType.Treasure:
-                break;
-            default:
-                break;
-        }
-
+        EnemyManager.Instance.SpawnEnemy(stage.stageType);
+        onStageStart?.Invoke();
     }
 
     public void CompleteStage()
@@ -131,11 +157,12 @@ public class StageManager : Singleton<StageManager>
         if (currentStage >= currentStages.Count)
         {
             currentChapter++;
-            GenerateChapter(currentChapter);
+            GenerateChapter();
         }
 
         SetCurrentInfoToPlayerData();
-        SetupStage();
+        onStageComplete?.Invoke();
+        Invoke("SetupStage", 3f);
     }
 
     void SetCurrentInfoToPlayerData()

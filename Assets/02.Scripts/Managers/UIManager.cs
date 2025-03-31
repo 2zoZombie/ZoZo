@@ -13,6 +13,7 @@ public class UIManager : Singleton<UIManager>
     public CoinDisplayUI coinDisplayUI;
     public HealthBarPool healthBarPool;
     public ErrorPopup errorPopup;
+    public StageUI stageUI;
     public GameObject pausePanel;
     public GameObject enhancePanel;
     public GameObject dimBackground;
