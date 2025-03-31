@@ -11,10 +11,12 @@ public class UIManager : Singleton<UIManager>
 
     [Header("UI")]
     public CoinDisplayUI coinDisplayUI;
+    public HealthBarPool healthBarPool;
     public ErrorPopup errorPopup;
     public GameObject pausePanel;
     public GameObject enhancePanel;
     public GameObject dimBackground;
+    public Canvas canvas;
 
     [Header("Fade")]
     public Image fadeImage;
@@ -71,7 +73,7 @@ public class UIManager : Singleton<UIManager>
         GameManager.Instance.GameResume();
     }
 
-    public void FadeOut(System.Action onComplete)
+    public void FadeOut(System.Action onComplete)//액션을 이용해 메서드를 매개변수로 받기
     {
         fadeImage.raycastTarget = true;
         fadeImage.DOFade(1, fadeDuration).OnComplete(() =>

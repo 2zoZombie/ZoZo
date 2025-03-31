@@ -19,21 +19,25 @@ MonoBehaviour:
     attackDamage: 5
     growthDamage: 1
     enemyType: 0
+    dropQuantity: 10
   - enemyName: Zombie2
     maxHp: 150
     growthHP: 20
     attackDamage: 10
     growthDamage: 2
     enemyType: 0
+    dropQuantity: 100
   - enemyName: Zombie3
     maxHp: 200
     growthHP: 15
     attackDamage: 15
     growthDamage: 5
     enemyType: 0
+    dropQuantity: 10
   - enemyName: BossZombie
     maxHp: 100
     growthHP: 100
     attackDamage: 30
     growthDamage: 10
     enemyType: 1
+    dropQuantity: 20

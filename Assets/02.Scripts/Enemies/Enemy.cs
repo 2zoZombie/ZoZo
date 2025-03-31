@@ -3,54 +3,60 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 
-public class Enemy : MonoBehaviour
+public class Enemy : Entity
 {
 
     public EnemyStatsTable enemyStatsTable;
     public int enemyIndex;
+    EnemyStats currentEnemyStats;
 
     float damage;
 
-    [SerializeField] private float maxHp;
-    [SerializeField] private float curHp;
     [SerializeField] private float attack;
 
-    private int moveSpeed = 15;
+    private int moveSpeed = 40;
 
     private Rigidbody2D rigidbody;
     private Animator animator;
 
     EnemyManager enemyManager;
     StageUI stageUI;
-
+    HealthBar healthBar;
     private float positionx;
 
 
-    private void Start()
+    private void Awake()
     {
-        enemyManager = FindObjectOfType<EnemyManager>();
-        EnemyStats currentEnemyStats = enemyStatsTable.enemyStatsList[enemyIndex];
-        switch (currentEnemyStats.enemyType)
-        {
-            case EnemyType.Normal:
-                break;
-            case EnemyType.Boss:
-                break;
-        }
-
-
-        maxHp = currentEnemyStats.maxHp;
-        curHp = maxHp;
-        attack = currentEnemyStats.attackDamage;
-
+        currentEnemyStats = enemyStatsTable.enemyStatsList[enemyIndex];
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
-        positionx = Random.Range(1.5f, 2.7f);
+        positionx = Random.Range(1.5f, 2.4f);
 
+        SetStats();
+    }
+
+    private void Start()
+    {
+        healthBar = UIManager.Instance.healthBarPool.GetFromPool(this.transform);
+        healthBar.SetTarget(this as Entity);
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            TakeDamage(20, false);
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            TakeDamage(20, true);
+        }
     }
 
     private void FixedUpdate()
@@ -69,15 +75,12 @@ public class Enemy : MonoBehaviour
         //        }
         //    }
         //}
-        if (Input.GetMouseButtonDown(0))
-        {
-            TakeDamage(20);
-        }
+
     }
 
     private void Move()
     {
-       rigidbody.velocity = Vector3.left * moveSpeed * Time.deltaTime;
+        rigidbody.velocity = Vector3.left * moveSpeed * Time.deltaTime;
 
         if (gameObject.transform.position.x < positionx)
         {
@@ -86,13 +89,17 @@ public class Enemy : MonoBehaviour
 
     }
 
-    public void TakeDamage(float damage)
+    public override void TakeDamage(int damage, bool isCrit)//대미지값 int로 수정함
     {
 
         if (curHp > 0)
         {
             //enemyUI.ShowDamageUI(damage);
             curHp -= damage;
+            healthBar.OnHit();
+            GameManager.Instance.DamageEffect(damage, isCrit, this.transform);
+            
+
             if (curHp <= 0)
             {
                 Dead();
@@ -100,23 +107,46 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void Dead()
+    public override void Dead()
     {
         animator.SetBool("Dead", true);
-        enemyManager.spawncount--;
+        DropItem();
+        EnemyManager.Instance.spawncount--;
         Destroy(gameObject, 3f);
     }
 
-    public void GrowthStats()
+    public override void DropItem()
     {
-        for (int i = 0; i < enemyStatsTable.enemyStatsList.Count - 1; i++)
-        {
-            EnemyStats currentEnemyStats = enemyStatsTable.enemyStatsList[i];
+        int quantity = Mathf.CeilToInt(currentEnemyStats.dropQuantity * (1 + 0.5f * GameManager.Instance.playerData.goldBonusLevel));
+        StartCoroutine(CoroutineDropItem(quantity));
+    }
 
-            maxHp += currentEnemyStats.growthHP;
-            damage += currentEnemyStats.growthDamage;
+    IEnumerator CoroutineDropItem(int quantity)
+    {
+        float interval = 1f / quantity;
+        WaitForSeconds wait = new WaitForSeconds(interval);
+        for (int i = 0; i < quantity; i++)
+        {
+            DropItem drops = GameManager.Instance.dropItemPool.GetFromPool(GameManager.Instance.dropItemPool.prefabs[0], this.transform);
+            drops.PlayBounce(this.transform);
+            yield return wait;
         }
     }
+
+    public void SetStats()
+    {
+        entityName = currentEnemyStats.enemyName;
+        maxHp = StatCalculator(currentEnemyStats.maxHp, currentEnemyStats.growthHP);
+        curHp = maxHp;
+        damage = StatCalculator(currentEnemyStats.attackDamage, currentEnemyStats.growthDamage);
+    }
+
+    float StatCalculator(float baseStat, float growthStat)
+    {
+        return baseStat + growthStat * ((GameManager.Instance.playerData != null) ? GameManager.Instance.playerData.currentChapter - 1 : 0);
+    }
+
+
     public void BossGrowthStats()
     {
         EnemyStats bossStats = enemyStatsTable.enemyStatsList[3];
@@ -124,4 +154,6 @@ public class Enemy : MonoBehaviour
         maxHp -= bossStats.growthHP;
         damage -= bossStats.growthDamage;
     }
+
+
 }
