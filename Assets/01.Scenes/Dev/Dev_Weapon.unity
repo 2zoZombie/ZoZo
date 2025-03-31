@@ -9406,17 +9406,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1105290224}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7611c9ef04daf14e8660688d5b0deb6, type: 3}
+  m_Script: {fileID: 11500000, guid: b535f87b70051574f8f09204f5d646f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponList:
-  - {fileID: 11400000, guid: 635e6a1a97498184da218bc93a66b44d, type: 2}
-  - {fileID: 11400000, guid: 23ead474d749c014e9f41152a19d6437, type: 2}
-  - {fileID: 11400000, guid: 81b264bf89c07d8408546592842b6d76, type: 2}
-  - {fileID: 11400000, guid: ec34853748e610e479d97d446f6d1075, type: 2}
-  - {fileID: 11400000, guid: 0a338eb3abe38164eb815b9be3cfa3b4, type: 2}
+  TMP_WeaponName: {fileID: 0}
+  WeaponIcon: {fileID: 0}
+  TMP_AttackPower: {fileID: 0}
+  TMP_CriticalChance: {fileID: 0}
   slots: []
-  InvenPopup: {fileID: 0}
+  slotPanel: {fileID: 2097019448}
 --- !u!1 &1109910884
 GameObject:
   m_ObjectHideFlags: 0
@@ -11103,6 +11101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponSO: {fileID: 0}
+  InvenPopup: {fileID: 0}
   slotIndex: 0
   equipped: 0
   WeaponIcon: {fileID: 1986513578}
@@ -11321,6 +11320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponSO: {fileID: 0}
+  InvenPopup: {fileID: 0}
   slotIndex: 0
   equipped: 0
   WeaponIcon: {fileID: 597545031}
@@ -11454,6 +11454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponSO: {fileID: 0}
+  InvenPopup: {fileID: 0}
   slotIndex: 0
   equipped: 0
   WeaponIcon: {fileID: 1382053699}
@@ -12153,6 +12154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponSO: {fileID: 0}
+  InvenPopup: {fileID: 0}
   slotIndex: 0
   equipped: 0
   WeaponIcon: {fileID: 627405504}
@@ -12674,6 +12676,8 @@ MonoBehaviour:
   WeaponIcon: {fileID: 741237457}
   TMP_AttackPower: {fileID: 631848158}
   TMP_CriticalChance: {fileID: 915768365}
+  slots: []
+  slotPanel: {fileID: 0}
 --- !u!1 &1382053697
 GameObject:
   m_ObjectHideFlags: 0
@@ -14942,8 +14946,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponList: []
-  slots: []
-  InvenPopup: {fileID: 0}
 --- !u!1 &1640006368
 GameObject:
   m_ObjectHideFlags: 0
@@ -18735,6 +18737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponSO: {fileID: 0}
+  InvenPopup: {fileID: 0}
   slotIndex: 0
   equipped: 0
   WeaponIcon: {fileID: 816462705}
@@ -18901,7 +18904,7 @@ GameObject:
   - component: {fileID: 2097019450}
   - component: {fileID: 2097019449}
   m_Layer: 5
-  m_Name: SlotPenel
+  m_Name: SlotPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

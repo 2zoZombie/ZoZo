@@ -4,11 +4,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InvenSlotInfo : MonoBehaviour
+public class InvenSlot : MonoBehaviour
 {
     //슬롯에 들어갈 정보와 변수
     [Header("WeaponInfo")]
     public WeaponSO WeaponSO;
+    public InvenPopup InvenPopup;
 
     [Header("SlotInfo")]
     public int slotIndex;
@@ -28,9 +29,6 @@ public class InvenSlotInfo : MonoBehaviour
     public GameObject Equip_UpgradeBtn;
     public GameObject UpgradeButton;
     public GameObject EquipButton;
-
-    
-
 
     private void Start()
     {
@@ -63,7 +61,7 @@ public class InvenSlotInfo : MonoBehaviour
 
     public void OnUpgradeButton()
     {
-
+        //
     }
 
     public void OnEquip()

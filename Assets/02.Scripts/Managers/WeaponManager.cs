@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class WeaponManager : Singleton<WeaponManager>
 {
-    public List<ScriptableObject> WeaponList = new List<ScriptableObject>();
-    public InvenSlotInfo[] slots;
+    public List<WeaponSO> WeaponList = new List<WeaponSO>();
 
-    public GameObject InvenPopup;
-
+    WeaponData weaponData;
 
 
     protected override void Awake()
     {
         base.Awake();
+        weaponData = new WeaponData(WeaponList[0],0);
     }
 
-
+    public void Start()
+    {
+        
+    }
 }
