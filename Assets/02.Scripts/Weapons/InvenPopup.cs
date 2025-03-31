@@ -1,18 +1,20 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.Profiling.Memory.Experimental;
 using UnityEngine.UI;
 
 public class InvenPopup : MonoBehaviour
 {
     WeaponManager weaponManager;
     public Dictionary<int, WeaponData> WeaponDataList = new Dictionary<int, WeaponData>();
-    public InvenSlot[] slots;
+    public List<InvenSlot> slots = new List<InvenSlot>();
     public Transform slotPanel;
     public GameObject invenPopup;
+    public GameObject slotPrefab;
 
     private void Awake()
     {
@@ -22,19 +24,20 @@ public class InvenPopup : MonoBehaviour
 
     public void Start()
     {
-        //°¢ ½½·Ô¿¡ ÀÎµ¦½º ºÎ¿©
-        slots = new InvenSlot[slotPanel.childCount];
-        for (int i = 0; i < slots.Length; i++)
+        //ê° ìŠ¬ë¡¯ì— ì¸ë±ìŠ¤ ë¶€ì—¬
+        for (int i = 0; i < weaponManager.weaponDatas.Count; i++)
         {
-            slots[i] = slotPanel.GetChild(i).GetComponent<InvenSlot>();
-            slots[i].slotIndex = i;
+            InvenSlot slot = Instantiate(slotPrefab, slotPanel).GetComponent<InvenSlot>();
+            slot.slotIndex = i;
+            slot.SetData(weaponManager.weaponDatas[i]);
+            slots.Add(slot);
         }
     }
 
     public void WeaponDataSet()
     {
-        //¸®¼Ò½º Æú´õÀÇ ¹«±â Á¤º¸µéÀ» ÀúÀå
-        Debug.Log("°¡¹æ¿¡ ¹«±â¼¼ÆÃ ¿Ï·á");
+        //ë¦¬ì†ŒìŠ¤ í´ë”ì˜ ë¬´ê¸° ì •ë³´ë“¤ì„ ì €ì¥
+        Debug.Log("ê°€ë°©ì— ë¬´ê¸°ì„¸íŒ… ì™„ë£Œ");
     }
 
     public void OninvenPopup()

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using TMPro;
@@ -8,8 +8,8 @@ using static Cinemachine.DocumentationSortingAttribute;
 
 public class EquipWeaponInfo : MonoBehaviour
 {
-    //ÀåÂø¹«±â Á¤º¸
-    public WeaponData weaponInfo;
+    //ì¥ì°©ë¬´ê¸° ì •ë³´
+    public WeaponData equipedWeapon;
 
     public TMP_Text equipName;
     public Image equipIcon;
@@ -17,20 +17,23 @@ public class EquipWeaponInfo : MonoBehaviour
     public TMP_Text equipATK;
     public TMP_Text equipCRIT;
 
-    public void EquipData()
+    private void Awake()
     {
-        bool isPuchased = weaponInfo.isPurchased;
+        WeaponManager.Instance.equipWeaponInfo = this;
+    }
 
-        if (isPuchased)
-        {
-            equipName.text = weaponInfo.weaponSO.weaponName;
-            equipIcon.sprite = weaponInfo.weaponSO.weaponIcon;
+    public void SetEquipData(WeaponData data)//ê°•í™” ë²„íŠ¼ì—ë„ ë‹¬ì•„ì£¼ê¸°
+    {
+        equipedWeapon = data;
 
-            equipATK.text =
-            $"°ø°İ·Â : {weaponInfo.weaponSO.baseAttack + weaponInfo.weaponLevel * weaponInfo.weaponSO.attackValum_Up}";
-            equipCRIT.text =
-            $"Ä¡¸íÅ¸ È®·ü : {weaponInfo.weaponSO.baseCriticalChance} %";
 
-        }
+        equipName.text = equipedWeapon.weaponSO.weaponName;
+        equipIcon.sprite = equipedWeapon.weaponSO.weaponIcon;
+
+        equipATK.text =
+        $"ê³µê²©ë ¥ : {equipedWeapon.weaponSO.baseAttack + equipedWeapon.weaponLevel * equipedWeapon.weaponSO.attackVolume_Up}";
+        equipCRIT.text =
+        $"ì¹˜ëª…íƒ€ í™•ë¥  : {equipedWeapon.weaponSO.baseCriticalChance} %";
+
     }
 }

@@ -5,8 +5,9 @@ using UnityEngine;
 public class WeaponManager : Singleton<WeaponManager>
 {
     //장착아이템
-    public WeaponData equipedWeapon;
+
     public WeaponData selectedWeapon;
+    public EquipWeaponInfo equipWeaponInfo;
 
 
     //무기 데이터 리스트
@@ -42,9 +43,10 @@ public class WeaponManager : Singleton<WeaponManager>
         {
             weaponDatas.Add(new WeaponData(weaponSOList[i]));
         }
-        equipedWeapon = weaponDatas[0];
+        
         weaponDatas[0].isPurchased = true;
         weaponDatas[0].isEquip = true;
+        equipWeaponInfo.SetEquipData(weaponDatas[0]);
     }
 
     public void LoadWeaponData()//loadgame에서 호출
@@ -66,10 +68,5 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public void EquipWeapon()
     {
-        //기존의 장착된 무기 해제
-        equipedWeapon.isEquip = false;
-        equipedWeapon = null;
-        //현재 누른 무기 장착
-        weaponDatas[selectedWeapon.weaponSO.weaponID].isEquip = true;
     }
 }

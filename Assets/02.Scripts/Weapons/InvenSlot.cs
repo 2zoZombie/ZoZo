@@ -11,6 +11,7 @@ public class InvenSlot : MonoBehaviour
 
     //슬롯에 들어갈 정보와 변수
     [Header("WeaponInfo")]
+    public WeaponData weaponData;
     public WeaponSO WeaponSO;
 
     //정보가 들어갈 자리
@@ -40,7 +41,7 @@ public class InvenSlot : MonoBehaviour
 
     private void Start()
     {
-        
+
         //슬롯 별 구매 코스트
         BuyCost.text = weaponManager.weaponSOList[slotIndex].buyCost.ToString("N0");
     }
@@ -53,46 +54,68 @@ public class InvenSlot : MonoBehaviour
     public void SetData(WeaponData data)
     {
         bool isPuchased = data.isPurchased;
+        weaponData = data;
         WeaponSO = data.weaponSO;// 아래 if문으로 처리
-        
+
 
         if (isPuchased)
         {
             WeaponIcon.sprite = WeaponSO.weaponIcon;
             WPName.text = WeaponSO.weaponName;
             WPLevel.text = "Lv." + $"{data.weaponLevel}";
-            ATKVolum.text = WeaponSO.baseAttack.ToString();
+            ATKVolum.text = CalculateATK().ToString();
             CRITVolum.text = WeaponSO.baseCriticalChance.ToString("N1") + "%";
             UpgradeCost.text = WeaponSO.upgradeCost.ToString();
         }
     }
 
+    int CalculateATK()
+    {
+        return WeaponSO.baseAttack + WeaponSO.attackVolume_Up * weaponData.weaponLevel;
+    }
+
     public void OnBuyButton()
     {
-        //구매 버튼 비활성화
-        BuyButton.SetActive(false);
-        //강화버튼,장착 버튼 활성화
-        Equip_UpgradeBtn.SetActive(true);
+        if (weaponData == null) return;
 
-        //구매 여부
-        weaponManager.weaponDatas[slotIndex].isPurchased = true;
+        //if (GameManager.Instance.SpendBlueCoin(WeaponSO.buyCost))
+        {
+            //구매 버튼 비활성화
+            BuyButton.SetActive(false);
+            //강화버튼,장착 버튼 활성화
+            Equip_UpgradeBtn.SetActive(true);
 
-        //장비 정보 불러오기
-        SetData(weaponManager.weaponDatas[slotIndex]);
-        //코스트 소모하기
+            //구매 여부
+            weaponData.isPurchased = true;
+
+            //장비 정보 불러오기
+            SetData(weaponData);
+            //코스트 소모하기
+        }
     }
 
     public void OnUpgradeButton()
     {
-        //무기레벨업
-        
-        //코스트 소모하기
+        if (weaponData == null) return;
+
+        //if (GameManager.Instance.SpendBlueCoin(CalculateCost()))
+        {
+            weaponData.weaponLevel++; //무기레벨업
+            weaponManager.equipWeaponInfo.SetEquipData(weaponData);//Setequipdata해주기
+            SetData(weaponData);
+        }//코스트 소모하기
+    }
+
+    int CalculateCost()
+    {
+        return WeaponSO.upgradeCost + WeaponSO.upgradeCost * weaponData.weaponLevel;
     }
 
     public void OnEquip()
     {
+        if (weaponData == null) return;
         //장착 버튼 비활성화
         EquipButton.SetActive(!EquipButton.activeSelf);
-        weaponManager.EquipWeapon();
+        weaponManager.equipWeaponInfo.SetEquipData(weaponData);
     }
 }
