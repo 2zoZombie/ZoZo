@@ -231,59 +231,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 16282660}
   m_CullTransparentMesh: 1
---- !u!1 &16874947
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 16874949}
-  - component: {fileID: 16874948}
-  m_Layer: 0
-  m_Name: OnlyAnimatorCheckObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!95 &16874948
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 16874947}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7ed03f76e52e10846bf465efb121d13d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!4 &16874949
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 16874947}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 365.63684, y: 759.61194, z: -3.9703577}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &91658704
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,8 +366,6 @@ MonoBehaviour:
   btnText: {fileID: 1317981441}
   _name: {fileID: 733369477}
   description: {fileID: 1772882680}
-  currentPrice: 0
-  speed: 120
 --- !u!114 &165489667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1818,7 +1763,7 @@ GameObject:
   - component: {fileID: 716880651}
   - component: {fileID: 716880650}
   m_Layer: 5
-  m_Name: stage
+  m_Name: Stage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3958,8 +3903,6 @@ MonoBehaviour:
   btnText: {fileID: 2088022613}
   _name: {fileID: 1506259815}
   description: {fileID: 1997384577}
-  currentPrice: 0
-  speed: 120
 --- !u!114 &1413661534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4116,7 +4059,7 @@ GameObject:
   - component: {fileID: 1430259863}
   - component: {fileID: 1430259862}
   m_Layer: 5
-  m_Name: upgrade
+  m_Name: Upgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4731,8 +4674,6 @@ MonoBehaviour:
   btnText: {fileID: 1370652687}
   _name: {fileID: 723862627}
   description: {fileID: 734800487}
-  currentPrice: 0
-  speed: 120
 --- !u!1 &1552802080
 GameObject:
   m_ObjectHideFlags: 0
@@ -5344,7 +5285,7 @@ GameObject:
   - component: {fileID: 1718975680}
   - component: {fileID: 1718975679}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UpgradeCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6636,7 +6577,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000019427353}
+  m_AnchoredPosition: {x: 0, y: 0.0000071525574}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2095956139
@@ -6893,4 +6834,3 @@ SceneRoots:
   - {fileID: 1718975682}
   - {fileID: 1670200469}
   - {fileID: 1073946725}
-  - {fileID: 16874949}
