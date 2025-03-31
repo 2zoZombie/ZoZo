@@ -13,7 +13,7 @@ public class Enemy : Entity
     public EnemyStatsTable enemyStatsTable;
     public int enemyIndex;
     EnemyStats currentEnemyStats;
-
+    EnemyManager enemyManager;
     float damage;
 
     [SerializeField] private float attack;
@@ -37,7 +37,7 @@ public class Enemy : Entity
 
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-
+        enemyManager = GetComponent<EnemyManager>();
         positionx = Random.Range(1.5f, 2.4f);
 
         SetStats();
@@ -143,4 +143,22 @@ public class Enemy : Entity
     {
         return baseStat + growthStat * ((GameManager.Instance.playerData != null) ? GameManager.Instance.playerData.currentChapter - 1 : 0);
     }
+
+    //public void GrowthStats()
+    //{
+    //    if (!enemyManager.enemies[4])
+    //    {
+    //        curHp += currentEnemyStats.growthHP;
+    //        curDamaged += currentEnemyStats.growthDamage;
+    //    }
+    //}
+
+    //public void BossGrowthStats()
+    //{
+    //    if (enemyManager.enemies[4])
+    //    {
+    //        curHp += currentEnemyStats.growthHP;
+    //        curDamaged += currentEnemyStats.growthDamage;
+    //    }
+    //}
 }
