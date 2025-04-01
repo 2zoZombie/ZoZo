@@ -1,36 +1,54 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.Profiling.Memory.Experimental;
 using UnityEngine.UI;
 
 public class InvenPopup : MonoBehaviour
 {
     WeaponManager weaponManager;
     public Dictionary<int, WeaponData> WeaponDataList = new Dictionary<int, WeaponData>();
+    public List<InvenSlot> slots = new List<InvenSlot>();
+    public Transform slotPanel;
+    public GameObject invenPopup;
+    public GameObject slotPrefab;
+    private bool isInit;
 
-    private void Awake()
+    public void Init()
     {
+        isInit = true;
         weaponManager = WeaponManager.Instance;
-
+        //Í∞Å Ïä¨Î°ØÏóê Ïù∏Îç±Ïä§ Î∂ÄÏó¨
+        for (int i = 0; i < weaponManager.weaponDatas.Count; i++)
+        {
+            InvenSlot slot = Instantiate(slotPrefab, slotPanel).GetComponent<InvenSlot>();
+            slot.slotIndex = i;
+            slot.SetData(weaponManager.weaponDatas[i]);
+            slot.Init(this);
+            slots.Add(slot);
+            
+        }
     }
 
-    public void Start()
+    public void OninvenPopup()
     {
+        if (isInit==false)
+        {
+            Init();
+        }
+        invenPopup.SetActive(!invenPopup.activeSelf);
+        RefreshAllSlots();
 
     }
 
-    public void WeaponDataSet()
+    public void RefreshAllSlots()
     {
-        //∏Æº“Ω∫ ∆˙¥ı¿« π´±‚ ¡§∫∏µÈ¿ª ¿˙¿Â
-        Debug.Log("∞°πÊø° π´±‚ºº∆√ øœ∑·");
+        for (int i = 0; i < slots.Count; i++)
+        {
+            slots[i].RefreshSlot();
+        }
     }
-
-    public void Refresh()
-    {
-
-    }
-
-
 }

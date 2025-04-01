@@ -18,6 +18,7 @@ MonoBehaviour:
   baseCriticalChance: 15
   buyCost: 30
   upgradeCost: 45
-  attackValum_Up: 20
+  attackVolume_Up: 15
   upgradeCost_UP: 30
   weaponIcon: {fileID: 1349035616, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
+  weaponPrefab: {fileID: 4419718294943646046, guid: 1bd73041b63d6354590ccd620735a88f, type: 3}

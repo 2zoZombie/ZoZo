@@ -1,24 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InvenSlot : MonoBehaviour
 {
     WeaponManager weaponManager;
+    InvenPopup invenPopup;
 
     //슬롯에 들어갈 정보와 변수
     [Header("WeaponInfo")]
-    public WeaponSO WeaponSO;
-    public InvenPopup InvenPopup;
+    public WeaponData weaponData;
+    public WeaponSO weaponSO;
+    
 
     //정보가 들어갈 자리
     [Header("SlotInfo")]
     public int slotIndex;
-    public bool equipped;
-    public InvenSlot[] slots;
-    public Transform slotPanel;
 
     public Image WeaponIcon;
     public TMP_Text WPName;
@@ -35,58 +35,91 @@ public class InvenSlot : MonoBehaviour
     public GameObject UpgradeButton;
     public GameObject EquipButton;
 
-    private void Awake()
+    public void Init(InvenPopup inven)
     {
+        invenPopup = inven;
         weaponManager = WeaponManager.Instance;
-    }
-
-    private void Start()
-    {
-        //각 슬롯에 인덱스 부여
-        slots = new InvenSlot[slotPanel.childCount];
-        for (int i = 0; i < slots.Length; i++)
-        {
-            slots[i] = slotPanel.GetChild(i).GetComponent<InvenSlot>();
-            slots[i].slotIndex = i;
-        }
-
         //슬롯 별 구매 코스트
-        BuyCost.text = weaponManager.WeaponSOList[slotIndex].buyCost.ToString("N0");
+        BuyCost.text = weaponManager.weaponSOList[slotIndex].buyCost.ToString("N0");
     }
 
     public void SetData(WeaponData data)
     {
         bool isPuchased = data.isPurchased;
-        WeaponSO = data.weaponSO;// 아래 if문으로 처리
-        WeaponIcon.sprite =  WeaponSO.weaponIcon;
-        WPName.text = WeaponSO.weaponName;
-        WPLevel.text = "Lv."+ $"{data.weaponLevel}";
-        ATKVolum.text = WeaponSO.baseAttack.ToString();
-        CRITVolum.text = WeaponSO.baseCriticalChance.ToString("N1") + "%";
-        UpgradeCost.text = WeaponSO.upgradeCost.ToString();
+        weaponData = data;
+        weaponSO = data.weaponSO;// 아래 if문으로 처리
+
+
+        if (isPuchased)
+        {
+            WeaponIcon.sprite = weaponSO.weaponIcon;
+            WPName.text = weaponSO.weaponName;
+            WPLevel.text = "Lv." + $"{data.weaponLevel}";
+            ATKVolum.text = CalculateATK().ToString();
+            CRITVolum.text = weaponSO.baseCriticalChance.ToString("N1") + "%";
+            UpgradeCost.text = weaponSO.upgradeCost.ToString();
+        }
+    }
+
+    int CalculateATK()
+    {
+        return weaponSO.baseAttack + weaponSO.attackVolume_Up * weaponData.weaponLevel;
     }
 
     public void OnBuyButton()
     {
-        //구매 버튼 비활성화
-        BuyButton.SetActive(false);
-        //강화버튼,장착 버튼 활성화
-        Equip_UpgradeBtn.SetActive(true);
-        //장비 정보 불러오기
-        SetData(weaponManager.weaponDatas[slotIndex]);
-        //코스트 소모하기
+        if (weaponData == null) return;
+
+        //if (GameManager.Instance.SpendBlueCoin(WeaponSO.buyCost))
+        {
+            //구매 여부
+            weaponData.isPurchased = true;
+
+            //장비 정보 불러오기
+            SetData(weaponData);
+            //코스트 소모하기
+
+            RefreshSlot();
+        }
     }
 
     public void OnUpgradeButton()
     {
-        //무기레벨업
-        //코스트 소모하기
+        if (weaponData == null) return;
+
+        //if (GameManager.Instance.SpendBlueCoin(CalculateCost()))
+        {
+            weaponData.weaponLevel++; //무기레벨업
+            weaponManager.equipWeaponInfo.SetEquipData(weaponData);//Setequipdata해주기
+            SetData(weaponData);
+        }//코스트 소모하기
+    }
+
+    int CalculateCost()
+    {
+        return weaponSO.upgradeCost + weaponSO.upgradeCost * weaponData.weaponLevel;
     }
 
     public void OnEquip()
     {
-        //기존의 장착된 무기 해제
-        //현재 누른 무기 장착
-        
+        if (weaponData == null) return;
+
+        weaponData.isEquip = true;
+        weaponManager.equipWeaponInfo.equipedWeapon.isEquip = false;
+        weaponManager.equipWeaponInfo.SetEquipData(weaponData);
+        invenPopup.RefreshAllSlots();
+
+    }
+
+    public void RefreshSlot()
+    {
+        //장착 여부
+        EquipButton.SetActive(!weaponData.isEquip);
+        //구매 여부
+        BuyButton.SetActive(!weaponData.isPurchased);
+        //강화 여부
+        UpgradeButton.SetActive(weaponData.isPurchased);
+        //강화/구매 버튼
+        Equip_UpgradeBtn.SetActive(weaponData.isPurchased);
     }
 }

@@ -134,7 +134,7 @@ public class GameManager : Singleton<GameManager>
 
     int CalculateDamage(bool isCrit)
     {
-        float baseDamage = curWeaponData.weaponSO.baseAttack + curWeaponData.weaponLevel * curWeaponData.weaponSO.attackValum_Up;
+        float baseDamage = curWeaponData.weaponSO.baseAttack + curWeaponData.weaponLevel * curWeaponData.weaponSO.attackVolume_Up;
         baseDamage *= UnityEngine.Random.Range(0.9f, 1.1f);
         float critMultiplier = player.critDamage.impressionStat * playerData.critDamageLevel;
         int totalDamage;
