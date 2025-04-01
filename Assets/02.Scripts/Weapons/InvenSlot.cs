@@ -90,8 +90,9 @@ public class InvenSlot : MonoBehaviour
         if (GameManager.Instance.SpendBlueCoin(CalculateCost()))
         {
             weaponData.weaponLevel++; //무기레벨업
-            weaponManager.equipWeaponInfo.SetEquipData(weaponData);//Setequipdata해주기
             SetData(weaponData);
+            RefreshSlot();//업그레이드 버튼시에도 리프레쉬 
+            if (weaponData.isEquip) weaponManager.equipWeaponInfo.SetEquipData(weaponData);//Setequipdata해주기 현재 장착된 경우에만
         }//코스트 소모하기
     }
 
@@ -104,8 +105,8 @@ public class InvenSlot : MonoBehaviour
     {
         if (weaponData == null) return;
 
-        weaponData.isEquip = true;
         weaponManager.equipWeaponInfo.equipedWeapon.isEquip = false;
+        weaponData.isEquip = true;
         weaponManager.equipWeaponInfo.SetEquipData(weaponData);
         invenPopup.RefreshAllSlots();
         GameManager.Instance.player.weaponSwap.Equip(weaponSO.weaponPrefab);
