@@ -53,8 +53,8 @@ public class StageUI : MonoBehaviour
     //}
     private void SetSpawCount()
     {
-        startCount = enemyManager.spawncount;
-        curCount = enemyManager.curspawncout;
+        //startCount = enemyManager.spawncount;
+        //curCount = enemyManager.curspawncout;
     }
     private void SetSpawnText()
     {

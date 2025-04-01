@@ -83,6 +83,8 @@ public class Enemy : Entity
         {
             curHp -= damage;
             animator.SetTrigger("OnDamaged");
+            healthBar.OnHit();
+            GameManager.Instance.DamageEffect(damage, isCrit, this.transform);
             if (curHp <= 0)
             {
                 Dead();
@@ -92,8 +94,6 @@ public class Enemy : Entity
             {
                 Attack();
             }
-            healthBar.OnHit();
-            GameManager.Instance.DamageEffect(damage, isCrit, this.transform);
         }
     }
 
@@ -111,7 +111,7 @@ public class Enemy : Entity
         DropItem();
         EnemyManager.Instance.RemoveEnemy(this);
         animator.SetBool("IsDead" ,true);
-        EnemyManager.Instance.curspawncout--;
+        //EnemyManager.Instance.curspawncout--;
         Destroy(gameObject, 3f);
     }
 

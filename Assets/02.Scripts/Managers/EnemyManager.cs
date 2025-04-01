@@ -86,7 +86,7 @@ public class EnemyManager : Singleton<EnemyManager>
                 break;
             case StageType.Treasure:
                 enemy = Instantiate(
-                    enemyStatsTable.bossStatsList[Random.Range(0, enemyStatsTable.bossStatsList.Count)].prefab,
+                    enemyStatsTable.treasureList[Random.Range(0, enemyStatsTable.treasureList.Count)].prefab,
                     RandomSpawnPosition(), Quaternion.identity).GetComponent<Entity>();
 
                 enemies.Add(enemy);

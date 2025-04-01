@@ -37,12 +37,20 @@ MonoBehaviour:
     enemyType: 0
     dropQuantity: 10
     prefab: {fileID: 2931891016745907352, guid: 42312ed4f79cf2546a65d5d890967d1f, type: 3}
-  - enemyName: BossZombie
+  - enemyName: Zombie4
     maxHp: 100
     growthHP: 100
     attackDamage: 30
     growthDamage: 10
-    enemyType: 1
+    enemyType: 0
+    dropQuantity: 20
+    prefab: {fileID: 7776685896064436945, guid: 96e5a31e4e78f644d9cec4c37c0cf29a, type: 3}
+  - enemyName: Zombie4
+    maxHp: 100
+    growthHP: 100
+    attackDamage: 30
+    growthDamage: 10
+    enemyType: 0
     dropQuantity: 20
     prefab: {fileID: 3257274387829666848, guid: 21014a8a564504e49a9361184ef5c0c8, type: 3}
   bossStatsList:
@@ -53,5 +61,13 @@ MonoBehaviour:
     growthDamage: 10
     enemyType: 1
     dropQuantity: 20
-    prefab: {fileID: 3257274387829666848, guid: 21014a8a564504e49a9361184ef5c0c8, type: 3}
-  treasureList: []
+    prefab: {fileID: 4420820217397706605, guid: de7dc4e23b183ac44ab5f11524496280, type: 3}
+  treasureList:
+  - enemyName: Treasure
+    maxHp: 100
+    growthHP: 0
+    attackDamage: 0
+    growthDamage: 0
+    enemyType: 2
+    dropQuantity: 0
+    prefab: {fileID: 4605129498084867547, guid: 141f32f3f8d08424983dfdcf6c59f76a, type: 3}
