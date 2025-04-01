@@ -108,7 +108,7 @@ public class InvenSlot : MonoBehaviour
         weaponManager.equipWeaponInfo.equipedWeapon.isEquip = false;
         weaponManager.equipWeaponInfo.SetEquipData(weaponData);
         invenPopup.RefreshAllSlots();
-
+        GameManager.Instance.player.weaponSwap.Equip(weaponSO.weaponPrefab);
     }
 
     public void RefreshSlot()
@@ -122,4 +122,6 @@ public class InvenSlot : MonoBehaviour
         //강화/구매 버튼
         Equip_UpgradeBtn.SetActive(weaponData.isPurchased);
     }
+
+
 }
