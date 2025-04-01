@@ -52,7 +52,7 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            Debug.Log("로드데이터 없음");
+            UIManager.Instance.errorPopup.ShowErrorMessage("저장된 데이터가 없어요!");
         }
     }
 
@@ -74,7 +74,7 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.FadeOut(() =>
         {
             SceneManager.sceneLoaded += OnSceneLoaded;//씬 로딩이 끝나면 실행되는 이벤트에 구독
-            SceneManager.LoadScene("MainScene");
+            SceneManager.LoadScene("MainScene2");
         });
     }
 
@@ -130,7 +130,7 @@ public class GameManager : Singleton<GameManager>
 
     IAttackable GetRandomEnemy()
     {
-        if (EnemyManager.Instance.enemies != null)
+        if (EnemyManager.Instance.enemies != null && EnemyManager.Instance.enemies.Count != 0)
         {
             return EnemyManager.Instance.enemies[UnityEngine.Random.Range(0, EnemyManager.Instance.enemies.Count)];
         }

@@ -48,7 +48,7 @@ public class StageManager : Singleton<StageManager>
 
     private void Start()
     {
-        GenerateChapter();
+        //GenerateChapter();
     }
 
     public void LoadStages(PlayerData data)
