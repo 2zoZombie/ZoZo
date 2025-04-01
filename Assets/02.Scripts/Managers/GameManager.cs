@@ -32,6 +32,7 @@ public class GameManager : Singleton<GameManager>
     //public event Action<int> OnAttackDamageEvent;
     public event Action OnCoinChange;
     public event Action OnBlueCoinChange;
+    public event Action OnHealthChange;
 
     protected override void Awake()
     {
@@ -213,6 +214,15 @@ public class GameManager : Singleton<GameManager>
         OnBlueCoinChange?.Invoke();
         UIManager.Instance.errorPopup.ShowErrorMessage("bluecoin is not Enough");
         return false;
+    }
+
+    public void Heal(int value)
+    {
+        if(playerData.curHp < playerData.maxHp && playerData.curHp > 0)
+        {
+            playerData.curHp += value;
+            OnHealthChange?.Invoke();
+        }
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -58,7 +59,7 @@ public class Enemy : Entity
 
     protected virtual void Start()
     {
-        positionx = Random.Range(1.0f, 2.4f);
+        positionx = UnityEngine.Random.Range(1.0f, 2.4f);
         healthBar = UIManager.Instance.healthBarPool.GetFromPool(this.transform);
         healthBar.SetTarget(this as Entity);
         StartCoroutine(CoroutineAttck());
@@ -85,6 +86,8 @@ public class Enemy : Entity
             curHp -= damage;
             animator.SetTrigger("OnDamaged");
             healthBar.OnHit();
+            int rand = UnityEngine.Random.Range(0, 100);
+            if(rand > 90) GameManager.Instance.dropItemPool.GetFromPool(GameManager.Instance.dropItemPool.prefabs[2], this.transform).PlayBounce(this.transform);
             GameManager.Instance.DamageEffect(damage, isCrit, this.transform);
             if (curHp <= 0)
             {
@@ -98,7 +101,7 @@ public class Enemy : Entity
     {
         while (curHp > 0)
         {
-            int attacksec = Random.Range(5, 10);
+            int attacksec = UnityEngine.Random.Range(5, 10);
             yield return new WaitForSeconds(attacksec);
             animator.SetTrigger("OnAttack");
             GameManager.Instance.player.TakeDamage(Mathf.RoundToInt(damage));

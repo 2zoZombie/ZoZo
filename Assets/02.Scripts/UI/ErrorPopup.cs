@@ -38,7 +38,7 @@ public class ErrorPopup : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void SetErrorText(string text)
+    void SetErrorText(string text)
     {
         errorText.text = text;
 

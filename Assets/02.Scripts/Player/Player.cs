@@ -87,7 +87,7 @@ public class Player : Entity
         //Dead 애니메이션
         playerState = StateType.Dead;
 
-        UIManager.Instance.errorPopup.SetErrorText("5초 뒤 부활합니다.");
+        UIManager.Instance.errorPopup.ShowErrorMessage("5초 뒤 부활합니다.");
         Invoke("Revive", 5f);
     }
 

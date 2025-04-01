@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerHealthBar : HealthBar
 {
+    protected override void Awake()
+    {
+        base.Awake();
+        GameManager.Instance.OnHealthChange += UpdateHP;
+    }
     public override void UpdateHP()
     {
         if (target == null) return;
