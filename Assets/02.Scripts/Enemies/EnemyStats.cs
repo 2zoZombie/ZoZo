@@ -16,5 +16,6 @@ public class EnemyStats
 public enum EnemyType
 {
     Normal,
-    Boss
+    Boss,
+    Treasure
 }
