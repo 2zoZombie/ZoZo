@@ -96,15 +96,12 @@ public class Enemy : Entity
 
     IEnumerator CoroutineAttck()
     {
-        while (true) 
+        while (curHp > 0) 
         {
-            if(curHp > 0)
-            {
-                int attacksec = Random.Range(5, 10);
-                yield return new WaitForSeconds(attacksec);
-                animator.SetTrigger("OnAttack");
-                playerData.curHp -= currentEnemyStats.attackDamage;
-            }
+            int attacksec = Random.Range(5, 10);
+            yield return new WaitForSeconds(attacksec);
+            animator.SetTrigger("OnAttack");
+            playerData.curHp -= currentEnemyStats.attackDamage;
         }
     }
 
