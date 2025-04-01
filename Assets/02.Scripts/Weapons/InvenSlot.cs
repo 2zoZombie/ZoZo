@@ -70,7 +70,7 @@ public class InvenSlot : MonoBehaviour
     {
         if (weaponData == null) return;
 
-        //if (GameManager.Instance.SpendBlueCoin(WeaponSO.buyCost))
+        if (GameManager.Instance.SpendBlueCoin(weaponSO.buyCost))
         {
             //구매 여부
             weaponData.isPurchased = true;
@@ -87,7 +87,7 @@ public class InvenSlot : MonoBehaviour
     {
         if (weaponData == null) return;
 
-        //if (GameManager.Instance.SpendBlueCoin(CalculateCost()))
+        if (GameManager.Instance.SpendBlueCoin(CalculateCost()))
         {
             weaponData.weaponLevel++; //무기레벨업
             weaponManager.equipWeaponInfo.SetEquipData(weaponData);//Setequipdata해주기
