@@ -121,14 +121,12 @@ public class Skill : MonoBehaviour
 
         //TODO: 테스트 코드 삭제하기
         GameManager.Instance.GetCoin(10000);
+
+        GameManager.Instance.OnCoinChange += CheckEnoughCoins;
     }
 
     private void Update()
     {
-        //델리게이트로 연결하기 전에 업데이트에서 테스트 해보는 코드
-        //나중에 지워줘야 함
-        CheckEnoughCoins();
-
         //오래 누르면 연속강화
         if (startTimer)
         {
@@ -173,7 +171,7 @@ public class Skill : MonoBehaviour
             
 
         //임시 코드 (GameManager에 없길래 이쪽에서 갱신함)
-        UIManager.Instance.coinDisplayUI.SetCoinText();
+        //UIManager.Instance.coinDisplayUI.SetCoinText();
 
         switch (index)
         {

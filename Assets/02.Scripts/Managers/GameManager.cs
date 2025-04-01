@@ -35,7 +35,6 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
         savePath = Path.Combine(Application.persistentDataPath, "playerData.json");
-
     }
 
 
@@ -179,10 +178,10 @@ public class GameManager : Singleton<GameManager>
         if (playerData.coin >= value)
         {
             playerData.coin -= value;
+            OnCoinChange?.Invoke();
             return true;
         }
 
-        OnCoinChange?.Invoke();
         UIManager.Instance.errorPopup.SetErrorText("coin is not Enough");
         return false;
     }
