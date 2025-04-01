@@ -50,19 +50,6 @@ public class Enemy : Entity
         StartCoroutine(CoroutineAttck());
     }
 
-    private void Update()
-    {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    TakeDamage(20, false);
-        //}
-
-        //if (Input.GetMouseButtonDown(1))
-        //{
-        //    TakeDamage(20, true);
-        //}
-    }
-
     private void FixedUpdate()
     {
         Move();
@@ -100,7 +87,7 @@ public class Enemy : Entity
             int attacksec = Random.Range(5, 10);
             yield return new WaitForSeconds(attacksec);
             animator.SetTrigger("OnAttack");
-            playerData.curHp -= currentEnemyStats.attackDamage;
+            GameManager.Instance.OnAttack(GameManager.Instance.player.gameObject);
         }
     }
 
