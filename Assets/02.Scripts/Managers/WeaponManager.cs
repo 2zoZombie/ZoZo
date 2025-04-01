@@ -18,12 +18,12 @@ public class WeaponManager : Singleton<WeaponManager>
     {
         base.Awake();
         //WeaponSOLoad();
-        NewWeaponData();
+
     }
 
     public void Start()
     {
-        
+        NewWeaponData();
     }
 
     //public void WeaponSOLoad()

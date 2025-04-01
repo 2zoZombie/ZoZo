@@ -24,6 +24,8 @@ public class EquipWeaponInfo : MonoBehaviour
 
     public void SetEquipData(WeaponData data)
     {
+        GameManager.Instance.curWeaponData = data;
+
         equipedWeapon = data;
 
         equipName.text = equipedWeapon.weaponSO.weaponName;

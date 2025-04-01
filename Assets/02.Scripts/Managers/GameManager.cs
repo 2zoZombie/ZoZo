@@ -101,9 +101,11 @@ public class GameManager : Singleton<GameManager>
         Time.timeScale = 1;
     }
 
-    public void OnAttack()
+    public void OnAttack(GameObject target = null)
     {
-        IAttackable targetEnemy = GetRandomEnemy();
+        IAttackable targetEnemy;
+        if (target == null) targetEnemy = GetRandomEnemy();
+        else targetEnemy = target.GetComponent<IAttackable>();
 
         if (targetEnemy != null)
         {

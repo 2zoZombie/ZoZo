@@ -52,15 +52,15 @@ public class Enemy : Entity
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            TakeDamage(20, false);
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    TakeDamage(20, false);
+        //}
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            TakeDamage(20, true);
-        }
+        //if (Input.GetMouseButtonDown(1))
+        //{
+        //    TakeDamage(20, true);
+        //}
     }
 
     private void FixedUpdate()
@@ -96,7 +96,7 @@ public class Enemy : Entity
 
     IEnumerator CoroutineAttck()
     {
-        while (curHp > 0) 
+        while (curHp > 0)
         {
             int attacksec = Random.Range(5, 10);
             yield return new WaitForSeconds(attacksec);
@@ -108,7 +108,7 @@ public class Enemy : Entity
     public override void Dead()
     {
         EnemyManager.Instance.RemoveEnemy(this);
-        animator.SetBool("IsDead" ,true);
+        animator.SetBool("IsDead", true);
         DropItem();
         //EnemyManager.Instance.curspawncout--;
         Destroy(gameObject, 3f);
