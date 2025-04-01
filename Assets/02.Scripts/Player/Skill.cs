@@ -166,7 +166,7 @@ public class Skill : MonoBehaviour
         }
         else
         {
-            btnText.text = $"·¹º§¾÷ {currentPrice}¨Ï";
+            btnText.text = $"{currentPrice}";
         }
             
 

@@ -48,7 +48,7 @@ public class Player : Entity
         playerState = StateType.Move;
 
         GameManager.Instance.player = this;
-        if(healthBar != null )
+        if (healthBar != null )
         {
             healthBar.SetTarget( this );
         }
@@ -126,12 +126,5 @@ public class Player : Entity
                 break;
         }
     }
-
-    public void Test(int state)
-    {
-        PlayerState = (StateType)state;
-    }
-
-
 
 }
