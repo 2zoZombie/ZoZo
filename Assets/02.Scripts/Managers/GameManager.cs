@@ -199,9 +199,9 @@ public class GameManager : Singleton<GameManager>
     /// <returns></returns>
     public bool SpendBlueCoin(int value)
     {
-        if (playerData.coin >= value)
+        if (playerData.blueCoin >= value)
         {
-            playerData.coin -= value;
+            playerData.blueCoin -= value;
             return true;
         }
 

@@ -37,22 +37,17 @@ public class StageUI : MonoBehaviour
     {
         stageTitle.text = StageManager.Instance.currentStages[StageManager.Instance.currentStage].stageName;
         stageTitle.gameObject.SetActive(true);
-
-        
     }
     private void Update()
     {
-        //uiBar.fillAmount = GetPercentage();
     }
 
-    //float GetPercentage()
-    //{
-    //    return curCount / startCount;
-    //}
     private void SetSpawnText()
     {
         if (SpawnCaout == null) return;
         SpawnCaout.text = GameManager.Instance.playerData.defeatedEnemyCount.ToString();
+
+        
     }
 
     public void ShowStageText(string message)

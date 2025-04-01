@@ -24,39 +24,39 @@ public class EnemyManager : Singleton<EnemyManager>
         //StartCoroutine(CapterCoroutine());
     }
 
-    //private IEnumerator CapterCoroutine()
-    //{
-    //    GameObject tlieMap;
-    //    for (int i = 0; i < capterMap.Length;)
-    //    {
-    //        tlieMap = Instantiate(capterMap[i], transform.position, Quaternion.identity);
-    //        Debug.Log("현재 챕터 : " + (i + 1)); // UI 표시
-    //        stage = 0;
-    //        if (stage == 0)
-    //        {
-    //            for (int s = stage; s <= 4; s++)
-    //            {
-    //                while (spawncount == 0)
-    //                {
-    //                    NextStage();
-    //                }
-    //                if (s == 4)
-    //                {
-    //                    yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
-    //                    yield return new WaitForSeconds(3f);
-    //                    Destroy(tlieMap);
-    //                    spawncount = 0;
-    //                    i++;
-    //                    break;
-    //                }
-    //                yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
-    //                yield return new WaitForSeconds(3f);
-    //                stage++;
-    //                NextStage();
-    //            }
-    //        }
-    //    }
-    //}
+    /*private IEnumerator CapterCoroutine()
+    {
+        GameObject tlieMap;
+        for (int i = 0; i < capterMap.Length;)
+        {
+            tlieMap = Instantiate(capterMap[i], transform.position, Quaternion.identity);
+            Debug.Log("현재 챕터 : " + (i + 1)); // UI 표시
+            stage = 0;
+            if (stage == 0)
+            {
+                for (int s = stage; s <= 4; s++)
+                {
+                    while (spawncount == 0)
+                    {
+                        NextStage();
+                    }
+                    if (s == 4)
+                    {
+                        yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
+                        yield return new WaitForSeconds(3f);
+                        Destroy(tlieMap);
+                        spawncount = 0;
+                        i++;
+                        break;
+                    }
+                    yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
+                    yield return new WaitForSeconds(3f);
+                    stage++;
+                    NextStage();
+                }
+            }
+        }
+    }*/
 
     public void SpawnEnemy(StageType stageType)
     {
@@ -72,7 +72,6 @@ public class EnemyManager : Singleton<EnemyManager>
                         enemyStatsTable.enemyStatsList[Random.Range(0, enemyStatsTable.enemyStatsList.Count)].prefab,
                         RandomSpawnPosition(), Quaternion.identity).GetComponent<Entity>();
 
-
                     enemies.Add(enemy);
                 }
                 break;
@@ -87,7 +86,7 @@ public class EnemyManager : Singleton<EnemyManager>
                 break;
             case StageType.Treasure:
                 enemy = Instantiate(
-                    enemyStatsTable.bossStatsList[Random.Range(0, enemyStatsTable.bossStatsList.Count)].prefab,
+                    enemyStatsTable.treasureList[Random.Range(0, enemyStatsTable.treasureList.Count)].prefab,
                     RandomSpawnPosition(), Quaternion.identity).GetComponent<Entity>();
 
                 enemies.Add(enemy);
