@@ -15,8 +15,8 @@ public class WeaponSwap : MonoBehaviour
 
     public void Equip(GameObject weaponPrepab)
     {
-        weaponSprite = weaponPrepab.GetComponent<SpriteRenderer>();
-        weaponAnim = weaponPrepab.GetComponent<Animator>();
+        weaponSprite.sprite = weaponPrepab.GetComponent<SpriteRenderer>().sprite;
+        weaponAnim.runtimeAnimatorController = weaponPrepab.GetComponent<Animator>().runtimeAnimatorController;
     }
 
 

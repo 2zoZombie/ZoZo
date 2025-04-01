@@ -107,6 +107,7 @@ public class GameManager : Singleton<GameManager>
 
         if (targetEnemy != null)
         {
+            player.PlayerState = StateType.Attack;
             bool isCrit = IsCrit();
             int damage = CalculateDamage(isCrit);
             targetEnemy.TakeDamage(damage, isCrit);//나중에 크리티컬 여부 받아와야함

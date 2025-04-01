@@ -24,7 +24,6 @@ public class Player : Entity
     public HealthBar healthBar;
 
     public Animator playerAnim;
-    public Animator weaponAnim;
 
     private StateType playerState;
     public StateType PlayerState
@@ -46,7 +45,7 @@ public class Player : Entity
     // healthBar 연결
     private void Awake()
     {
-        playerState = StateType.Idle;
+        playerState = StateType.Move;
 
         GameManager.Instance.player = this;
         if(healthBar != null )
