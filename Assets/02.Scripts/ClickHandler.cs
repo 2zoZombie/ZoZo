@@ -122,7 +122,7 @@ public class ClickHandler : MonoBehaviour
     // 자동 공격 레벨 변경 시 실행
     public void UpdateAutoAttack()
     {
-        Debug.Log("자동 공격 레벨 변경됨. 자동 공격 상태 업데이트.");
+        Debug.Log("자동 공격 레벨 변경. 자동 공격 상태 업데이트.");
 
         StopAutoAttack();
 
