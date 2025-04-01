@@ -9,6 +9,8 @@ public class ClickHandler : MonoBehaviour
     private bool isGamePaused = false; // 게임이 일시 정지 상태인지 확인하는 변수
     public InputAction clickAction;    // 마우스 클릭
 
+    public float attackSpeed;
+
     public Coroutine autoAttackCoroutine;   //자동공격 코루틴 저장
     void Awake()
     {
@@ -109,7 +111,7 @@ public class ClickHandler : MonoBehaviour
     {
         while (true)
         {
-            float attackSpeed = 1.0f / (1 + GameManager.Instance.playerData.autoAttackLevel * 0.2f);
+            attackSpeed = 1.0f / (1 + GameManager.Instance.playerData.autoAttackLevel * 0.2f);
             Debug.Log($"다음 자동 공격까지 대기 시간: {attackSpeed}초");
 
             //↑예시 계산 : autoAttackLevel = 1이라면, attackSpeed = 1.0f / (1 + 1 * 0.2f) = 1.0f / 1.2f  0.8333초
