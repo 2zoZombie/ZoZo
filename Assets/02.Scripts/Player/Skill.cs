@@ -82,7 +82,7 @@ public class Skill : MonoBehaviour
 
         //이벤트 할당
         trigger = transform.Find("LevelUpBtn")?.GetComponent<EventTrigger>();
-        if(trigger == null)
+        if (trigger == null)
         {
             transform.Find("LevelUpBtn")?.AddComponent<EventTrigger>();
         }
@@ -105,11 +105,6 @@ public class Skill : MonoBehaviour
 
     }
 
-    //TODO: 테스트를 위한 코드 (합쳐지면 지워줘야함)
-    private void Awake()
-    {
-        GameManager.Instance.playerData = new PlayerData();
-    }
 
     private void Start()
     {
@@ -118,10 +113,6 @@ public class Skill : MonoBehaviour
 
         //현재 레벨을 로드한 플레이어 데이터대로 초기화
         currentLevel = GameManager.Instance.playerData.statLevel[indexNum];
-
-        //TODO: 테스트 코드 삭제하기
-        GameManager.Instance.GetCoin(10000);
-
         GameManager.Instance.OnCoinChange += CheckEnoughCoins;
     }
 
@@ -152,7 +143,7 @@ public class Skill : MonoBehaviour
     public void SkillLevelUp()
     {
         //해당 스텟 레벨을 1 증가시킴
-        CurrentLevel++; 
+        CurrentLevel++;
     }
 
     public void UIRefresh(StatIndex index)
@@ -160,24 +151,23 @@ public class Skill : MonoBehaviour
 
         _name.text = $"{data.skillName} {CurrentLevel}";
 
-        if(CurrentLevel == data.maxLevel)
+
+        if (CurrentLevel == data.maxLevel)
         {
             btnText.text = "Max";
+            btnText.color = Color.red;
         }
         else
         {
             btnText.text = $"{currentPrice}";
         }
-            
-
-        //임시 코드 (GameManager에 없길래 이쪽에서 갱신함)
-        //UIManager.Instance.coinDisplayUI.SetCoinText();
 
         switch (index)
         {
             case StatIndex.AutoAttackInterval:
-                //자동 공격 코드 보고 수정하기
-                description.text = $"{120 - CurrentLevel * data.impressionStat}초마다 1번 공격";
+
+                float attackSpeed = 1.0f / (1 + CurrentLevel * 0.2f);
+                description.text = $"{attackSpeed:F2}초마다 1번 공격";
                 break;
 
             case StatIndex.GoldGainRate:
@@ -193,12 +183,12 @@ public class Skill : MonoBehaviour
     //업그레이드 버튼에 비용을 표시할 때, 재화가 충분한 경우에는 검은색, 재화가 부족한 경우에는 빨간 색으로 표시
     public void CheckEnoughCoins()
     {
-        if(currentLevel == data.maxLevel)
+        if (currentLevel == data.maxLevel)
         {
             btnText.color = Color.red;
         }
         //충분한 경우
-        else if(GameManager.Instance.playerData.coin >= currentPrice)
+        else if (GameManager.Instance.playerData.coin >= currentPrice)
         {
             btnText.color = Color.black;
         }
@@ -206,7 +196,7 @@ public class Skill : MonoBehaviour
         else
         {
             btnText.color = Color.red;
-        }    
+        }
     }
 
 
