@@ -9,7 +9,7 @@ public class AudioManager : Singleton<AudioManager>
     public AudioSource bgmSource;
     public AudioSource sfxSource;
     public AudioClip bgmClip;
-    public AudioClip sfxClip;
+    public AudioClip[] sfxClip;
 
     protected override void Awake()
     {
