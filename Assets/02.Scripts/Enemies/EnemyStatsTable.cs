@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,5 +7,6 @@ using UnityEngine;
 public class EnemyStatsTable : ScriptableObject
 {
     public List<EnemyStats> enemyStatsList;
-
+    public List<EnemyStats> bossStatsList;
+    public List<EnemyStats> treasureList;
 }

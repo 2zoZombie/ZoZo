@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static Unity.Burst.Intrinsics.X86.Avx;
 public class DamageIndicator : MonoBehaviour
 {
     public TextMeshProUGUI damageText;
@@ -14,8 +15,18 @@ public class DamageIndicator : MonoBehaviour
     public int critSize = 100;
     public Color critColor = Color.yellow;
     public Color normalColor = Color.white;
-
+    TMP_Text tmp;
+    Material newMat;
     private Vector3 startPos;
+    private void Start()
+    {
+        tmp = GetComponent<TMP_Text>();
+        newMat = Instantiate(tmp.fontMaterial);
+        tmp.fontMaterial = newMat;
+
+        newMat.SetFloat(ShaderUtilities.ID_OutlineWidth, 0.04f);
+        newMat.SetColor(ShaderUtilities.ID_OutlineColor, Color.white);
+    }
 
     public void Show(int damage, bool isCrit)
     {

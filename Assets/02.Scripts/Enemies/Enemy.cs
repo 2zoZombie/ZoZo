@@ -13,7 +13,7 @@ public class Enemy : Entity
     public EnemyStatsTable enemyStatsTable;
     public int enemyIndex;
     EnemyStats currentEnemyStats;
-
+    EnemyManager enemyManager;
     float damage;
 
     [SerializeField] private float attack;
@@ -23,18 +23,20 @@ public class Enemy : Entity
     private Rigidbody2D rigidbody;
     private Animator animator;
 
-    EnemyManager enemyManager;
-    StageUI stageUI;
+    PlayerData playerData;
+    StageUI stageUi;
+
     HealthBar healthBar;
     private float positionx;
 
 
     private void Awake()
     {
-        currentEnemyStats = enemyStatsTable.enemyStatsList[enemyIndex];
+        playerData = GameManager.Instance.playerData;
+
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-
+        enemyManager = GetComponent<EnemyManager>();
         positionx = Random.Range(1.5f, 2.4f);
 
         SetStats();
@@ -42,6 +44,7 @@ public class Enemy : Entity
 
     private void Start()
     {
+        currentEnemyStats = enemyStatsTable.enemyStatsList[enemyIndex];
         healthBar = UIManager.Instance.healthBarPool.GetFromPool(this.transform);
         healthBar.SetTarget(this as Entity);
     }
@@ -62,20 +65,6 @@ public class Enemy : Entity
     private void FixedUpdate()
     {
         Move();
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        //    RaycastHit hit;
-
-        //    if (Physics.Raycast(ray, out hit, Mathf.Infinity, EnemyLayer))
-        //    {
-        //        if (hit.collider.gameObject == gameObject)
-        //        {
-        //            TakeDamage(20f);
-        //        }
-        //    }
-        //}
-
     }
 
     private void Move()
@@ -86,32 +75,43 @@ public class Enemy : Entity
         {
             moveSpeed = 0;
         }
-
     }
 
     public override void TakeDamage(int damage, bool isCrit)//대미지값 int로 수정함
     {
-
         if (curHp > 0)
         {
-            //enemyUI.ShowDamageUI(damage);
             curHp -= damage;
-            healthBar.OnHit();
-            GameManager.Instance.DamageEffect(damage, isCrit, this.transform);
-            
-
+            animator.SetTrigger("OnDamaged");
             if (curHp <= 0)
             {
                 Dead();
+                return;
             }
+            else
+            {
+                Attack();
+            }
+            healthBar.OnHit();
+            GameManager.Instance.DamageEffect(damage, isCrit, this.transform);
         }
     }
 
+    public void Attack()
+    {
+        Debug.Log(playerData.curHp);
+        playerData.curHp -= currentEnemyStats.attackDamage;
+        Debug.Log( "몬스터 힘 " + currentEnemyStats.attackDamage);
+        Debug.Log( "플레이어" + playerData.curHp);
+        animator.SetTrigger("OnAttack");
+        //플레이어 hp를 받아와 데미지 
+    }
     public override void Dead()
     {
-        animator.SetBool("Dead", true);
         DropItem();
-        EnemyManager.Instance.spawncount--;
+        EnemyManager.Instance.RemoveEnemy(this);
+        animator.SetBool("IsDead" ,true);
+        GameManager.Instance.playerData.defeatedEnemyCount++;
         Destroy(gameObject, 3f);
     }
 
@@ -132,7 +132,6 @@ public class Enemy : Entity
             yield return wait;
         }
     }
-
     public void SetStats()
     {
         entityName = currentEnemyStats.enemyName;
@@ -146,14 +145,21 @@ public class Enemy : Entity
         return baseStat + growthStat * ((GameManager.Instance.playerData != null) ? GameManager.Instance.playerData.currentChapter - 1 : 0);
     }
 
+    //public void GrowthStats()
+    //{
+    //    if (!enemyManager.enemies[4])
+    //    {
+    //        curHp += currentEnemyStats.growthHP;
+    //        curDamaged += currentEnemyStats.growthDamage;
+    //    }
+    //}
 
-    public void BossGrowthStats()
-    {
-        EnemyStats bossStats = enemyStatsTable.enemyStatsList[3];
-
-        maxHp -= bossStats.growthHP;
-        damage -= bossStats.growthDamage;
-    }
-
-
+    //public void BossGrowthStats()
+    //{
+    //    if (enemyManager.enemies[4])
+    //    {
+    //        curHp += currentEnemyStats.growthHP;
+    //        curDamaged += currentEnemyStats.growthDamage;
+    //    }
+    //}
 }

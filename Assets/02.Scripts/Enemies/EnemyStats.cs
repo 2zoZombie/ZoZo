@@ -11,6 +11,7 @@ public class EnemyStats
     public float growthDamage;
     public EnemyType enemyType;
     public int dropQuantity;
+    public GameObject prefab;
 }
 public enum EnemyType
 {
