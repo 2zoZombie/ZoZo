@@ -47,6 +47,7 @@ public class Enemy : Entity
     {
         healthBar = UIManager.Instance.healthBarPool.GetFromPool(this.transform);
         healthBar.SetTarget(this as Entity);
+        StartCoroutine(CoroutineAttck());
     }
 
     private void Update()
@@ -90,27 +91,28 @@ public class Enemy : Entity
                 Dead();
                 return;
             }
-            else
+        }
+    }
+
+    IEnumerator CoroutineAttck()
+    {
+        while (true) 
+        {
+            if(curHp > 0)
             {
-                Attack();
+                int attacksec = Random.Range(5, 10);
+                yield return new WaitForSeconds(attacksec);
+                animator.SetTrigger("OnAttack");
+                playerData.curHp -= currentEnemyStats.attackDamage;
             }
         }
     }
 
-    public void Attack()
-    {
-        Debug.Log(playerData.curHp);
-        playerData.curHp -= currentEnemyStats.attackDamage;
-        Debug.Log( "몬스터 힘 " + currentEnemyStats.attackDamage);
-        Debug.Log( "플레이어" + playerData.curHp);
-        animator.SetTrigger("OnAttack");
-        //플레이어 hp를 받아와 데미지 
-    }
     public override void Dead()
     {
-        DropItem();
         EnemyManager.Instance.RemoveEnemy(this);
         animator.SetBool("IsDead" ,true);
+        DropItem();
         //EnemyManager.Instance.curspawncout--;
         Destroy(gameObject, 3f);
     }
