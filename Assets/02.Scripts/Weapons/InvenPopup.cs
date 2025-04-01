@@ -15,34 +15,40 @@ public class InvenPopup : MonoBehaviour
     public Transform slotPanel;
     public GameObject invenPopup;
     public GameObject slotPrefab;
+    private bool isInit;
 
-    private void Awake()
+    public void Init()
     {
+        isInit = true;
         weaponManager = WeaponManager.Instance;
-
-    }
-
-    public void Start()
-    {
         //각 슬롯에 인덱스 부여
         for (int i = 0; i < weaponManager.weaponDatas.Count; i++)
         {
             InvenSlot slot = Instantiate(slotPrefab, slotPanel).GetComponent<InvenSlot>();
             slot.slotIndex = i;
             slot.SetData(weaponManager.weaponDatas[i]);
+            slot.Init(this);
             slots.Add(slot);
+            
         }
-    }
-
-    public void WeaponDataSet()
-    {
-        //리소스 폴더의 무기 정보들을 저장
-        Debug.Log("가방에 무기세팅 완료");
     }
 
     public void OninvenPopup()
     {
-        invenPopup.SetActive(!invenPopup.activeSelf);  
+        if (isInit==false)
+        {
+            Init();
+        }
+        invenPopup.SetActive(!invenPopup.activeSelf);
+        RefreshAllSlots();
+
     }
 
+    public void RefreshAllSlots()
+    {
+        for (int i = 0; i < slots.Count; i++)
+        {
+            slots[i].RefreshSlot();
+        }
+    }
 }

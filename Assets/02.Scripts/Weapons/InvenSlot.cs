@@ -8,16 +8,17 @@ using UnityEngine.UI;
 public class InvenSlot : MonoBehaviour
 {
     WeaponManager weaponManager;
+    InvenPopup invenPopup;
 
     //슬롯에 들어갈 정보와 변수
     [Header("WeaponInfo")]
     public WeaponData weaponData;
-    public WeaponSO WeaponSO;
+    public WeaponSO weaponSO;
+    
 
     //정보가 들어갈 자리
     [Header("SlotInfo")]
     public int slotIndex;
-    public bool equipped;
 
     public Image WeaponIcon;
     public TMP_Text WPName;
@@ -34,44 +35,35 @@ public class InvenSlot : MonoBehaviour
     public GameObject UpgradeButton;
     public GameObject EquipButton;
 
-    private void Awake()
+    public void Init(InvenPopup inven)
     {
+        invenPopup = inven;
         weaponManager = WeaponManager.Instance;
-    }
-
-    private void Start()
-    {
-
         //슬롯 별 구매 코스트
         BuyCost.text = weaponManager.weaponSOList[slotIndex].buyCost.ToString("N0");
-    }
-
-    public void Refresh()
-    {
-        SetData(weaponManager.weaponDatas[slotIndex]);
     }
 
     public void SetData(WeaponData data)
     {
         bool isPuchased = data.isPurchased;
         weaponData = data;
-        WeaponSO = data.weaponSO;// 아래 if문으로 처리
+        weaponSO = data.weaponSO;// 아래 if문으로 처리
 
 
         if (isPuchased)
         {
-            WeaponIcon.sprite = WeaponSO.weaponIcon;
-            WPName.text = WeaponSO.weaponName;
+            WeaponIcon.sprite = weaponSO.weaponIcon;
+            WPName.text = weaponSO.weaponName;
             WPLevel.text = "Lv." + $"{data.weaponLevel}";
             ATKVolum.text = CalculateATK().ToString();
-            CRITVolum.text = WeaponSO.baseCriticalChance.ToString("N1") + "%";
-            UpgradeCost.text = WeaponSO.upgradeCost.ToString();
+            CRITVolum.text = weaponSO.baseCriticalChance.ToString("N1") + "%";
+            UpgradeCost.text = weaponSO.upgradeCost.ToString();
         }
     }
 
     int CalculateATK()
     {
-        return WeaponSO.baseAttack + WeaponSO.attackVolume_Up * weaponData.weaponLevel;
+        return weaponSO.baseAttack + weaponSO.attackVolume_Up * weaponData.weaponLevel;
     }
 
     public void OnBuyButton()
@@ -80,17 +72,14 @@ public class InvenSlot : MonoBehaviour
 
         //if (GameManager.Instance.SpendBlueCoin(WeaponSO.buyCost))
         {
-            //구매 버튼 비활성화
-            BuyButton.SetActive(false);
-            //강화버튼,장착 버튼 활성화
-            Equip_UpgradeBtn.SetActive(true);
-
             //구매 여부
             weaponData.isPurchased = true;
 
             //장비 정보 불러오기
             SetData(weaponData);
             //코스트 소모하기
+
+            RefreshSlot();
         }
     }
 
@@ -108,14 +97,29 @@ public class InvenSlot : MonoBehaviour
 
     int CalculateCost()
     {
-        return WeaponSO.upgradeCost + WeaponSO.upgradeCost * weaponData.weaponLevel;
+        return weaponSO.upgradeCost + weaponSO.upgradeCost * weaponData.weaponLevel;
     }
 
     public void OnEquip()
     {
         if (weaponData == null) return;
-        //장착 버튼 비활성화
-        EquipButton.SetActive(!EquipButton.activeSelf);
+
+        weaponData.isEquip = true;
+        weaponManager.equipWeaponInfo.equipedWeapon.isEquip = false;
         weaponManager.equipWeaponInfo.SetEquipData(weaponData);
+        invenPopup.RefreshAllSlots();
+
+    }
+
+    public void RefreshSlot()
+    {
+        //장착 여부
+        EquipButton.SetActive(!weaponData.isEquip);
+        //구매 여부
+        BuyButton.SetActive(!weaponData.isPurchased);
+        //강화 여부
+        UpgradeButton.SetActive(weaponData.isPurchased);
+        //강화/구매 버튼
+        Equip_UpgradeBtn.SetActive(weaponData.isPurchased);
     }
 }

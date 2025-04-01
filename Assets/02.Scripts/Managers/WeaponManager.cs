@@ -55,18 +55,4 @@ public class WeaponManager : Singleton<WeaponManager>
 
         weaponDatas = GameManager.Instance.playerData.weaponData;
     }
-
-    public void PurchaseWeapon()
-    {
-
-    }
-
-    public void EnhanceWeapon()
-    {
-
-    }
-
-    public void EquipWeapon()
-    {
-    }
 }

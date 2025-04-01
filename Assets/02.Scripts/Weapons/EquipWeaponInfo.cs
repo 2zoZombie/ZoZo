@@ -22,10 +22,9 @@ public class EquipWeaponInfo : MonoBehaviour
         WeaponManager.Instance.equipWeaponInfo = this;
     }
 
-    public void SetEquipData(WeaponData data)//강화 버튼에도 달아주기
+    public void SetEquipData(WeaponData data)
     {
         equipedWeapon = data;
-
 
         equipName.text = equipedWeapon.weaponSO.weaponName;
         equipIcon.sprite = equipedWeapon.weaponSO.weaponIcon;
