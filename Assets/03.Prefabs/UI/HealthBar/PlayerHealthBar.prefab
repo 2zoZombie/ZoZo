@@ -207,7 +207,7 @@ RectTransform:
   m_GameObject: {fileID: 5686224493934440857}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 155113010320674020}
@@ -246,10 +246,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 1312383074, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
-  m_Type: 1
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -282,7 +282,7 @@ RectTransform:
   m_GameObject: {fileID: 6691927836308389377}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 155113010320674020}
@@ -321,10 +321,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 1312383074, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
-  m_Type: 1
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -414,7 +414,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3573239325270192381}
-  - component: {fileID: 9073850940316655977}
+  - component: {fileID: 7904695473641367412}
   m_Layer: 5
   m_Name: PlayerHealthBar
   m_TagString: Untagged
@@ -444,7 +444,7 @@ RectTransform:
   m_AnchoredPosition: {x: -210, y: 150}
   m_SizeDelta: {x: 250, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &9073850940316655977
+--- !u!114 &7904695473641367412
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -453,11 +453,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8994036925141519835}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 820d9eef1b411704fa217aad8ff2e80f, type: 3}
+  m_Script: {fileID: 11500000, guid: a1990e3da9e7f934da8393871a44939e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   instantHpBar: {fileID: 4178623567452345998}
   delayedHpBar: {fileID: 5148423427295468357}
-  entityName: {fileID: 0}
+  entityName: {fileID: 1176303338733096973}
   target: {fileID: 0}
   offset: {x: 0, y: 1, z: 0}

@@ -13,7 +13,7 @@ public class EnemyManager : Singleton<EnemyManager>
     [SerializeField] GameObject[] capterMap;
 
 
-    int stage = 0;
+
     public int spawncount;
 
     private List<GameObject> spawnEnemy = new List<GameObject>();
@@ -125,7 +125,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
     Vector3 RandomSpawnPosition()
     {
-        return new Vector3(Random.Range(2.5f, 3), Random.Range(-1f, 3f), 0);
+        return new Vector3(Random.Range(2.5f, 3), Random.Range(-0.5f, 2f), 0);
     }
 
     public void RemoveEnemy(Entity enemy)//enemy die에 넣어 줘야함

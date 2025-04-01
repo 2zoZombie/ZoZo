@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,38 +12,51 @@ public class Enemy : Entity
 {
 
     public EnemyStatsTable enemyStatsTable;
+    public EnemyType enemyType;
     public int enemyIndex;
-    EnemyStats currentEnemyStats;
-    EnemyManager enemyManager;
-    float damage;
+    protected EnemyStats currentEnemyStats;
+    protected EnemyManager enemyManager;
+    protected float damage;
 
-    [SerializeField] private float attack;
+    [SerializeField] protected float attack;
 
-    private float moveSpeed = 5f;
+    protected float moveSpeed = 5f;
 
-    private Rigidbody2D rigidbody;
-    private Animator animator;
+    protected Rigidbody2D rb;
+    protected Animator animator;
 
-    PlayerData playerData;
+    protected PlayerData playerData;
 
-    HealthBar healthBar;
-    private float positionx;
+    protected HealthBar healthBar;
+    protected float positionx;
 
 
-    private void Awake()
+    protected void Awake()
     {
-        currentEnemyStats = enemyStatsTable.enemyStatsList[enemyIndex];
+        switch(enemyType)
+        {
+            case EnemyType.Normal:
+                currentEnemyStats = enemyStatsTable.enemyStatsList[enemyIndex];
+                break;
+            case EnemyType.Boss:
+                currentEnemyStats = enemyStatsTable.bossStatsList[enemyIndex];
+                break;
+            case EnemyType.Treasure:
+                currentEnemyStats = enemyStatsTable.treasureList[enemyIndex];
+                break;
+        }
+       
 
         playerData = GameManager.Instance.playerData;
 
-        rigidbody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         enemyManager = GetComponent<EnemyManager>();
 
         SetStats();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         positionx = Random.Range(1.0f, 2.4f);
         healthBar = UIManager.Instance.healthBarPool.GetFromPool(this.transform);
@@ -50,12 +64,12 @@ public class Enemy : Entity
         StartCoroutine(CoroutineAttck());
     }
 
-    private void FixedUpdate()
+    protected void FixedUpdate()
     {
         Move();
     }
 
-    private void Move()
+    protected virtual void Move()
     {
         transform.position += Vector3.left * moveSpeed * Time.deltaTime;
         if (transform.position.x < positionx)
@@ -80,14 +94,14 @@ public class Enemy : Entity
         }
     }
 
-    IEnumerator CoroutineAttck()
+    protected IEnumerator CoroutineAttck()
     {
         while (curHp > 0)
         {
             int attacksec = Random.Range(5, 10);
             yield return new WaitForSeconds(attacksec);
             animator.SetTrigger("OnAttack");
-            GameManager.Instance.OnAttack(GameManager.Instance.player.gameObject);
+            GameManager.Instance.player.TakeDamage(Mathf.RoundToInt(damage));
         }
     }
 
@@ -113,7 +127,8 @@ public class Enemy : Entity
         WaitForSeconds wait = new WaitForSeconds(interval);
         for (int i = 0; i < quantity; i++)
         {
-            DropItem drops = GameManager.Instance.dropItemPool.GetFromPool(GameManager.Instance.dropItemPool.prefabs[0], this.transform);
+            int index = enemyType != EnemyType.Treasure ? 0 : 1;
+            DropItem drops = GameManager.Instance.dropItemPool.GetFromPool(GameManager.Instance.dropItemPool.prefabs[index], this.transform);
             drops.PlayBounce(this.transform);
             yield return wait;
         }
@@ -126,7 +141,7 @@ public class Enemy : Entity
         damage = StatCalculator(currentEnemyStats.attackDamage, currentEnemyStats.growthDamage);
     }
 
-    float StatCalculator(float baseStat, float growthStat)
+    protected float StatCalculator(float baseStat, float growthStat)
     {
         return baseStat + growthStat * ((GameManager.Instance.playerData != null) ? GameManager.Instance.playerData.currentChapter - 1 : 0);
     }

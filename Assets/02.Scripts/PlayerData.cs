@@ -18,8 +18,8 @@ public class PlayerData
     public float blueCoin = 0;
 
     [Header("HP")]
-    public float maxHp;
-    public float curHp;
+    public float maxHp = 100;
+    public float curHp = 100;
 
     [Header("Upgrades")]
     public int autoAttackLevel = 0;

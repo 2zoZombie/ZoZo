@@ -34,7 +34,7 @@ public class HealthBar : MonoBehaviour
         FollowTarget();
     }
 
-    private void FollowTarget()
+    protected virtual void FollowTarget()
     {
         Vector3 screenPos = Camera.main.WorldToScreenPoint(target.transform.position + offset);
         screenPos.z = 0;
@@ -49,7 +49,7 @@ public class HealthBar : MonoBehaviour
         delayedHpBar.fillAmount = 1f;
     }
 
-    public void OnHit()
+    public virtual void OnHit()
     {
         UpdateHP();
 
@@ -60,14 +60,14 @@ public class HealthBar : MonoBehaviour
         if (target.curHp <= 0) Invoke("Die", 1f);//current hp가 0일경우 1초뒤 setactive false
     }
 
-    public void UpdateHP()
+    public virtual void UpdateHP()
     {
         if (target == null) return;
         //entity와 연결 후 current hp max hp 받아오기
         targetFill = target.curHp / target.maxHp;
     }
 
-    protected void Die()
+    protected virtual void Die()
     {
         target = null;
         UIManager.Instance.healthBarPool.ReturnToPool(this.gameObject);

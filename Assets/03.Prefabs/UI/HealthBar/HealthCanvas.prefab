@@ -131,7 +131,8 @@ MonoBehaviour:
   prefabs:
   - {fileID: 7142791531874536656, guid: 258318236e5d68b40bc30529fa6a1cd2, type: 3}
   initialSize: 5
-  bossHealthBar: {fileID: 0}
+  bossHealthBar: {fileID: 1580030535272124099}
+  playerHealthBar: {fileID: 708855130425684026}
   enemyHealthBarCanvas: {fileID: 4014405208220540445}
 --- !u!1001 &1525634567170226528
 PrefabInstance:
@@ -230,6 +231,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d345f72cf9afcb349b0ea5ff66dd7c9b, type: 3}
+--- !u!114 &1580030535272124099 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 54397138483197859, guid: d345f72cf9afcb349b0ea5ff66dd7c9b, type: 3}
+  m_PrefabInstance: {fileID: 1525634567170226528}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b652e10420047140a05d717d7c538ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2702918759002847762 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3507906928965993330, guid: d345f72cf9afcb349b0ea5ff66dd7c9b, type: 3}
@@ -332,6 +344,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 190ceaad109936a47939468decccbdc9, type: 3}
+--- !u!114 &708855130425684026 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7904695473641367412, guid: 190ceaad109936a47939468decccbdc9, type: 3}
+  m_PrefabInstance: {fileID: 7234264634695636814}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1990e3da9e7f934da8393871a44939e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6193565935561598899 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3573239325270192381, guid: 190ceaad109936a47939468decccbdc9, type: 3}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9017353921838617471}
   - component: {fileID: 8397532976234426642}
   - component: {fileID: 3166501912090076124}
-  - component: {fileID: 8550684001086980717}
+  - component: {fileID: 2505872050831705073}
   m_Layer: 6
   m_Name: EnemyBoss
   m_TagString: Enemy
@@ -181,7 +181,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8550684001086980717
+--- !u!114 &2505872050831705073
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,12 +190,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4420820217397706605}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2b9f6014044737488438d7abfef7597, type: 3}
+  m_Script: {fileID: 11500000, guid: 55c7828619d443a439b720a954c2bb9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   entityName: 
   maxHp: 100
   curHp: 0
   enemyStatsTable: {fileID: 11400000, guid: 4c9530e326d2c9e4e9c5f37889c6278f, type: 2}
-  enemyIndex: 4
+  enemyType: 1
+  enemyIndex: 0
   attack: 0

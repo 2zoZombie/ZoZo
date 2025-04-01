@@ -27,7 +27,7 @@ MonoBehaviour:
     attackDamage: 10
     growthDamage: 2
     enemyType: 0
-    dropQuantity: 100
+    dropQuantity: 13
     prefab: {fileID: 6982425401639637518, guid: 90aafd92cae582c4398ab901e251b7ad, type: 3}
   - enemyName: Zombie3
     maxHp: 200
@@ -35,7 +35,7 @@ MonoBehaviour:
     attackDamage: 15
     growthDamage: 5
     enemyType: 0
-    dropQuantity: 10
+    dropQuantity: 17
     prefab: {fileID: 2931891016745907352, guid: 42312ed4f79cf2546a65d5d890967d1f, type: 3}
   - enemyName: Zombie4
     maxHp: 100
@@ -60,7 +60,7 @@ MonoBehaviour:
     attackDamage: 30
     growthDamage: 10
     enemyType: 1
-    dropQuantity: 20
+    dropQuantity: 40
     prefab: {fileID: 4420820217397706605, guid: de7dc4e23b183ac44ab5f11524496280, type: 3}
   treasureList:
   - enemyName: Treasure
@@ -69,5 +69,5 @@ MonoBehaviour:
     attackDamage: 0
     growthDamage: 0
     enemyType: 2
-    dropQuantity: 0
+    dropQuantity: 150
     prefab: {fileID: 4519631207277271533, guid: 9478a4707c309f744886a19488095c8c, type: 3}

@@ -5,6 +5,7 @@ using UnityEngine;
 public class HealthBarPool : ObjectPool<HealthBar>
 {
     public HealthBar bossHealthBar;
+    public HealthBar playerHealthBar;
     public Canvas enemyHealthBarCanvas;
 
     protected override void Awake()

@@ -20,7 +20,7 @@ public class Player : Entity
     public SkillSO autoAttack;
 
     public WeaponSwap weaponSwap;
-
+    public PlayerData playerData;
     public HealthBar healthBar;
 
     public Animator playerAnim;
@@ -45,36 +45,45 @@ public class Player : Entity
     // healthBar 연결
     private void Awake()
     {
+        entityName = "Player";
         playerState = StateType.Move;
 
         GameManager.Instance.player = this;
-        if (healthBar != null )
-        {
-            healthBar.SetTarget( this );
-        }
+        
     }
 
-    public override void TakeDamage(int damage, bool isCrit = false) 
+    private void Start()
     {
-        if (curHp > 0)
+        playerData = GameManager.Instance.playerData;
+        healthBar = UIManager.Instance.healthBarPool.playerHealthBar;
+        if (healthBar != null)
+        {
+            healthBar.gameObject.SetActive(true);
+            healthBar.SetTarget(this as Entity);
+        }
+    }
+    public override void TakeDamage(int damage, bool isCrit = false)
+    {
+        if (playerData.curHp > 0)
         {
             //enemyUI.ShowDamageUI(damage);
-            curHp -= damage;
+            playerData.curHp -= damage;
             healthBar.OnHit();
             GameManager.Instance.DamageEffect(damage, isCrit, this.transform);
 
             //Damaged 애니메이션
             playerState = StateType.Damaged;
 
-            if (curHp <= 0)
+            if (playerData.curHp <= 0)
             {
                 Dead();
             }
         }
     }
 
-    public override void Dead() 
+    public override void Dead()
     {
+        if (playerState == StateType.Dead) return;
         //Dead 애니메이션
         playerState = StateType.Dead;
 
@@ -84,14 +93,15 @@ public class Player : Entity
 
     public void Revive()
     {
-        healthBar.Revive(5f);
-        curHp = maxHp;
+        
+
+        playerData.curHp = playerData.maxHp;
         PlayerState = StateType.Idle;
     }
 
     private void ChangeState()
     {
-        switch(PlayerState)
+        switch (PlayerState)
         {
             case StateType.Idle:
                 playerAnim.SetBool("IsMove", false);
