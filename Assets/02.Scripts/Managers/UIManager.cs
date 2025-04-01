@@ -13,6 +13,7 @@ public class UIManager : Singleton<UIManager>
     public CoinDisplayUI coinDisplayUI;
     public HealthBarPool healthBarPool;
     public ErrorPopup errorPopup;
+    public StageUI stageUI;
     public GameObject pausePanel;
     public GameObject enhancePanel;
     public GameObject dimBackground;
@@ -36,6 +37,11 @@ public class UIManager : Singleton<UIManager>
 
     public void Refresh()
     {
+    }
+
+    public void DIM(bool set)
+    {
+        if(dimBackground != null) dimBackground.SetActive(set);
     }
 
     public void OnNewGame()

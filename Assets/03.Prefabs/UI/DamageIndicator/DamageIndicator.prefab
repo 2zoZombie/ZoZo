@@ -76,8 +76,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278219263
+  m_fontColor: {r: 1, g: 0.44452584, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -153,6 +153,10 @@ MonoBehaviour:
   floatUpSpeed: 50
   duration: 1
   moveOffset: {x: 0, y: 100, z: 0}
+  normalSize: 56
+  critSize: 100
+  critColor: {r: 1, g: 0.44705883, b: 0, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!225 &6763193980621716821
 CanvasGroup:
   m_ObjectHideFlags: 0

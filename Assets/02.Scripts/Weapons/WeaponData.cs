@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using UnityEngine;
@@ -6,19 +6,14 @@ using UnityEngine;
 [System.Serializable]
 public class WeaponData
 {
-    public WeaponSO Weapon;              //π´±‚ ø¿∫Í¡ß∆Æ
-    public int WeaponID;                 //π´±‚ ID
-    public string WeaponName;
-    public int WeaponLevel;
-    public bool WeaponEquip;
+    public WeaponSO weaponSO;              //Î¨¥Í∏∞ Ïò§Î∏åÏ†ùÌä∏
+    public int weaponLevel = 0;
+    public bool isEquip = false;
+    public bool isPurchased = false;
 
 
-    public WeaponData(WeaponSO weapon, int weaponID, string weaponName, int weaponLevel, bool weaponEquip)
+    public WeaponData(WeaponSO weapon)
     {
-        Weapon = weapon;
-        WeaponID = weaponID;
-        WeaponName = weaponName;
-        WeaponLevel = weaponLevel;
-        WeaponEquip = weaponEquip;
+        weaponSO = weapon;
     }
 }

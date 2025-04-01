@@ -70,7 +70,7 @@ public class HealthBar : MonoBehaviour
     protected void Die()
     {
         target = null;
-        gameObject.SetActive(false);
+        UIManager.Instance.healthBarPool.ReturnToPool(this.gameObject);
     }
 
     public void Revive(float duration)

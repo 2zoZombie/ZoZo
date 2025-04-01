@@ -23,15 +23,18 @@ public class GameManager : Singleton<GameManager>
     public DropItemPool dropItemPool;
     public DropItemCollector dropItemCollector;
 
-    public event Action OnAttackEvent;
+    bool isLoaded = false;
+
+    //public event Action OnAttackEvent;
     public event Action OnCriticalEvent;
-    public event Action<int> OnAttackDamageEvent;
+    //public event Action<int> OnAttackDamageEvent;
+    public event Action OnCoinChange;
+    public event Action OnBlueCoinChange;
 
     protected override void Awake()
     {
         base.Awake();
         savePath = Path.Combine(Application.persistentDataPath, "playerData.json");
-
     }
 
 
@@ -42,6 +45,7 @@ public class GameManager : Singleton<GameManager>
             string json = File.ReadAllText(savePath);
             playerData = JsonUtility.FromJson<PlayerData>(json);
             StageManager.Instance.LoadStages(playerData);
+            isLoaded = true;
             GameStart();
         }
         else
@@ -59,7 +63,7 @@ public class GameManager : Singleton<GameManager>
     public void NewGame()
     {
         playerData = new PlayerData();
-        StageManager.Instance.GenerateChapter(1);
+        isLoaded = false;
         GameStart();
     }
 
@@ -76,7 +80,15 @@ public class GameManager : Singleton<GameManager>
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;//구독 취소해줘야함
         UIManager.Instance.FadeIn();
-        StageManager.Instance.SetupStage();
+        if (isLoaded)
+        {
+            StageManager.Instance.SetChapter();
+            StageManager.Instance.SetupStage();
+        }
+        else
+        {
+            StageManager.Instance.GenerateChapter();
+        }
     }
 
     public void GameStop()
@@ -97,38 +109,39 @@ public class GameManager : Singleton<GameManager>
         {
             bool isCrit = IsCrit();
             int damage = CalculateDamage(isCrit);
-            targetEnemy.TakeDamage(damage,isCrit);//나중에 크리티컬 여부 받아와야함
+            targetEnemy.TakeDamage(damage, isCrit);//나중에 크리티컬 여부 받아와야함
         }
         else return;
-        
+
     }
 
     public void DamageEffect(int damage, bool IsCrit, Transform position)
     {
         DamageIndicator dmg = damageIndicatorPool.GetFromPool(position).GetComponent<DamageIndicator>();
         dmg.Show(damage, IsCrit);
-        if(IsCrit) cameraController.Shake(3f,3f,0.45f);
-        else cameraController.Shake(1f,1f,0.3f);
+        if (IsCrit) cameraController.Shake(3f, 3f, 0.45f);
+        else cameraController.Shake(1f, 1f, 0.3f);
     }
 
     IAttackable GetRandomEnemy()
     {
-        if(EnemyManager.Instance.enemies != null)
+        if (EnemyManager.Instance.enemies != null)
         {
-            return EnemyManager.Instance.enemies[UnityEngine.Random.Range(0, EnemyManager.Instance.enemies.Length)];
+            return EnemyManager.Instance.enemies[UnityEngine.Random.Range(0, EnemyManager.Instance.enemies.Count)];
         }
         return null;
     }
 
     int CalculateDamage(bool isCrit)
     {
-        float baseDamage = curWeaponData.Weapon.baseAttack + curWeaponData.WeaponLevel*curWeaponData.Weapon.attackValum_Up;
+        float baseDamage = curWeaponData.weaponSO.baseAttack + curWeaponData.weaponLevel * curWeaponData.weaponSO.attackVolume_Up;
+        baseDamage *= UnityEngine.Random.Range(0.9f, 1.1f);
         float critMultiplier = player.critDamage.impressionStat * playerData.critDamageLevel;
         int totalDamage;
 
         if (isCrit)
         {
-            totalDamage = Mathf.RoundToInt(baseDamage * critMultiplier/100);
+            totalDamage = Mathf.RoundToInt(baseDamage * critMultiplier / 100);
             OnCriticalEvent?.Invoke();
         }
         else
@@ -141,7 +154,7 @@ public class GameManager : Singleton<GameManager>
 
     bool IsCrit()
     {
-        int critChance = Mathf.RoundToInt(curWeaponData.Weapon.baseCriticalChance);
+        int critChance = Mathf.RoundToInt(curWeaponData.weaponSO.baseCriticalChance);
         int randValue = UnityEngine.Random.Range(0, 100);
 
         return critChance >= randValue;
@@ -152,7 +165,7 @@ public class GameManager : Singleton<GameManager>
     public void GetCoin(int value)
     {
         playerData.coin += value;
-        UIManager.Instance.coinDisplayUI.SetCoinText();
+        OnCoinChange?.Invoke();
     }
 
     /// <summary>
@@ -165,6 +178,7 @@ public class GameManager : Singleton<GameManager>
         if (playerData.coin >= value)
         {
             playerData.coin -= value;
+            OnCoinChange?.Invoke();
             return true;
         }
 
@@ -175,7 +189,7 @@ public class GameManager : Singleton<GameManager>
     public void GetBlueCoin(int value)
     {
         playerData.blueCoin += value;
-        UIManager.Instance.coinDisplayUI.SetCoinText();
+        OnBlueCoinChange?.Invoke();
     }
 
     /// <summary>
@@ -185,12 +199,13 @@ public class GameManager : Singleton<GameManager>
     /// <returns></returns>
     public bool SpendBlueCoin(int value)
     {
-        if (playerData.coin >= value)
+        if (playerData.blueCoin >= value)
         {
-            playerData.coin -= value;
+            playerData.blueCoin -= value;
             return true;
         }
 
+        OnBlueCoinChange?.Invoke();
         UIManager.Instance.errorPopup.SetErrorText("bluecoin is not Enough");
         return false;
     }

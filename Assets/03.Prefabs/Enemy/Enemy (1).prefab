@@ -107,7 +107,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!95 &3653558653558912978
 Animator:
   serializedVersion: 5
@@ -118,7 +118,7 @@ Animator:
   m_GameObject: {fileID: 6982425401639637518}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 050556270436d4f4288557291a1a99c0, type: 2}
+  m_Controller: {fileID: 22100000, guid: 64f42624d40b46149af28c164b00377d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -193,12 +193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2b9f6014044737488438d7abfef7597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyStatsTable: {fileID: 11400000, guid: 4c9530e326d2c9e4e9c5f37889c6278f, type: 2}
-  enemyIndex: 1
+  entityName: 
   maxHp: 100
   curHp: 0
+  enemyStatsTable: {fileID: 11400000, guid: 4c9530e326d2c9e4e9c5f37889c6278f, type: 2}
+  enemyIndex: 1
   attack: 0
-  mainCamera: {fileID: 0}
-  EnemyLayer:
-    serializedVersion: 2
-    m_Bits: 0

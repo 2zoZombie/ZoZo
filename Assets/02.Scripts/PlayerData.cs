@@ -8,9 +8,10 @@ public class PlayerData
 {
     [Header("Progress")]
     public int currentChapter = 1;
-    public int currentStage = 1;
+    public int currentStage = 0;
     public int defeatedEnemyCount = 0;
     public List<StageData> stageDatas = new List<StageData>();
+    public ChapterInfo currentChapterInfo;
 
     [Header("Currency")]
     public float coin = 0;
