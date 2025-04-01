@@ -49,8 +49,8 @@ public class ClickHandler : MonoBehaviour
 
     void ProcessClick()
     {
-        //UI위에서 클릭했다면 무시
-        if (IsPointerOverUI()) return;
+        //UI위에서 클릭했다면 무시 healthbar때문에 참조처리
+        //if (IsPointerOverUI()) return;
 
         Vector2 worldClickPosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
@@ -60,18 +60,18 @@ public class ClickHandler : MonoBehaviour
         if (hit.collider == null) return;
 
         // 클릭된 오브젝트가 존재하면 공격 실행
-        HandleAttack(hit.collider.gameObject);
+        Attack(hit.collider.gameObject);
     }
     bool IsPointerOverUI()
     {   // UI 요소 위에서 클릭했는지 확인
         return EventSystem.current.IsPointerOverGameObject();
     }
 
-    void HandleAttack(GameObject target)
-    {
-        // 대상 오브젝트 공격
-        Attack(target);
-    }
+    //void HandleAttack(GameObject target)
+    //{
+    //    // 대상 오브젝트 공격
+    //    Attack(target);
+    //}
 
     void Attack(GameObject target)
     {

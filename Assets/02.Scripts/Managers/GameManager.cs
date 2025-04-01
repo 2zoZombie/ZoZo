@@ -144,7 +144,7 @@ public class GameManager : Singleton<GameManager>
 
         if (isCrit)
         {
-            totalDamage = Mathf.RoundToInt(baseDamage * critMultiplier / 100);
+            totalDamage = Mathf.RoundToInt(baseDamage * (1 + critMultiplier / 100));
             OnCriticalEvent?.Invoke();
         }
         else

@@ -3604,7 +3604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickableLayer:
     serializedVersion: 2
-    m_Bits: 87
+    m_Bits: 4294967295
   clickAction:
     m_Name: Click
     m_Type: 0
