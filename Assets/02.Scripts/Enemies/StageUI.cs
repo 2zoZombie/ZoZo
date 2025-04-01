@@ -14,7 +14,8 @@ public class StageUI : MonoBehaviour
 
     EnemyManager enemyManager;
     [SerializeField] private TextMeshProUGUI SpawnCaout;
-    public float deadCount;
+    private float curCount;
+    private float startCount;
 
     private void Awake()
     {
@@ -30,6 +31,7 @@ public class StageUI : MonoBehaviour
 
     private void Start()
     {
+        SetSpawCount();
         SetSpawnText();
     }
 
@@ -49,10 +51,14 @@ public class StageUI : MonoBehaviour
     //{
     //    return curCount / startCount;
     //}
+    private void SetSpawCount()
+    {
+        startCount = enemyManager.spawncount;
+        curCount = enemyManager.curspawncout;
+    }
     private void SetSpawnText()
     {
-        if (SpawnCaout == null) return;
-        SpawnCaout.text = GameManager.Instance.playerData.defeatedEnemyCount.ToString();
+        SpawnCaout.text = curCount + "/" + startCount;
     }
 
     public void ShowStageText(string message)
@@ -87,15 +93,5 @@ public class StageUI : MonoBehaviour
     public void ShowStageClear()
     {
         ShowStageText("STAGE CLEAR!");
-    }
-
-    [SerializeField] private Slider stageSlider;
-    private int currentstage;
-
-    private void SetStage()
-    {
-        stageSlider.value = currentstage;
-        stageSlider.minValue = 0;
-        stageSlider.maxValue = 4;
     }
 }

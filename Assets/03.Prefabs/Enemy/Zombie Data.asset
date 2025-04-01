@@ -37,14 +37,14 @@ MonoBehaviour:
     enemyType: 0
     dropQuantity: 10
     prefab: {fileID: 2931891016745907352, guid: 42312ed4f79cf2546a65d5d890967d1f, type: 3}
-  - enemyName: Zombie3
-    maxHp: 200
-    growthHP: 15
-    attackDamage: 15
-    growthDamage: 5
-    enemyType: 0
-    dropQuantity: 10
-    prefab: {fileID: 7776685896064436945, guid: d64ae57b464fc2647ba3df8d4a868e59, type: 3}
+  - enemyName: BossZombie
+    maxHp: 100
+    growthHP: 100
+    attackDamage: 30
+    growthDamage: 10
+    enemyType: 1
+    dropQuantity: 20
+    prefab: {fileID: 3257274387829666848, guid: 21014a8a564504e49a9361184ef5c0c8, type: 3}
   bossStatsList:
   - enemyName: BossZombie
     maxHp: 100
