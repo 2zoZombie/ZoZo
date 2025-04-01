@@ -107,6 +107,7 @@ public class GameManager : Singleton<GameManager>
 
         if (targetEnemy != null)
         {
+            player.PlayerState = StateType.Attack;
             bool isCrit = IsCrit();
             int damage = CalculateDamage(isCrit);
             targetEnemy.TakeDamage(damage, isCrit);//나중에 크리티컬 여부 받아와야함
@@ -182,7 +183,7 @@ public class GameManager : Singleton<GameManager>
             return true;
         }
 
-        UIManager.Instance.errorPopup.SetErrorText("coin is not Enough");
+        UIManager.Instance.errorPopup.ShowErrorMessage("coin is not Enough");
         return false;
     }
 
@@ -206,7 +207,7 @@ public class GameManager : Singleton<GameManager>
         }
 
         OnBlueCoinChange?.Invoke();
-        UIManager.Instance.errorPopup.SetErrorText("bluecoin is not Enough");
+        UIManager.Instance.errorPopup.ShowErrorMessage("bluecoin is not Enough");
         return false;
     }
 }

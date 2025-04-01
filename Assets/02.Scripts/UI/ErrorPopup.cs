@@ -20,6 +20,8 @@ public class ErrorPopup : MonoBehaviour
 
     public void ShowErrorMessage(string text)
     {
+        gameObject.SetActive(true);
+
         if (coroutine != null)
         {
             StopCoroutine(coroutine);
@@ -39,6 +41,6 @@ public class ErrorPopup : MonoBehaviour
     public void SetErrorText(string text)
     {
         errorText.text = text;
-        gameObject.SetActive(true);
+
     }
 }
