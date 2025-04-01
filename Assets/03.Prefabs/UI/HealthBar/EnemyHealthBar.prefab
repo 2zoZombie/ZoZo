@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4726184771412306263}
   - component: {fileID: 692164953619845068}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FillArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 3873211202913446594}
   - component: {fileID: 8535321546533507880}
   - component: {fileID: 5683672211977582823}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HealthBarBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 6463395084252134094}
   - component: {fileID: 2995472112630969654}
   - component: {fileID: 5383495224473996080}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 8629096405518685805}
   - component: {fileID: 631333365830560437}
   - component: {fileID: 2249505562220104982}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DelayedHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Color: {r: 0.9390095, g: 0.52198297, b: 0.9622642, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -340,7 +340,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1110379207326631955}
   - component: {fileID: 7725435228866505106}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: EnemyHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 5950432616229733385}
   - component: {fileID: 3897955128715748004}
   - component: {fileID: 9084884470813968461}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +447,7 @@ MonoBehaviour:
   m_Color: {r: 0.6627451, g: 0.14509805, b: 0.70980394, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
