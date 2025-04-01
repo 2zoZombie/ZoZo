@@ -182,7 +182,7 @@ public class GameManager : Singleton<GameManager>
             return true;
         }
 
-        UIManager.Instance.errorPopup.SetErrorText("coin is not Enough");
+        UIManager.Instance.errorPopup.ShowErrorMessage("coin is not Enough");
         return false;
     }
 
@@ -206,7 +206,7 @@ public class GameManager : Singleton<GameManager>
         }
 
         OnBlueCoinChange?.Invoke();
-        UIManager.Instance.errorPopup.SetErrorText("bluecoin is not Enough");
+        UIManager.Instance.errorPopup.ShowErrorMessage("bluecoin is not Enough");
         return false;
     }
 }

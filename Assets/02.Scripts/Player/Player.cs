@@ -41,7 +41,7 @@ public class Player : Entity
     public override void Dead() 
     {
         //죽음 애니메이션
-        UIManager.Instance.errorPopup.SetErrorText("5초 뒤 부활합니다.");
+        UIManager.Instance.errorPopup.ShowErrorMessage("5초 뒤 부활합니다.");
         healthBar.Revive(5f);
         curHp = maxHp;
     }
