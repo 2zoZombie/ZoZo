@@ -70,4 +70,4 @@ MonoBehaviour:
     growthDamage: 0
     enemyType: 2
     dropQuantity: 0
-    prefab: {fileID: 4605129498084867547, guid: 141f32f3f8d08424983dfdcf6c59f76a, type: 3}
+    prefab: {fileID: 4519631207277271533, guid: 9478a4707c309f744886a19488095c8c, type: 3}

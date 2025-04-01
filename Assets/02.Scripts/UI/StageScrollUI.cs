@@ -8,7 +8,7 @@ public class StageScrollUI : MonoBehaviour
 {
     public RectTransform contentsPanel; // 이동할 대상 (자식이 여러 개 있는 패널)
     public float itemWidth = 199f;   
-    public float slideDuration = 5f;
+    public float slideDuration = 1f;
     public List<StageData> currentStages;
 
     private int currentIndex = 0;
@@ -32,6 +32,8 @@ public class StageScrollUI : MonoBehaviour
 
     public void SlideToNext()
     {
+        if (currentIndex >= currentStages.Count - 1) return;
+
         currentIndex++;
 
         if (slideTween != null && slideTween.IsActive())
@@ -54,7 +56,7 @@ public class StageScrollUI : MonoBehaviour
             slideTween.Kill();
         }
 
-        slideTween = contentsPanel.DOAnchorPos(new Vector2(0, contentsPanel.anchoredPosition.y), slideDuration)
+        slideTween = contentsPanel.DOAnchorPos(new Vector2(0, contentsPanel.anchoredPosition.y), 1f)
                                 .SetEase(Ease.OutCubic);
     }
 
