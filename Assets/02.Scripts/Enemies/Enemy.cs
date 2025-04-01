@@ -18,7 +18,7 @@ public class Enemy : Entity
 
     [SerializeField] private float attack;
 
-    private int moveSpeed = 40;
+    private float moveSpeed = 5f;
 
     private Rigidbody2D rigidbody;
     private Animator animator;
@@ -38,13 +38,13 @@ public class Enemy : Entity
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         enemyManager = GetComponent<EnemyManager>();
-        positionx = Random.Range(1.5f, 2.4f);
 
         SetStats();
     }
 
     private void Start()
     {
+        positionx = Random.Range(1.0f, 2.4f);
         healthBar = UIManager.Instance.healthBarPool.GetFromPool(this.transform);
         healthBar.SetTarget(this as Entity);
         StartCoroutine(CoroutineAttck());
@@ -70,9 +70,8 @@ public class Enemy : Entity
 
     private void Move()
     {
-        rigidbody.velocity = Vector3.left * moveSpeed * Time.deltaTime;
-
-        if (gameObject.transform.position.x < positionx)
+        transform.position += Vector3.left * moveSpeed * Time.deltaTime;
+        if (transform.position.x < positionx)
         {
             moveSpeed = 0;
         }
@@ -107,6 +106,7 @@ public class Enemy : Entity
 
     public override void Dead()
     {
+        StopCoroutine(CoroutineAttck());
         EnemyManager.Instance.RemoveEnemy(this);
         animator.SetBool("IsDead" ,true);
         DropItem();
@@ -144,21 +144,4 @@ public class Enemy : Entity
         return baseStat + growthStat * ((GameManager.Instance.playerData != null) ? GameManager.Instance.playerData.currentChapter - 1 : 0);
     }
 
-    //public void GrowthStats()
-    //{
-    //    if (!enemyManager.enemies[4])
-    //    {
-    //        curHp += currentEnemyStats.growthHP;
-    //        curDamaged += currentEnemyStats.growthDamage;
-    //    }
-    //}
-
-    //public void BossGrowthStats()
-    //{
-    //    if (enemyManager.enemies[4])
-    //    {
-    //        curHp += currentEnemyStats.growthHP;
-    //        curDamaged += currentEnemyStats.growthDamage;
-    //    }
-    //}
 }
