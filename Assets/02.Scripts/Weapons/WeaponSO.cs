@@ -1,26 +1,29 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewItem", menuName = "Item/Weapon")]
 public class WeaponSO : ScriptableObject
 {
-    //¹«±â Á¤º¸
+    //ë¬´ê¸° ì •ë³´
     [Header("Info")]
-    public int weaponID;                        //¹«±â ID
-    public string weaponName;                   //¹«±â ÀÌ¸§
-    public int baseAttack;                      //¹«±â ±âº» °ø°İ·Â
-    [Range(0f,100f)]                            //Ä¡¸íÅ¸ È®·ü ¹üÀ§
-    public float baseCriticalChance = 5f;       //Ä¡¸íÅ¸ È®·ü %´ÜÀ§
-    public int buyCost;                         //±¸¸Åºñ¿ë
-    public int upgradeCost;                     //¾÷±×·¹ÀÌµå ºñ¿ë
+    public int weaponID;                        //ë¬´ê¸° ID
+    public string weaponName;                   //ë¬´ê¸° ì´ë¦„
+    public int baseAttack;                      //ë¬´ê¸° ê¸°ë³¸ ê³µê²©ë ¥
+    [Range(0f,100f)]                            //ì¹˜ëª…íƒ€ í™•ë¥  ë²”ìœ„
+    public float baseCriticalChance = 5f;       //ì¹˜ëª…íƒ€ í™•ë¥  %ë‹¨ìœ„
+    public int buyCost;                         //êµ¬ë§¤ë¹„ìš©
+    public int upgradeCost;                     //ì—…ê·¸ë ˆì´ë“œ ë¹„ìš©
 
-    //¹«±â ¾÷±×·¹ÀÌµå Á¤º¸
+    //ë¬´ê¸° ì—…ê·¸ë ˆì´ë“œ ì •ë³´
     [Header("UpgradeInfo")]
-    public int attackValum_Up;       //°ø°İ·Â °­È­ ¼öÄ¡
-    public int upgradeCost_UP;       //¾÷±×·¹ÀÌµå ºñ¿ë »ó½Â ¼öÄ¡ (°ö¼À)
+    public int attackVolume_Up;       //ê³µê²©ë ¥ ê°•í™” ìˆ˜ì¹˜
+    public int upgradeCost_UP;       //ì—…ê·¸ë ˆì´ë“œ ë¹„ìš© ìƒìŠ¹ ìˆ˜ì¹˜ (ê³±ì…ˆ)
 
-    //¹«±â ¾ÆÀÌÄÜ
+    //ë¬´ê¸° ì•„ì´ì½˜
     [Header("Icon")]
     public Sprite weaponIcon;
+
+    [Header("Prefab")]
+    public GameObject weaponPrefab;
 }
