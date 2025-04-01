@@ -16,12 +16,14 @@ public class GameManager : Singleton<GameManager>
     private string savePath;
     public PlayerData playerData;
     public Player player;
+    public ClickHandler clickHandler;
     public WeaponData curWeaponData;
 
     [Header("ObjectPool")]
     public DamageIndicatorPool damageIndicatorPool;
     public DropItemPool dropItemPool;
     public DropItemCollector dropItemCollector;
+
 
     bool isLoaded = false;
 

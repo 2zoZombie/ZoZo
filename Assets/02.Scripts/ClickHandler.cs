@@ -14,6 +14,8 @@ public class ClickHandler : MonoBehaviour
     public Coroutine autoAttackCoroutine;   //자동공격 코루틴 저장
     void Awake()
     {
+        GameManager.Instance.clickHandler = this;
+
         if (clickAction != null)
         {
             // 클릭 이벤트 처리 함수 등록
