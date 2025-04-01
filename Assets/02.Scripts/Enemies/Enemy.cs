@@ -36,7 +36,7 @@ public class Enemy : Entity
         playerData = GameManager.Instance.playerData;
 
         rigidbody = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         enemyManager = GetComponent<EnemyManager>();
 
         SetStats();

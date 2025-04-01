@@ -20,7 +20,7 @@ MonoBehaviour:
     growthDamage: 1
     enemyType: 0
     dropQuantity: 10
-    prefab: {fileID: 31973508344476937, guid: 00039ffd9804ab84a89e90a7f323dfd0, type: 3}
+    prefab: {fileID: 5651520930728188547, guid: 0d48442abbd18ea4bb6d68c3d974996b, type: 3}
   - enemyName: Zombie2
     maxHp: 150
     growthHP: 20
