@@ -2330,8 +2330,6 @@ MonoBehaviour:
     autoAttackLevel: 0
     critDamageLevel: 0
     goldBonusLevel: 0
-    statLevel: 000000000000000000000000
-    equippedWeaponID: 
     weaponData: []
   player: {fileID: 0}
   clickHandler: {fileID: 0}
@@ -2618,7 +2616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8286448259824845695, guid: 8310ffb702454d4449cf10817c9f094b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 8286448259824845695, guid: 8310ffb702454d4449cf10817c9f094b, type: 3}
       propertyPath: m_AnchoredPosition.y
