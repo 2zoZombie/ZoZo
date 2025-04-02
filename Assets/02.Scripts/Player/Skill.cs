@@ -102,20 +102,19 @@ public class Skill : MonoBehaviour
 
         trigger.triggers.Add(entryDown);
         trigger.triggers.Add(entryUp);
-
     }
 
 
     private void Start()
     {
-        //UI 갱신
-        UIRefresh(data.index);
-
         //현재 레벨을 로드한 플레이어 데이터대로 초기화
         currentLevel = GameManager.Instance.playerData.statLevel[indexNum];
 
         //소지 코인에 변화가 있을 때 실행되는 델리게이트에 CheckEnoughCoins를 구독시킴
         GameManager.Instance.OnCoinChange += CheckEnoughCoins;
+
+        //UI 갱신
+        UIRefresh(data.index);
     }
 
     private void Update()
