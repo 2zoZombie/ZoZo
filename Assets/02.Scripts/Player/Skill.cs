@@ -113,6 +113,8 @@ public class Skill : MonoBehaviour
 
         //현재 레벨을 로드한 플레이어 데이터대로 초기화
         currentLevel = GameManager.Instance.playerData.statLevel[indexNum];
+
+        //소지 코인에 변화가 있을 때 실행되는 델리게이트에 CheckEnoughCoins를 구독시킴
         GameManager.Instance.OnCoinChange += CheckEnoughCoins;
     }
 
@@ -178,7 +180,6 @@ public class Skill : MonoBehaviour
         switch (index)
         {
             case StatIndex.AutoAttackInterval:
-
                 float attackSpeed = 1.0f / (1 + CurrentLevel * 0.2f);
                 description.text = $"{attackSpeed:F2}초마다 1번 공격";
                 break;
@@ -215,9 +216,9 @@ public class Skill : MonoBehaviour
 
     private bool CheckMaxLevel(int value)
     {
-        if (value >= data.maxLevel)
+        if (value > data.maxLevel)
         {
-            Debug.Log("이미 최대 레벨입니다.");
+            //Debug.Log("이미 최대 레벨입니다.");
             return false;
         }
 
