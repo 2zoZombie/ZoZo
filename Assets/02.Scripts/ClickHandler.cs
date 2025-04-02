@@ -179,7 +179,7 @@ public class ClickHandler : MonoBehaviour
     }
 
     // 일시정지 상태 변경하는 함수
-    void SetPauseState(bool isPaused)
+    public void SetPauseState(bool isPaused)
     {
         isGamePaused = isPaused;
 

@@ -86,7 +86,7 @@ public class Player : Entity
         if (playerState == StateType.Dead) return;
         //Dead 애니메이션
         PlayerState = StateType.Dead;
-
+        GameManager.Instance.clickHandler.SetPauseState(true);
         UIManager.Instance.errorPopup.ShowErrorMessage("5초 뒤 부활합니다.");
         healthBar.Revive(5f);
         Invoke("Revive", 5f);
@@ -95,6 +95,7 @@ public class Player : Entity
     public void Revive()
     {
         playerData.curHp = playerData.maxHp;
+        GameManager.Instance.clickHandler.SetPauseState(false);
         PlayerState = StateType.Idle;
     }
 
