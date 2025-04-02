@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -63,8 +60,6 @@ public class Skill : MonoBehaviour
         _name = transform.Find("Name")?.GetComponent<TextMeshProUGUI>();
         description = transform.Find("Description")?.GetComponent<TextMeshProUGUI>();
 
-        skillImage.sprite = data.Icon;
-
         //SkillOB가 할당되지 않았다면 오류 문구 출력하고 이하 과정 생략
         if (data == null)
         {
@@ -72,18 +67,24 @@ public class Skill : MonoBehaviour
             return;
         }
 
-        //레벨업 버튼에 메서드 할당
-        levelupBtn.onClick.AddListener(SkillLevelUp);
-
-        //현재 가격 초기화
-        currentPrice = data.basicPrice;
-
         //이벤트 할당
         trigger = transform.Find("LevelUpBtn")?.GetComponent<EventTrigger>();
         if (trigger == null)
         {
             transform.Find("LevelUpBtn")?.AddComponent<EventTrigger>();
         }
+    }
+
+
+    private void Start()
+    {
+        skillImage.sprite = data.Icon;
+
+        //레벨업 버튼에 메서드 할당
+        levelupBtn.onClick.AddListener(SkillLevelUp);
+
+        //현재 가격 초기화
+        currentPrice = data.basicPrice;
 
         //이벤트 붙여주기
         EventTrigger.Entry entryDown = new EventTrigger.Entry();
@@ -100,11 +101,7 @@ public class Skill : MonoBehaviour
 
         trigger.triggers.Add(entryDown);
         trigger.triggers.Add(entryUp);
-    }
 
-
-    private void Start()
-    {
         //현재 레벨을 로드한 플레이어 데이터대로 초기화
         LoadSkillLevel(ref currentLevel);
 
