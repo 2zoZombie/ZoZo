@@ -88,13 +88,12 @@ public class Player : Entity
         PlayerState = StateType.Dead;
 
         UIManager.Instance.errorPopup.ShowErrorMessage("5초 뒤 부활합니다.");
+        healthBar.Revive(5f);
         Invoke("Revive", 5f);
     }
 
     public void Revive()
     {
-        
-
         playerData.curHp = playerData.maxHp;
         PlayerState = StateType.Idle;
     }
