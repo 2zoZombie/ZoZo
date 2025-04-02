@@ -82,8 +82,9 @@ public class StageManager : Singleton<StageManager>
             currentStages.Add(new StageData(i + 1, type, GetStageName(type, currentChapter, chapterName, i + 1), false));
         }
 
-        SetStageDataToPlayerData();
         currentStage = 0;
+        SetStageDataToPlayerData();
+        SetCurrentInfoToPlayerData();
         onChapterStart?.Invoke();
         SetupStage();
     }
@@ -148,6 +149,11 @@ public class StageManager : Singleton<StageManager>
 
     public void SetupStage()
     {
+        if (currentStages == null || currentStages.Count == 0)
+        {
+            currentStages = GameManager.Instance.playerData.stageDatas;
+        }
+
         StageData stage = currentStages[currentStage];
         Debug.Log($"{stage.stageName} 시작");
 

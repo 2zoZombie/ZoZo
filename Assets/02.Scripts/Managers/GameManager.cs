@@ -38,6 +38,7 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
         savePath = Path.Combine(Application.persistentDataPath, "playerData.json");
+        StageManager.Instance.onChapterStart.AddListener(SaveGame);
     }
 
 
