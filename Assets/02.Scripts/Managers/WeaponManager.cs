@@ -60,7 +60,6 @@ public class WeaponManager : Singleton<WeaponManager>
             if(weaponData.isEquip == true)
             {
                 equipWeaponInfo.SetEquipData(weaponData);
-                GameManager.Instance.player.weaponSwap.Equip(weaponData.weaponSO.weaponPrefab);
             }
         }
     }
