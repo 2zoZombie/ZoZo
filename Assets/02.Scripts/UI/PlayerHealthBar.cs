@@ -7,7 +7,7 @@ public class PlayerHealthBar : HealthBar
     protected override void Awake()
     {
         base.Awake();
-        GameManager.Instance.OnHealthChange += UpdateHP;
+        GameManager.Instance.OnHealthChange += OnHit;
     }
     public override void UpdateHP()
     {
