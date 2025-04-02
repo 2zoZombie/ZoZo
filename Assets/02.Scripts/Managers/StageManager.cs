@@ -186,6 +186,7 @@ public class StageManager : Singleton<StageManager>
         PlayerData playerData = GameManager.Instance.playerData;
         playerData.currentChapter = currentChapter;
         playerData.currentStage = currentStage;
+        playerData.currentChapterInfo = currentChapterInfo;
     }
 
     void SetStageDataToPlayerData()

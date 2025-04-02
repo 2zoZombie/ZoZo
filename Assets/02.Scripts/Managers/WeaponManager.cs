@@ -23,7 +23,8 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public void Start()
     {
-        NewWeaponData();
+        //NewWeaponData();
+        //StageManager.Instance.onChapterStart.AddListener(WeaponDataToPlayerData);
     }
 
     //public void WeaponSOLoad()
@@ -47,6 +48,7 @@ public class WeaponManager : Singleton<WeaponManager>
         weaponDatas[0].isPurchased = true;
         weaponDatas[0].isEquip = true;
         equipWeaponInfo.SetEquipData(weaponDatas[0]);
+        WeaponDataToPlayerData();
     }
 
     public void LoadWeaponData()//loadgame에서 호출
@@ -54,5 +56,18 @@ public class WeaponManager : Singleton<WeaponManager>
         if(GameManager.Instance.playerData ==null) return;
 
         weaponDatas = GameManager.Instance.playerData.weaponData;
+
+        foreach(var weaponData in weaponDatas)
+        {
+            if(weaponData.isEquip == true)
+            {
+                equipWeaponInfo.SetEquipData(weaponData);
+            }
+        }
+    }
+
+    public void WeaponDataToPlayerData()
+    {
+        GameManager.Instance.playerData.weaponData = weaponDatas;
     }
 }

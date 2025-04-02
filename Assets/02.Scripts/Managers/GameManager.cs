@@ -38,9 +38,13 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
         savePath = Path.Combine(Application.persistentDataPath, "playerData.json");
-        StageManager.Instance.onChapterStart.AddListener(SaveGame);
+        //StageManager.Instance.onChapterStart.AddListener(SaveGame);
     }
 
+    private void Start()
+    {
+        StageManager.Instance.onChapterStart.AddListener(SaveGame);
+    }
 
     public void LoadGame()
     {
@@ -88,9 +92,11 @@ public class GameManager : Singleton<GameManager>
         {
             StageManager.Instance.SetChapter();
             StageManager.Instance.SetupStage();
+            WeaponManager.Instance.LoadWeaponData();
         }
         else
         {
+            WeaponManager.Instance.NewWeaponData();
             StageManager.Instance.GenerateChapter();
         }
     }
