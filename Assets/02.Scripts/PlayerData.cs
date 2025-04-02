@@ -26,9 +26,6 @@ public class PlayerData
     public int critDamageLevel = 0;
     public int goldBonusLevel = 0;
 
-    public int[] statLevel = new int[] { 0, 0, 0 };
-
     [Header("WeaponData")]
-    public string equippedWeaponID;
     public List<WeaponData> weaponData;
 }
