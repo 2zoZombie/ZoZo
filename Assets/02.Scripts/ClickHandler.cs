@@ -44,13 +44,30 @@ public class ClickHandler : MonoBehaviour
             clickAction.Disable();
         }
     }
-    void Update()
+    /*void Update()
     {
         // 게임이 진행 중이고, 왼쪽 마우스 버튼이 눌렸을 때 클릭 처리
         if (isGamePaused) return;
         if (!Mouse.current.leftButton.wasPressedThisFrame) return;
 
         ProcessClick();
+    }*/
+
+    void Update()
+    {
+        if (isGamePaused) return;
+
+#if UNITY_EDITOR || UNITY_STANDALONE
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            ProcessClick(Mouse.current.position.ReadValue());
+        }
+#elif UNITY_ANDROID || UNITY_IOS
+    if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasPressedThisFrame)
+    {
+        ProcessClick(Touchscreen.current.primaryTouch.position.ReadValue());
+    }
+#endif
     }
 
     void ProcessClick()
@@ -66,6 +83,17 @@ public class ClickHandler : MonoBehaviour
         if (hit.collider == null) return;
 
         // 클릭된 오브젝트가 존재하면 공격 실행
+        Attack(hit.collider.gameObject);
+    }
+
+    void ProcessClick(Vector2 screenPosition)
+    {
+        worldClickPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+        //worldClickPosition.z = 0;
+
+        RaycastHit2D hit = Physics2D.Raycast(worldClickPosition, Vector2.zero, Mathf.Infinity, clickableLayer);
+        if (hit.collider == null) return;
+
         Attack(hit.collider.gameObject);
     }
 

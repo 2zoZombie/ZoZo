@@ -3192,7 +3192,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000076293945}
+  m_AnchoredPosition: {x: 0, y: 0.26548767}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &863243659
@@ -4490,7 +4490,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1490202291}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.96611047
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5488,7 +5488,23 @@ MonoBehaviour:
     m_Id: 1ef7bee1-f3ab-4aa5-87b7-b059fbd89a85
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings: []
+    m_SingletonActionBindings:
+    - m_Name: One Modifier
+      m_Id: 6303698c-8565-4616-ba8b-c05ae204fbb7
+      m_Path: OneModifier
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Click
+      m_Flags: 4
+    - m_Name: binding
+      m_Id: 6ecd5541-353a-424f-a8bd-ec4d18e18335
+      m_Path: <Touchscreen>/Press
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Click
+      m_Flags: 8
     m_Flags: 0
   worldClickPosition: {x: 0, y: 0}
   attackSpeed: 0
