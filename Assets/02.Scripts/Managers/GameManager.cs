@@ -80,7 +80,7 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.FadeOut(() =>
         {
             SceneManager.sceneLoaded += OnSceneLoaded;//씬 로딩이 끝나면 실행되는 이벤트에 구독
-            SceneManager.LoadScene("MainScene2");
+            SceneManager.LoadScene("MainScene");
         });
     }
 
