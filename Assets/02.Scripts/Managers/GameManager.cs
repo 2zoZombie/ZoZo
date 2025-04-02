@@ -220,7 +220,8 @@ public class GameManager : Singleton<GameManager>
     {
         if(playerData.curHp < playerData.maxHp && playerData.curHp > 0)
         {
-            playerData.curHp += value;
+
+            playerData.curHp = Mathf.Min(playerData.curHp+value, playerData.maxHp);
             OnHealthChange?.Invoke();
         }
     }
