@@ -172,6 +172,7 @@ public class GameManager : Singleton<GameManager>
     public void GetCoin(int value)
     {
         playerData.coin += value;
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.sfxClip[2]);
         OnCoinChange?.Invoke();
     }
 
@@ -196,6 +197,7 @@ public class GameManager : Singleton<GameManager>
     public void GetBlueCoin(int value)
     {
         playerData.blueCoin += value;
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.sfxClip[2]);
         OnBlueCoinChange?.Invoke();
     }
 

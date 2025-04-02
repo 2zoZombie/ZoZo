@@ -158,6 +158,7 @@ public class StageManager : Singleton<StageManager>
 
     public void CompleteStage()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.sfxClip[1]);
         currentStages[currentStage].isCleared = true;
         currentStage++;
         SetCurrentInfoToPlayerData();
