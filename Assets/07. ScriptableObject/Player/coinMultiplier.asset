@@ -18,5 +18,5 @@ MonoBehaviour:
   maxLevel: 10
   basicPrice: 5
   impressionPrice: 2
-  impressionStat: 50
+  impressionStat: 10
   Icon: {fileID: 21300000, guid: a5db8390c578407469a78a7fd4302bfb, type: 3}
