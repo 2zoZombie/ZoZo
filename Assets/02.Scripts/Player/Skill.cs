@@ -19,9 +19,7 @@ public class Skill : MonoBehaviour
 
     public EventTrigger trigger;
 
-    private int indexNum;
     private int currentPrice;
-
     private int currentLevel;
     public int CurrentLevel
     {
@@ -76,9 +74,9 @@ public class Skill : MonoBehaviour
 
         //레벨업 버튼에 메서드 할당
         levelupBtn.onClick.AddListener(SkillLevelUp);
+
         //현재 가격 초기화
         currentPrice = data.basicPrice;
-        indexNum = (int)data.index;
 
         //이벤트 할당
         trigger = transform.Find("LevelUpBtn")?.GetComponent<EventTrigger>();
