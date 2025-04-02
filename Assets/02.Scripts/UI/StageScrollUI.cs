@@ -30,6 +30,11 @@ public class StageScrollUI : MonoBehaviour
         StageManager.Instance.onStageComplete.AddListener(SlideToNext);
     }
 
+    private void Start()
+    {
+        OnGenerateChapter();
+    }
+
     public void SlideToNext()
     {
         if (currentIndex >= currentStages.Count - 1) return;

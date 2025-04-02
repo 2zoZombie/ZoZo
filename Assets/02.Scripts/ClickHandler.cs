@@ -8,8 +8,12 @@ public class ClickHandler : MonoBehaviour
     public LayerMask clickableLayer;   // 클릭 가능 레이어
     private bool isGamePaused = false; // 게임이 일시 정지 상태인지 확인하는 변수
     public InputAction clickAction;    // 마우스 클릭
+    public Vector2 worldClickPosition;
 
     public float attackSpeed;
+
+    public ParticleSystem hitParticle;
+    public ParticleSystem critHitParticle;
 
     public Coroutine autoAttackCoroutine;   //자동공격 코루틴 저장
     void Awake()
@@ -54,7 +58,7 @@ public class ClickHandler : MonoBehaviour
         //UI위에서 클릭했다면 무시 healthbar때문에 참조처리
         //if (IsPointerOverUI()) return;
 
-        Vector2 worldClickPosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        worldClickPosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
         // 클릭 위치에서 특정 레이어에 속한 오브젝트 탐색
         RaycastHit2D hit = Physics2D.Raycast(worldClickPosition, Vector2.zero, Mathf.Infinity, clickableLayer);
@@ -64,6 +68,16 @@ public class ClickHandler : MonoBehaviour
         // 클릭된 오브젝트가 존재하면 공격 실행
         Attack(hit.collider.gameObject);
     }
+
+    public void ParticleEffect(bool isCrit)
+    {
+        if(hitParticle == null || critHitParticle == null) return;
+
+        ParticleSystem effect = Instantiate(isCrit ? critHitParticle : hitParticle, worldClickPosition, Quaternion.identity);
+        effect.Play();
+        Destroy(effect.gameObject, 2f); // 효과 끝나고 삭제
+    }
+
     bool IsPointerOverUI()
     {   // UI 요소 위에서 클릭했는지 확인
         return EventSystem.current.IsPointerOverGameObject();

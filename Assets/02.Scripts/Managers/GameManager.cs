@@ -122,6 +122,7 @@ public class GameManager : Singleton<GameManager>
             player.PlayerState = StateType.Attack;
             bool isCrit = IsCrit();
             AudioManager.Instance.PlaySFX(AudioManager.Instance.sfxClip[isCrit ? 3 : 0]);
+            clickHandler.ParticleEffect(isCrit);
             int damage = CalculateDamage(isCrit);
             targetEnemy.TakeDamage(damage, isCrit);//나중에 크리티컬 여부 받아와야함
         }
