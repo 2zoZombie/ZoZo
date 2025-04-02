@@ -85,7 +85,7 @@ public class Enemy : Entity
         {
             curHp -= damage;
             animator.SetTrigger("OnDamaged");
-            healthBar.OnHit();
+            healthBar?.OnHit();
             int rand = UnityEngine.Random.Range(0, 100);
             if(rand > 90) GameManager.Instance.dropItemPool.GetFromPool(GameManager.Instance.dropItemPool.prefabs[2], this.transform).PlayBounce(this.transform);
             GameManager.Instance.DamageEffect(damage, isCrit, this.transform);
