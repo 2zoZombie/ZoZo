@@ -91,6 +91,7 @@ public class Enemy : Entity
             GameManager.Instance.DamageEffect(damage, isCrit, this.transform);
             if (curHp <= 0)
             {
+                StopCoroutine(CoroutineAttck());
                 Dead();
                 return;
             }
@@ -101,20 +102,21 @@ public class Enemy : Entity
     {
         while (curHp > 0)
         {
-            int attacksec = UnityEngine.Random.Range(5, 10);
-            yield return new WaitForSeconds(attacksec);
-            animator.SetTrigger("OnAttack");
-            GameManager.Instance.player.TakeDamage(Mathf.RoundToInt(damage));
+            //int attacksec = UnityEngine.Random.Range(5, 10);
+            yield return new WaitForSeconds(1);
+            if (curHp>0)
+            {
+                animator.SetTrigger("OnAttack");
+                GameManager.Instance.player.TakeDamage(Mathf.RoundToInt(damage));
+            }
         }
     }
 
     public override void Dead()
     {
-        StopCoroutine(CoroutineAttck());
         EnemyManager.Instance.RemoveEnemy(this);
         animator.SetBool("IsDead", true);
         DropItem();
-        //EnemyManager.Instance.curspawncout--;
         Destroy(gameObject, 3f);
     }
 
