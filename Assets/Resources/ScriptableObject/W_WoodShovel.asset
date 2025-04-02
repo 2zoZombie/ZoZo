@@ -21,4 +21,4 @@ MonoBehaviour:
   attackVolume_Up: 5
   upgradeCost_UP: 10
   weaponIcon: {fileID: 143021600, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
-  weaponPrefab: {fileID: 0}
+  weaponPrefab: {fileID: 7557790959261826839, guid: ab43c2e34a7d6ce4c915c9de2296b55e, type: 3}

@@ -16,12 +16,14 @@ public class GameManager : Singleton<GameManager>
     private string savePath;
     public PlayerData playerData;
     public Player player;
+    public ClickHandler clickHandler;
     public WeaponData curWeaponData;
 
     [Header("ObjectPool")]
     public DamageIndicatorPool damageIndicatorPool;
     public DropItemPool dropItemPool;
     public DropItemCollector dropItemCollector;
+
 
     bool isLoaded = false;
 
@@ -30,6 +32,7 @@ public class GameManager : Singleton<GameManager>
     //public event Action<int> OnAttackDamageEvent;
     public event Action OnCoinChange;
     public event Action OnBlueCoinChange;
+    public event Action OnHealthChange;
 
     protected override void Awake()
     {
@@ -50,7 +53,7 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            Debug.Log("로드데이터 없음");
+            UIManager.Instance.errorPopup.ShowErrorMessage("저장된 데이터가 없어요!");
         }
     }
 
@@ -72,7 +75,7 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.FadeOut(() =>
         {
             SceneManager.sceneLoaded += OnSceneLoaded;//씬 로딩이 끝나면 실행되는 이벤트에 구독
-            SceneManager.LoadScene("MainScene");
+            SceneManager.LoadScene("MainScene2");
         });
     }
 
@@ -101,9 +104,11 @@ public class GameManager : Singleton<GameManager>
         Time.timeScale = 1;
     }
 
-    public void OnAttack()
+    public void OnAttack(GameObject target = null)
     {
-        IAttackable targetEnemy = GetRandomEnemy();
+        IAttackable targetEnemy;
+        if (target == null) targetEnemy = GetRandomEnemy();
+        else targetEnemy = target.GetComponent<IAttackable>();
 
         if (targetEnemy != null)
         {
@@ -126,7 +131,7 @@ public class GameManager : Singleton<GameManager>
 
     IAttackable GetRandomEnemy()
     {
-        if (EnemyManager.Instance.enemies != null)
+        if (EnemyManager.Instance.enemies != null && EnemyManager.Instance.enemies.Count != 0)
         {
             return EnemyManager.Instance.enemies[UnityEngine.Random.Range(0, EnemyManager.Instance.enemies.Count)];
         }
@@ -142,7 +147,7 @@ public class GameManager : Singleton<GameManager>
 
         if (isCrit)
         {
-            totalDamage = Mathf.RoundToInt(baseDamage * critMultiplier / 100);
+            totalDamage = Mathf.RoundToInt(baseDamage * (1 + critMultiplier / 100));
             OnCriticalEvent?.Invoke();
         }
         else
@@ -209,6 +214,15 @@ public class GameManager : Singleton<GameManager>
         OnBlueCoinChange?.Invoke();
         UIManager.Instance.errorPopup.ShowErrorMessage("bluecoin is not Enough");
         return false;
+    }
+
+    public void Heal(int value)
+    {
+        if(playerData.curHp < playerData.maxHp && playerData.curHp > 0)
+        {
+            playerData.curHp += value;
+            OnHealthChange?.Invoke();
+        }
     }
 }
 

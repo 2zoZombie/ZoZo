@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -31,23 +31,23 @@ public class Skill : MonoBehaviour
         }
         set
         {
-            //ÀÌ¹Ì ÇÑ°è ·¹º§ÀÌ¶ó¸é º¯°æÇÏÁö ¾Ê´Â´Ù.
+            //ì´ë¯¸ í•œê³„ ë ˆë²¨ì´ë¼ë©´ ë³€ê²½í•˜ì§€ ì•ŠëŠ”ë‹¤.
             if (!CheckMaxLevel(CurrentLevel)) return;
 
-            //ÇÃ·¹ÀÌ¾î°¡ ÇöÀç °¡°İ¸¸Å­ÀÇ ÄÚÀÎÀ» °¡Áö°í ÀÖ´ÂÁö Ã¼Å© (false½Ã ½ÇÇàX)
+            //í”Œë ˆì´ì–´ê°€ í˜„ì¬ ê°€ê²©ë§Œí¼ì˜ ì½”ì¸ì„ ê°€ì§€ê³  ìˆëŠ”ì§€ ì²´í¬ (falseì‹œ ì‹¤í–‰X)
             if (!GameManager.Instance.SpendCoin(currentPrice))
             {
                 return;
             }
 
-            //CurrentLevelÀÌ ¹Ù²ğ ¶§¸¶´Ù playerDataÀÇ °ªÀ» º¯°æ
+            //CurrentLevelì´ ë°”ë€” ë•Œë§ˆë‹¤ playerDataì˜ ê°’ì„ ë³€ê²½
             currentLevel = value;
             GameManager.Instance.playerData.statLevel[indexNum] = currentLevel;
 
-            //°¡°İ °»½Å
+            //ê°€ê²© ê°±ì‹ 
             currentPrice *= data.impressionPrice;
 
-            //UI °»½Å
+            //UI ê°±ì‹ 
             UIRefresh(data.index);
         }
     }
@@ -67,27 +67,27 @@ public class Skill : MonoBehaviour
 
         skillImage.sprite = data.Icon;
 
-        //SkillOB°¡ ÇÒ´çµÇÁö ¾Ê¾Ò´Ù¸é ¿À·ù ¹®±¸ Ãâ·ÂÇÏ°í ÀÌÇÏ °úÁ¤ »ı·«
+        //SkillOBê°€ í• ë‹¹ë˜ì§€ ì•Šì•˜ë‹¤ë©´ ì˜¤ë¥˜ ë¬¸êµ¬ ì¶œë ¥í•˜ê³  ì´í•˜ ê³¼ì • ìƒëµ
         if (data == null)
         {
-            Debug.Log($"{this.name}¿¡ SkillOB°¡ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.Log($"{this.name}ì— SkillOBê°€ í• ë‹¹ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             return;
         }
 
-        //·¹º§¾÷ ¹öÆ°¿¡ ¸Ş¼­µå ÇÒ´ç
+        //ë ˆë²¨ì—… ë²„íŠ¼ì— ë©”ì„œë“œ í• ë‹¹
         levelupBtn.onClick.AddListener(SkillLevelUp);
-        //ÇöÀç °¡°İ ÃÊ±âÈ­
+        //í˜„ì¬ ê°€ê²© ì´ˆê¸°í™”
         currentPrice = data.basicPrice;
         indexNum = (int)data.index;
 
-        //ÀÌº¥Æ® ÇÒ´ç
+        //ì´ë²¤íŠ¸ í• ë‹¹
         trigger = transform.Find("LevelUpBtn")?.GetComponent<EventTrigger>();
-        if(trigger == null)
+        if (trigger == null)
         {
             transform.Find("LevelUpBtn")?.AddComponent<EventTrigger>();
         }
 
-        //ÀÌº¥Æ® ºÙ¿©ÁÖ±â
+        //ì´ë²¤íŠ¸ ë¶™ì—¬ì£¼ê¸°
         EventTrigger.Entry entryDown = new EventTrigger.Entry();
         EventTrigger.Entry entryUp = new EventTrigger.Entry();
 
@@ -97,7 +97,7 @@ public class Skill : MonoBehaviour
         entryDown.callback.AddListener((data) => { OnPointerDown(); });
         entryUp.callback.AddListener((data) => { OnPointerUp(); });
 
-        //OnValidate¶ó ÀÚ²Ù ¿©·¯°³°¡ ºÙ¾î¼­ Ãß°¡ÇÔ...
+        //OnValidateë¼ ìê¾¸ ì—¬ëŸ¬ê°œê°€ ë¶™ì–´ì„œ ì¶”ê°€í•¨...
         trigger.triggers.Clear();
 
         trigger.triggers.Add(entryDown);
@@ -105,29 +105,20 @@ public class Skill : MonoBehaviour
 
     }
 
-    //TODO: Å×½ºÆ®¸¦ À§ÇÑ ÄÚµå (ÇÕÃÄÁö¸é Áö¿öÁà¾ßÇÔ)
-    private void Awake()
-    {
-        GameManager.Instance.playerData = new PlayerData();
-    }
 
     private void Start()
     {
-        //UI °»½Å
+        //UI ê°±ì‹ 
         UIRefresh(data.index);
 
-        //ÇöÀç ·¹º§À» ·ÎµåÇÑ ÇÃ·¹ÀÌ¾î µ¥ÀÌÅÍ´ë·Î ÃÊ±âÈ­
+        //í˜„ì¬ ë ˆë²¨ì„ ë¡œë“œí•œ í”Œë ˆì´ì–´ ë°ì´í„°ëŒ€ë¡œ ì´ˆê¸°í™”
         currentLevel = GameManager.Instance.playerData.statLevel[indexNum];
-
-        //TODO: Å×½ºÆ® ÄÚµå »èÁ¦ÇÏ±â
-        GameManager.Instance.GetCoin(10000);
-
         GameManager.Instance.OnCoinChange += CheckEnoughCoins;
     }
 
     private void Update()
     {
-        //¿À·¡ ´©¸£¸é ¿¬¼Ó°­È­
+        //ì˜¤ë˜ ëˆ„ë¥´ë©´ ì—°ì†ê°•í™”
         if (startTimer)
         {
             timer += Time.deltaTime;
@@ -143,7 +134,7 @@ public class Skill : MonoBehaviour
         {
             if (timer >= 0.2f)
             {
-                CurrentLevel++;
+                SkillLevelUp();
                 timer = 0.0f;
             }
         }
@@ -151,8 +142,21 @@ public class Skill : MonoBehaviour
 
     public void SkillLevelUp()
     {
-        //ÇØ´ç ½ºÅİ ·¹º§À» 1 Áõ°¡½ÃÅ´
-        CurrentLevel++; 
+        //í•´ë‹¹ ìŠ¤í…Ÿ ë ˆë²¨ì„ 1 ì¦ê°€ì‹œí‚´
+        CurrentLevel++;
+        switch(data.index)
+        {
+            case StatIndex.CriticalDamage:
+                GameManager.Instance.playerData.critDamageLevel++;
+                break;
+            case StatIndex.AutoAttackInterval:
+                GameManager.Instance.playerData.autoAttackLevel++;
+                break;
+            case StatIndex.GoldGainRate:
+                GameManager.Instance.playerData.goldBonusLevel++;
+                break;
+        }
+        GameManager.Instance.clickHandler.UpdateAutoAttack();
     }
 
     public void UIRefresh(StatIndex index)
@@ -160,24 +164,23 @@ public class Skill : MonoBehaviour
 
         _name.text = $"{data.skillName} {CurrentLevel}";
 
-        if(CurrentLevel == data.maxLevel)
+
+        if (CurrentLevel == data.maxLevel)
         {
             btnText.text = "Max";
+            btnText.color = Color.red;
         }
         else
         {
-            btnText.text = $"·¹º§¾÷ {currentPrice}¨Ï";
+            btnText.text = $"{currentPrice}";
         }
-            
-
-        //ÀÓ½Ã ÄÚµå (GameManager¿¡ ¾ø±æ·¡ ÀÌÂÊ¿¡¼­ °»½ÅÇÔ)
-        //UIManager.Instance.coinDisplayUI.SetCoinText();
 
         switch (index)
         {
             case StatIndex.AutoAttackInterval:
-                //ÀÚµ¿ °ø°İ ÄÚµå º¸°í ¼öÁ¤ÇÏ±â
-                description.text = $"{120 - CurrentLevel * data.impressionStat}ÃÊ¸¶´Ù 1¹ø °ø°İ";
+
+                float attackSpeed = 1.0f / (1 + CurrentLevel * 0.2f);
+                description.text = $"{attackSpeed:F2}ì´ˆë§ˆë‹¤ 1ë²ˆ ê³µê²©";
                 break;
 
             case StatIndex.GoldGainRate:
@@ -190,23 +193,23 @@ public class Skill : MonoBehaviour
         }
     }
 
-    //¾÷±×·¹ÀÌµå ¹öÆ°¿¡ ºñ¿ëÀ» Ç¥½ÃÇÒ ¶§, ÀçÈ­°¡ ÃæºĞÇÑ °æ¿ì¿¡´Â °ËÀº»ö, ÀçÈ­°¡ ºÎÁ·ÇÑ °æ¿ì¿¡´Â »¡°£ »öÀ¸·Î Ç¥½Ã
+    //ì—…ê·¸ë ˆì´ë“œ ë²„íŠ¼ì— ë¹„ìš©ì„ í‘œì‹œí•  ë•Œ, ì¬í™”ê°€ ì¶©ë¶„í•œ ê²½ìš°ì—ëŠ” ê²€ì€ìƒ‰, ì¬í™”ê°€ ë¶€ì¡±í•œ ê²½ìš°ì—ëŠ” ë¹¨ê°„ ìƒ‰ìœ¼ë¡œ í‘œì‹œ
     public void CheckEnoughCoins()
     {
-        if(currentLevel == data.maxLevel)
+        if (currentLevel == data.maxLevel)
         {
             btnText.color = Color.red;
         }
-        //ÃæºĞÇÑ °æ¿ì
-        else if(GameManager.Instance.playerData.coin >= currentPrice)
+        //ì¶©ë¶„í•œ ê²½ìš°
+        else if (GameManager.Instance.playerData.coin >= currentPrice)
         {
             btnText.color = Color.black;
         }
-        //ÃæºĞÇÏÁö ¾ÊÀº °æ¿ì
+        //ì¶©ë¶„í•˜ì§€ ì•Šì€ ê²½ìš°
         else
         {
             btnText.color = Color.red;
-        }    
+        }
     }
 
 
@@ -214,7 +217,7 @@ public class Skill : MonoBehaviour
     {
         if (value >= data.maxLevel)
         {
-            Debug.Log("ÀÌ¹Ì ÃÖ´ë ·¹º§ÀÔ´Ï´Ù.");
+            Debug.Log("ì´ë¯¸ ìµœëŒ€ ë ˆë²¨ì…ë‹ˆë‹¤.");
             return false;
         }
 

@@ -145,6 +145,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   enemyStatsTable: {fileID: 11400000, guid: 4c9530e326d2c9e4e9c5f37889c6278f, type: 2}
+  enemyType: 2
   enemyIndex: 0
   attack: 0
 --- !u!212 &2678220568767347690

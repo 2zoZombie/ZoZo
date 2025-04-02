@@ -24,8 +24,8 @@ public class DropItem : MonoBehaviour
         Vector3 randomOffset = new Vector3(randomCircle.x, randomCircle.y, 0f);
         Vector3 targetPos = spawnPos.position + randomOffset;
 
-        // DOJump 사용: (목표위치, 점프파워, 점프횟수, 지속시간)
-        transform.DOJump(targetPos, 3f, 1, 0.4f)
+       
+        transform.DOJump(targetPos, 3f, 1, 0.4f) // (목표위치, 점프파워, 점프횟수, 지속시간)
                  .SetEase(Ease.OutQuad)
                  .OnComplete(() => StartIdle());
     }

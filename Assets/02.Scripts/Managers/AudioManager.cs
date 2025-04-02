@@ -9,7 +9,7 @@ public class AudioManager : Singleton<AudioManager>
     public AudioSource bgmSource;
     public AudioSource sfxSource;
     public AudioClip bgmClip;
-    public AudioClip sfxClip;
+    public AudioClip[] sfxClip;
 
     protected override void Awake()
     {
@@ -40,7 +40,8 @@ public class AudioManager : Singleton<AudioManager>
 
     public void SetBGMVolume(float value)
     {
-        audioMixer.SetFloat("BGM", Mathf.Log10(value) * 20);
+        float safeValue = Mathf.Clamp(value, 0.0001f, 1f);//log10 (0)일경우 무한수렴 방어코드
+        audioMixer.SetFloat("BGM", Mathf.Log10(safeValue) * 20);
     }
 
     public void SetSFXVolume(float value)

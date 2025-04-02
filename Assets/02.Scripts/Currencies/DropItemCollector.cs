@@ -18,6 +18,11 @@ public class DropItemCollector : MonoBehaviour
         StageManager.Instance.onStageComplete.AddListener(AbsorbAllDrops);
     }
 
+    private void Start()
+    {
+        ClearDrops();
+    }
+
     public void AddListDrops(DropItem item)
     {
         dropItems.Add(item);

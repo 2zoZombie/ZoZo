@@ -18,6 +18,11 @@ public class CoinDisplayUI : MonoBehaviour
         GameManager.Instance.OnCoinChange += SetCoinText;
     }
 
+    private void Start()
+    {
+        SetCoinText();
+    }
+
     public void SetCoinText()
     {
         coinText.text = GameManager.Instance.playerData.coin.ToString();

@@ -1,29 +1,31 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 public class ClickHandler : MonoBehaviour
 {
-    public LayerMask clickableLayer;   // Å¬¸¯ °¡´É ·¹ÀÌ¾î
-    private bool isGamePaused = false; // °ÔÀÓÀÌ ÀÏ½Ã Á¤Áö »óÅÂÀÎÁö È®ÀÎÇÏ´Â º¯¼ö
-    public InputAction clickAction;    // ¸¶¿ì½º Å¬¸¯
+    public LayerMask clickableLayer;   // í´ë¦­ ê°€ëŠ¥ ë ˆì´ì–´
+    private bool isGamePaused = false; // ê²Œì„ì´ ì¼ì‹œ ì •ì§€ ìƒíƒœì¸ì§€ í™•ì¸í•˜ëŠ” ë³€ìˆ˜
+    public InputAction clickAction;    // ë§ˆìš°ìŠ¤ í´ë¦­
 
     public float attackSpeed;
 
-    public Coroutine autoAttackCoroutine;   //ÀÚµ¿°ø°İ ÄÚ·çÆ¾ ÀúÀå
+    public Coroutine autoAttackCoroutine;   //ìë™ê³µê²© ì½”ë£¨í‹´ ì €ì¥
     void Awake()
     {
+        GameManager.Instance.clickHandler = this;
+
         if (clickAction != null)
         {
-            // Å¬¸¯ ÀÌº¥Æ® Ã³¸® ÇÔ¼ö µî·Ï
-            clickAction.performed += _ => ProcessClick();   // _´Â ÀÌº¥Æ® ÀÎÀÚÀÇ ÀÚ¸®
+            // í´ë¦­ ì´ë²¤íŠ¸ ì²˜ë¦¬ í•¨ìˆ˜ ë“±ë¡
+            clickAction.performed += _ => ProcessClick();   // _ëŠ” ì´ë²¤íŠ¸ ì¸ìì˜ ìë¦¬
 
-            // InputAction È°¼ºÈ­
+            // InputAction í™œì„±í™”
             clickAction.Enable();
         }
 
-        // ÀÚµ¿°ø°İ ·¹º§ÀÌ 0º¸´Ù Å©¸é ÀÚµ¿°ø°İ ½ÃÀÛ
+        // ìë™ê³µê²© ë ˆë²¨ì´ 0ë³´ë‹¤ í¬ë©´ ìë™ê³µê²© ì‹œì‘
         if (GameManager.Instance.playerData.autoAttackLevel > 0)
         {
             StartAutoAttack();
@@ -31,7 +33,7 @@ public class ClickHandler : MonoBehaviour
     }
     void OnDisable()
     {
-        // InputAction ºñÈ°¼ºÈ­
+        // InputAction ë¹„í™œì„±í™”
 
         if (clickAction != null)
         {
@@ -40,7 +42,7 @@ public class ClickHandler : MonoBehaviour
     }
     void Update()
     {
-        // °ÔÀÓÀÌ ÁøÇà ÁßÀÌ°í, ¿ŞÂÊ ¸¶¿ì½º ¹öÆ°ÀÌ ´­·ÈÀ» ¶§ Å¬¸¯ Ã³¸®
+        // ê²Œì„ì´ ì§„í–‰ ì¤‘ì´ê³ , ì™¼ìª½ ë§ˆìš°ìŠ¤ ë²„íŠ¼ì´ ëˆŒë ¸ì„ ë•Œ í´ë¦­ ì²˜ë¦¬
         if (isGamePaused) return;
         if (!Mouse.current.leftButton.wasPressedThisFrame) return;
 
@@ -49,61 +51,61 @@ public class ClickHandler : MonoBehaviour
 
     void ProcessClick()
     {
-        //UIÀ§¿¡¼­ Å¬¸¯Çß´Ù¸é ¹«½Ã
-        if (IsPointerOverUI()) return;
+        //UIìœ„ì—ì„œ í´ë¦­í–ˆë‹¤ë©´ ë¬´ì‹œ healthbarë•Œë¬¸ì— ì°¸ì¡°ì²˜ë¦¬
+        //if (IsPointerOverUI()) return;
 
         Vector2 worldClickPosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
-        // Å¬¸¯ À§Ä¡¿¡¼­ Æ¯Á¤ ·¹ÀÌ¾î¿¡ ¼ÓÇÑ ¿ÀºêÁ§Æ® Å½»ö
+        // í´ë¦­ ìœ„ì¹˜ì—ì„œ íŠ¹ì • ë ˆì´ì–´ì— ì†í•œ ì˜¤ë¸Œì íŠ¸ íƒìƒ‰
         RaycastHit2D hit = Physics2D.Raycast(worldClickPosition, Vector2.zero, Mathf.Infinity, clickableLayer);
 
         if (hit.collider == null) return;
 
-        // Å¬¸¯µÈ ¿ÀºêÁ§Æ®°¡ Á¸ÀçÇÏ¸é °ø°İ ½ÇÇà
-        HandleAttack(hit.collider.gameObject);
+        // í´ë¦­ëœ ì˜¤ë¸Œì íŠ¸ê°€ ì¡´ì¬í•˜ë©´ ê³µê²© ì‹¤í–‰
+        Attack(hit.collider.gameObject);
     }
     bool IsPointerOverUI()
-    {   // UI ¿ä¼Ò À§¿¡¼­ Å¬¸¯Çß´ÂÁö È®ÀÎ
+    {   // UI ìš”ì†Œ ìœ„ì—ì„œ í´ë¦­í–ˆëŠ”ì§€ í™•ì¸
         return EventSystem.current.IsPointerOverGameObject();
     }
 
-    void HandleAttack(GameObject target)
-    {
-        // ´ë»ó ¿ÀºêÁ§Æ® °ø°İ
-        Attack(target);
-    }
+    //void HandleAttack(GameObject target)
+    //{
+    //    // ëŒ€ìƒ ì˜¤ë¸Œì íŠ¸ ê³µê²©
+    //    Attack(target);
+    //}
 
     void Attack(GameObject target)
     {
-        GameManager.Instance.OnAttack();
+        GameManager.Instance.OnAttack(target);
     }
 
-    //ÀÚµ¿°ø°İ ½ÃÀÛ
+    //ìë™ê³µê²© ì‹œì‘
     void StartAutoAttack()
     {
         if (autoAttackCoroutine == null)
         {
-            Debug.Log("ÀÚµ¿°ø°İ ½ÇÇà");
+            Debug.Log("ìë™ê³µê²© ì‹¤í–‰");
             autoAttackCoroutine = StartCoroutine(AutoAttackRoutine());
         }
         else
         {
-            Debug.Log("ÀÌ¹Ì ÀÚµ¿°ø°İ Áß");
+            Debug.Log("ì´ë¯¸ ìë™ê³µê²© ì¤‘");
         }
     }
 
-    // ÀÚµ¿ °ø°İ ÁßÁö
+    // ìë™ ê³µê²© ì¤‘ì§€
     public void StopAutoAttack()
     {
         if (autoAttackCoroutine != null)
         {
-            Debug.Log("ÀÚµ¿°ø°İ ÁßÁö");
+            Debug.Log("ìë™ê³µê²© ì¤‘ì§€");
             StopCoroutine(autoAttackCoroutine);
             autoAttackCoroutine = null;
         }
         else
         {
-            Debug.Log("ÀÚµ¿°ø°İ ½ÇÇà ÁßÀÌ ¾Æ´Ô.");
+            Debug.Log("ìë™ê³µê²© ì‹¤í–‰ ì¤‘ì´ ì•„ë‹˜.");
         }
     }
 
@@ -112,19 +114,19 @@ public class ClickHandler : MonoBehaviour
         while (true)
         {
             attackSpeed = 1.0f / (1 + GameManager.Instance.playerData.autoAttackLevel * 0.2f);
-            Debug.Log($"´ÙÀ½ ÀÚµ¿ °ø°İ±îÁö ´ë±â ½Ã°£: {attackSpeed}ÃÊ");
+            Debug.Log($"ë‹¤ìŒ ìë™ ê³µê²©ê¹Œì§€ ëŒ€ê¸° ì‹œê°„: {attackSpeed}ì´ˆ");
 
-            //¡è¿¹½Ã °è»ê : autoAttackLevel = 1ÀÌ¶ó¸é, attackSpeed = 1.0f / (1 + 1 * 0.2f) = 1.0f / 1.2f  0.8333ÃÊ
+            //â†‘ì˜ˆì‹œ ê³„ì‚° : autoAttackLevel = 1ì´ë¼ë©´, attackSpeed = 1.0f / (1 + 1 * 0.2f) = 1.0f / 1.2f  0.8333ì´ˆ
 
             yield return new WaitForSeconds(attackSpeed);
             GameManager.Instance.OnAttack();
         }
     }
 
-    // ÀÚµ¿ °ø°İ ·¹º§ º¯°æ ½Ã ½ÇÇà
+    // ìë™ ê³µê²© ë ˆë²¨ ë³€ê²½ ì‹œ ì‹¤í–‰
     public void UpdateAutoAttack()
     {
-        Debug.Log("ÀÚµ¿ °ø°İ ·¹º§ º¯°æ. ÀÚµ¿ °ø°İ »óÅÂ ¾÷µ¥ÀÌÆ®.");
+        Debug.Log("ìë™ ê³µê²© ë ˆë²¨ ë³€ê²½. ìë™ ê³µê²© ìƒíƒœ ì—…ë°ì´íŠ¸.");
 
         StopAutoAttack();
 
@@ -134,22 +136,22 @@ public class ClickHandler : MonoBehaviour
         }
     }
 
-    // ÀÏ½ÃÁ¤Áö »óÅÂ º¯°æÇÏ´Â ÇÔ¼ö
+    // ì¼ì‹œì •ì§€ ìƒíƒœ ë³€ê²½í•˜ëŠ” í•¨ìˆ˜
     void SetPauseState(bool isPaused)
     {
         isGamePaused = isPaused;
 
         if (isGamePaused)
         {
-            Debug.Log("°ÔÀÓÀÌ ÀÏ½Ã Á¤ÁöµÊ. ÀÚµ¿ °ø°İ ÁßÁö.");
+            Debug.Log("ê²Œì„ì´ ì¼ì‹œ ì •ì§€ë¨. ìë™ ê³µê²© ì¤‘ì§€.");
             StopAutoAttack();
         }
         else
         {
-            Debug.Log("°ÔÀÓÀÌ Àç°³µÊ.");
+            Debug.Log("ê²Œì„ì´ ì¬ê°œë¨.");
             if (GameManager.Instance.playerData.autoAttackLevel > 0)
             {
-                Debug.Log("ÀÚµ¿ °ø°İ Àç½ÃÀÛ.");
+                Debug.Log("ìë™ ê³µê²© ì¬ì‹œì‘.");
                 StartAutoAttack();
             }
         }
