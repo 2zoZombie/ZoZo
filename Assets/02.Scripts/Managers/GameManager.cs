@@ -112,6 +112,7 @@ public class GameManager : Singleton<GameManager>
 
         if (targetEnemy != null)
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.sfxClip[0]);
             player.PlayerState = StateType.Attack;
             bool isCrit = IsCrit();
             int damage = CalculateDamage(isCrit);

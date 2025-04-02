@@ -18,7 +18,7 @@ public class AudioManager : Singleton<AudioManager>
     }
     private void Start()
     {
-        //PlayBGM(bgmClip);
+        PlayBGM(bgmClip);
     }
 
     public void PlayBGM(AudioClip clip)
