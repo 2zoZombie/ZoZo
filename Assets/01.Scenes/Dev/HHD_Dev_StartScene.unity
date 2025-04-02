@@ -276,8 +276,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1093394782}
   - {fileID: 1441592044}
+  - {fileID: 1093394782}
   - {fileID: 1376271714551668801}
   - {fileID: 256869982}
   m_Father: {fileID: 0}
@@ -2527,6 +2527,10 @@ PrefabInstance:
     - target: {fileID: 4978039334229350144, guid: 8310ffb702454d4449cf10817c9f094b, type: 3}
       propertyPath: m_Name
       value: OptionPannel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4978039334229350144, guid: 8310ffb702454d4449cf10817c9f094b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5190973900196422894, guid: 8310ffb702454d4449cf10817c9f094b, type: 3}
       propertyPath: m_SizeDelta.y

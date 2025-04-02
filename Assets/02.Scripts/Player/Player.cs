@@ -132,10 +132,4 @@ public class Player : Entity
         }
     }
 
-
-    public void Test()
-    {
-        playerAnim.SetTrigger("OnDamaged");
-        weaponSwap.weaponAnim.SetTrigger("OnDamaged");
-    }
 }

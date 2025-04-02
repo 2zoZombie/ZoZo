@@ -57,7 +57,7 @@ public class InvenSlot : MonoBehaviour
             WPLevel.text = "Lv." + $"{data.weaponLevel}";
             ATKVolum.text = CalculateATK().ToString();
             CRITVolum.text = weaponSO.baseCriticalChance.ToString("N1") + "%";
-            UpgradeCost.text = weaponSO.upgradeCost.ToString();
+            UpgradeCost.text = CalculateCost().ToString();
         }
     }
 
