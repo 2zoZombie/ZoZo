@@ -43,11 +43,6 @@ public class InvenSlot : MonoBehaviour
         BuyCost.text = weaponManager.weaponSOList[slotIndex].buyCost.ToString("N0");
     }
 
-    public void Start()
-    {
-        GameManager.Instance.player.weaponSwap.Equip(weaponSO.weaponPrefab);
-    }
-
     public void SetData(WeaponData data)
     {
         bool isPuchased = data.isPurchased;

@@ -1801,7 +1801,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LodaGame
+  m_text: LoadGame
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ae489517b172694eafc8445069c1a9d, type: 2}
   m_sharedMaterial: {fileID: 3900909826736387591, guid: 9ae489517b172694eafc8445069c1a9d, type: 2}

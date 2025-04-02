@@ -25,6 +25,7 @@ public class EquipWeaponInfo : MonoBehaviour
     public void SetEquipData(WeaponData data)
     {
         GameManager.Instance.curWeaponData = data;
+
         GameManager.Instance.player.weaponSwap.Equip(data.weaponSO.weaponPrefab);
 
         equipedWeapon = data;
