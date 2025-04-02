@@ -27,9 +27,13 @@ public class HealthBar : MonoBehaviour
        gameObject.SetActive(false);
     }
 
-    private void Update()
+    protected void Update()
     {
-        if (target == null) return;
+        if (target == null)
+        {
+            UIManager.Instance.healthBarPool.ReturnToPool(this.gameObject);
+            return;
+        }
 
         FollowTarget();
     }
