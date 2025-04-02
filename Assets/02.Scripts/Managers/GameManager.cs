@@ -113,6 +113,8 @@ public class GameManager : Singleton<GameManager>
 
     public void OnAttack(GameObject target = null)
     {
+        if(player.PlayerState == StateType.Dead) return;
+
         IAttackable targetEnemy;
         if (target == null) targetEnemy = GetRandomEnemy();
         else targetEnemy = target.GetComponent<IAttackable>();
