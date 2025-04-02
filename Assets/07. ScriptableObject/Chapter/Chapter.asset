@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chapterAdjective:
   - "\uC218\uC0C1\uD55C"
-  - "\uB192\uC740"
-  - "\uC815\uB839\uC758"
+  - "\uAE4A\uC740"
+  - "\uB0C4\uC0C8\uB098\uB294"
+  - "\uAE4C\uB9C8\uADC0\uC758"
   chapterInfo:
   - chapterName: "\uD130\uB110"
     tilemap: {fileID: 8833270169888085068, guid: c5169b05bf6cb934eaf27140c8d02341, type: 3}
