@@ -72,7 +72,7 @@ public class Player : Entity
             GameManager.Instance.DamageEffect(damage, isCrit, this.transform);
 
             //Damaged 애니메이션
-            playerState = StateType.Damaged;
+            PlayerState = StateType.Damaged;
 
             if (playerData.curHp <= 0)
             {
@@ -85,7 +85,7 @@ public class Player : Entity
     {
         if (playerState == StateType.Dead) return;
         //Dead 애니메이션
-        playerState = StateType.Dead;
+        PlayerState = StateType.Dead;
 
         UIManager.Instance.errorPopup.ShowErrorMessage("5초 뒤 부활합니다.");
         Invoke("Revive", 5f);
@@ -108,33 +108,35 @@ public class Player : Entity
                 playerAnim.SetBool("IsDead", false);
                 weaponSwap.weaponAnim.SetBool("IsMove", false);
                 weaponSwap.weaponAnim.SetBool("IsDead", false);
-                Debug.Log("Idle");
                 break;
 
             case StateType.Move:
                 playerAnim.SetBool("IsMove", true);
                 weaponSwap.weaponAnim.SetBool("IsMove", true);
-                Debug.Log("IsMove");
                 break;
 
             case StateType.Attack:
                 playerAnim.SetTrigger("OnAttack");
                 weaponSwap.weaponAnim.SetTrigger("OnAttack");
-                Debug.Log("OnAttack");
                 break;
 
             case StateType.Damaged:
                 playerAnim.SetTrigger("OnDamaged");
                 weaponSwap.weaponAnim.SetTrigger("OnDamaged");
-                Debug.Log("OnDamaged");
+
                 break;
 
             case StateType.Dead:
                 playerAnim.SetBool("IsDead", true);
                 weaponSwap.weaponAnim.SetBool("IsDead", true);
-                Debug.Log("IsDead");
                 break;
         }
     }
 
+
+    public void Test()
+    {
+        playerAnim.SetTrigger("OnDamaged");
+        weaponSwap.weaponAnim.SetTrigger("OnDamaged");
+    }
 }
