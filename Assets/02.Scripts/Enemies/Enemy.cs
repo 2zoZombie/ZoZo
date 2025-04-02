@@ -104,7 +104,7 @@ public class Enemy : Entity
         {
             int attacksec = UnityEngine.Random.Range(5, 10);
             yield return new WaitForSeconds(attacksec);
-            if (curHp>0)
+            if (curHp>0 && GameManager.Instance.player.PlayerState != StateType.Dead)
             {
                 animator.SetTrigger("OnAttack");
                 GameManager.Instance.player.TakeDamage(Mathf.RoundToInt(damage));
