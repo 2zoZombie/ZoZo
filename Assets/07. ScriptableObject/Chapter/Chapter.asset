@@ -20,10 +20,10 @@ MonoBehaviour:
   chapterInfo:
   - chapterName: "\uD130\uB110"
     tilemap: {fileID: 8833270169888085068, guid: c5169b05bf6cb934eaf27140c8d02341, type: 3}
-    bgm: {fileID: 0}
+    bgm: {fileID: 8300000, guid: d4ff3084fc07307499344c70eb35c03a, type: 3}
   - chapterName: "\uC232"
     tilemap: {fileID: 136204555123025255, guid: ae916346b1dde4d4e9e6da50354a2ef6, type: 3}
-    bgm: {fileID: 0}
+    bgm: {fileID: 8300000, guid: b65d4eca3c872c14a8522279775b872a, type: 3}
   - chapterName: "\uB3C4\uC2DC"
     tilemap: {fileID: 7209089051900591106, guid: 1183f71ef367728439dd75adabe4500d, type: 3}
-    bgm: {fileID: 0}
+    bgm: {fileID: 8300000, guid: 608493a7805cf984ba743465c9e75a34, type: 3}
