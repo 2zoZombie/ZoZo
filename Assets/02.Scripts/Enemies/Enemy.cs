@@ -102,8 +102,8 @@ public class Enemy : Entity
     {
         while (curHp > 0)
         {
-            //int attacksec = UnityEngine.Random.Range(5, 10);
-            yield return new WaitForSeconds(1);
+            int attacksec = UnityEngine.Random.Range(5, 10);
+            yield return new WaitForSeconds(attacksec);
             if (curHp>0)
             {
                 animator.SetTrigger("OnAttack");
