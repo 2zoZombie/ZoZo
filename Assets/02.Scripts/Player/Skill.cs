@@ -42,7 +42,7 @@ public class Skill : MonoBehaviour
 
             //CurrentLevel이 바뀔 때마다 playerData의 값을 변경
             currentLevel = value;
-            GameManager.Instance.playerData.statLevel[indexNum] = currentLevel;
+            UpdateSkillLevel(currentLevel);
 
             //가격 갱신
             currentPrice *= data.impressionPrice;
@@ -108,7 +108,7 @@ public class Skill : MonoBehaviour
     private void Start()
     {
         //현재 레벨을 로드한 플레이어 데이터대로 초기화
-        currentLevel = GameManager.Instance.playerData.statLevel[indexNum];
+        LoadSkillLevel(ref currentLevel);
 
         //소지 코인에 변화가 있을 때 실행되는 델리게이트에 CheckEnoughCoins를 구독시킴
         GameManager.Instance.OnCoinChange += CheckEnoughCoins;
@@ -144,20 +144,7 @@ public class Skill : MonoBehaviour
     public void SkillLevelUp()
     {
         //해당 스텟 레벨을 1 증가시킴
-        CurrentLevel++;
-        switch(data.index)
-        {
-            case StatIndex.CriticalDamage:
-                GameManager.Instance.playerData.critDamageLevel++;
-                break;
-            case StatIndex.AutoAttackInterval:
-                GameManager.Instance.playerData.autoAttackLevel++;
-                break;
-            case StatIndex.GoldGainRate:
-                GameManager.Instance.playerData.goldBonusLevel++;
-                break;
-        }
-        GameManager.Instance.clickHandler.UpdateAutoAttack();
+        CurrentLevel++;     
     }
 
     public void UIRefresh(StatIndex index)
@@ -234,6 +221,39 @@ public class Skill : MonoBehaviour
         startTimer = false;
         isHolding = false;
         timer = 0.0f;
+    }
+
+    public void LoadSkillLevel(ref int value)
+    {
+        switch (data.index)
+        {
+            case StatIndex.CriticalDamage:
+                value = GameManager.Instance.playerData.critDamageLevel;
+                break;
+            case StatIndex.AutoAttackInterval:
+                value = GameManager.Instance.playerData.autoAttackLevel;
+                break;
+            case StatIndex.GoldGainRate:
+                value = GameManager.Instance.playerData.goldBonusLevel;
+                break;
+        }
+    }
+
+    public void UpdateSkillLevel(int value)
+    {
+        switch (data.index)
+        {
+            case StatIndex.CriticalDamage:
+                GameManager.Instance.playerData.critDamageLevel = value;
+                break;
+            case StatIndex.AutoAttackInterval:
+                GameManager.Instance.playerData.autoAttackLevel = value;
+                GameManager.Instance.clickHandler.UpdateAutoAttack();
+                break;
+            case StatIndex.GoldGainRate:
+                GameManager.Instance.playerData.goldBonusLevel = value;
+                break;
+        }
     }
 
 }
