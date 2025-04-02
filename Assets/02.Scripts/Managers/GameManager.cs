@@ -119,9 +119,9 @@ public class GameManager : Singleton<GameManager>
 
         if (targetEnemy != null)
         {
-            AudioManager.Instance.PlaySFX(AudioManager.Instance.sfxClip[0]);
             player.PlayerState = StateType.Attack;
             bool isCrit = IsCrit();
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.sfxClip[isCrit ? 3 : 0]);
             int damage = CalculateDamage(isCrit);
             targetEnemy.TakeDamage(damage, isCrit);//나중에 크리티컬 여부 받아와야함
         }

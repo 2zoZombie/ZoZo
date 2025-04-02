@@ -1444,6 +1444,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 14f24de2a9a70154e96297de25e2184c, type: 3}
   - {fileID: 8300000, guid: 2c4bc183a5df5aa4baf7c4fcf236a2de, type: 3}
   - {fileID: 8300000, guid: 6c3f1932f2a205c42b60307fc95b927a, type: 3}
+  - {fileID: 8300000, guid: 0381e5289fb6b864ab7bb8e6f6b1dbd7, type: 3}
 --- !u!4 &1117650565
 Transform:
   m_ObjectHideFlags: 0
@@ -2617,7 +2618,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8286448259824845695, guid: 8310ffb702454d4449cf10817c9f094b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 250
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8286448259824845695, guid: 8310ffb702454d4449cf10817c9f094b, type: 3}
       propertyPath: m_AnchoredPosition.y
