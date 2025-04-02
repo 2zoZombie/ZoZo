@@ -17,9 +17,12 @@ MonoBehaviour:
   - "\uB192\uC740"
   - "\uC815\uB839\uC758"
   chapterInfo:
-  - chapterName: "\uACE8\uC9DC\uAE30"
-    tilemap: {fileID: 0}
+  - chapterName: "\uD130\uB110"
+    tilemap: {fileID: 8833270169888085068, guid: c5169b05bf6cb934eaf27140c8d02341, type: 3}
     bgm: {fileID: 0}
   - chapterName: "\uC232"
-    tilemap: {fileID: 0}
+    tilemap: {fileID: 136204555123025255, guid: ae916346b1dde4d4e9e6da50354a2ef6, type: 3}
+    bgm: {fileID: 0}
+  - chapterName: "\uB3C4\uC2DC"
+    tilemap: {fileID: 7209089051900591106, guid: 1183f71ef367728439dd75adabe4500d, type: 3}
     bgm: {fileID: 0}

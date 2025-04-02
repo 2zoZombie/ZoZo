@@ -8,7 +8,7 @@ using UnityEngine.Tilemaps;
 public class ChapterInfo
 {
     public string chapterName;
-    public Tilemap tilemap;
+    public GameObject tilemap;
     public AudioClip bgm;
 }
 

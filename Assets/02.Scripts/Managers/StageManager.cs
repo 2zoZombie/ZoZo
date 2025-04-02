@@ -40,7 +40,7 @@ public class StageManager : Singleton<StageManager>
     public int currentStage = 0;
     public List<StageData> currentStages;
     ChapterInfo currentChapterInfo;
-    Tilemap currentTilemap;
+    GameObject currentTilemap;
 
     public UnityEvent onStageComplete = new UnityEvent();
     public UnityEvent onStageStart = new UnityEvent();
