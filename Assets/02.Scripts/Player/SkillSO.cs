@@ -17,7 +17,7 @@ public class SkillSO : ScriptableObject
     public StatIndex index;           //올려줄 스탯 인덱스
 
     public string skillName;          //능력치 이름 (ex - 치명타)
-    public string skillDescription;   //아래 출력될 설명 내지 풀네임? (ex - 치명타 데미지)
+    public string skillDescription;   //아래 출력될 설명? (ex - 치명타 데미지)
 
     public int maxLevel;              //최대 레벨 (ex - 10)
     public int basicPrice;            //기본 가격

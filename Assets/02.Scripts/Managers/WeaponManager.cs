@@ -5,8 +5,6 @@ using UnityEngine;
 public class WeaponManager : Singleton<WeaponManager>
 {
     //장착아이템
-
-    public WeaponData selectedWeapon;
     public EquipWeaponInfo equipWeaponInfo;
 
 
@@ -62,6 +60,7 @@ public class WeaponManager : Singleton<WeaponManager>
             if(weaponData.isEquip == true)
             {
                 equipWeaponInfo.SetEquipData(weaponData);
+                
             }
         }
     }
@@ -69,5 +68,6 @@ public class WeaponManager : Singleton<WeaponManager>
     public void WeaponDataToPlayerData()
     {
         GameManager.Instance.playerData.weaponData = weaponDatas;
+        
     }
 }

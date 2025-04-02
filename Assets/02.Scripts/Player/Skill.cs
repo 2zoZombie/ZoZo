@@ -60,6 +60,7 @@ public class Skill : MonoBehaviour
         _name = transform.Find("Name")?.GetComponent<TextMeshProUGUI>();
         description = transform.Find("Description")?.GetComponent<TextMeshProUGUI>();
 
+
         //SkillOB가 할당되지 않았다면 오류 문구 출력하고 이하 과정 생략
         if (data == null)
         {
@@ -78,12 +79,9 @@ public class Skill : MonoBehaviour
 
     private void Start()
     {
-        skillImage.sprite = data.Icon;
-
         //레벨업 버튼에 메서드 할당
         levelupBtn.onClick.AddListener(SkillLevelUp);
 
-        //현재 가격 초기화
         currentPrice = data.basicPrice;
 
         //이벤트 붙여주기
@@ -96,14 +94,19 @@ public class Skill : MonoBehaviour
         entryDown.callback.AddListener((data) => { OnPointerDown(); });
         entryUp.callback.AddListener((data) => { OnPointerUp(); });
 
-        //OnValidate라 자꾸 여러개가 붙어서 추가함...
-        trigger.triggers.Clear();
-
         trigger.triggers.Add(entryDown);
         trigger.triggers.Add(entryUp);
 
         //현재 레벨을 로드한 플레이어 데이터대로 초기화
-        LoadSkillLevel(ref currentLevel);
+        LoadSkillLevel();
+
+        //데이터 초기화
+        skillImage.sprite = data.Icon;
+
+        for(int i=0; i< currentLevel; i++)
+        {
+            currentPrice *= data.impressionPrice;
+        }
 
         //소지 코인에 변화가 있을 때 실행되는 델리게이트에 CheckEnoughCoins를 구독시킴
         GameManager.Instance.OnCoinChange += CheckEnoughCoins;
@@ -197,7 +200,7 @@ public class Skill : MonoBehaviour
 
     private bool CheckMaxLevel(int value)
     {
-        if (value > data.maxLevel)
+        if (value >= data.maxLevel)
         {
             //Debug.Log("이미 최대 레벨입니다.");
             return false;
@@ -218,18 +221,18 @@ public class Skill : MonoBehaviour
         timer = 0.0f;
     }
 
-    public void LoadSkillLevel(ref int value)
+    public void LoadSkillLevel()
     {
         switch (data.index)
         {
             case StatIndex.CriticalDamage:
-                value = GameManager.Instance.playerData.critDamageLevel;
+                currentLevel = GameManager.Instance.playerData.critDamageLevel;
                 break;
             case StatIndex.AutoAttackInterval:
-                value = GameManager.Instance.playerData.autoAttackLevel;
+                currentLevel = GameManager.Instance.playerData.autoAttackLevel;
                 break;
             case StatIndex.GoldGainRate:
-                value = GameManager.Instance.playerData.goldBonusLevel;
+                currentLevel = GameManager.Instance.playerData.goldBonusLevel;
                 break;
         }
     }
@@ -249,6 +252,11 @@ public class Skill : MonoBehaviour
                 GameManager.Instance.playerData.goldBonusLevel = value;
                 break;
         }
+    }
+
+    public void DataRefresh()
+    {
+
     }
 
 }
